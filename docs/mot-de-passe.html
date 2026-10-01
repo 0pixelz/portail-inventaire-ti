@@ -32,8 +32,8 @@ a{color:#0F6E8C}a:hover{color:#0B5570}
   [style*="text-transform: uppercase; letter-spacing: 0.04em"] { display: none !important; }
   a[href="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
   a[href="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
-  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
-  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: 50vh !important; }
+  section[data-floating] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
+  section[data-floating] > div[style*="height: 330px"] { height: 50vh !important; }
   aside[style*="position: sticky"] { position: static !important; }
   img { max-width: 100% !important; height: auto !important; }
   form { max-width: 100% !important; }
@@ -52,11 +52,11 @@ a{color:#0F6E8C}a:hover{color:#0B5570}
   [style*="grid-template-columns: repeat(4, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(5, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"] { grid-template-columns: 1fr 1fr !important; }
 }
 /* Assistant flottant : toujours visible, à toute largeur */
-section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { position: fixed !important; }
+section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixed !important; }
 @media (max-width: 820px) {
   button[aria-label="Ouvrir l'assistant"] { right: 16px !important; bottom: 16px !important; }
-  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 84px !important; max-height: calc(100vh - 100px) !important; }
-  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: auto !important; max-height: 45vh !important; }
+  section[data-floating] { left: 12px !important; right: 12px !important; bottom: 84px !important; max-height: calc(100vh - 100px) !important; }
+  section[data-floating] > div[style*="height: 330px"] { height: auto !important; max-height: 45vh !important; }
 }
 @media (max-width: 820px) {
   [data-user-name] { display: none !important; }
@@ -78,7 +78,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
   body > div > header > a[href="accueil.html"], body > div > header > div:first-child { margin-bottom: 4px !important; }
 }
 @media print {
-  nav, aside, header > div[style*="display: flex; gap: 10px"], [data-usermenu], button, #__toast, section[aria-label="Assistant"] { display: none !important; }
+  nav, aside, header > div[style*="display: flex; gap: 10px"], [data-usermenu], button, #__toast, section[data-floating] { display: none !important; }
   body, body > div { background: #FFFFFF !important; }
 }
 @media (max-width: 820px) {
@@ -153,7 +153,7 @@ function calc(){var sub=0;L.querySelectorAll('[data-ligne]').forEach(function(r)
 function bind(r){r.querySelector('[data-retirer]').addEventListener('click',function(){r.remove();calc();});r.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc);});}
 L.querySelectorAll('[data-ligne]').forEach(bind);
 document.querySelectorAll('[data-ajouter-ligne]').forEach(function(b){b.addEventListener('click',function(){var items=b.textContent.indexOf('2 lignes')>-1?[['Extension de garantie 2 ans — portable Dre Lavoie','1','79,00 $'],['Dell OptiPlex 7020 Micro — remplacement poste salle 1','1','1 099,00 $']]:[['Article du catalogue','1','0,00 $']];items.forEach(function(it){var r=L.querySelector('[data-ligne]')||document.createElement('div');r=r.cloneNode(true);r.children[0].textContent=it[0];r.querySelector('[data-qte]').value=it[1];r.querySelector('[data-pu]').value=it[2];L.appendChild(r);bind(r);});calc();toast(items.length+' ligne(s) ajoutée(s)',true);});});calc();}
-document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
+document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
 b.addEventListener('click',function(){var t=(b.getAttribute('aria-label')||b.textContent).replace(/\s+/g,' ').trim();if(/^(Tout|Postes|Portables|Écrans|Réseau|Services|Concessionnaires|Tous)/.test(t)||/·\s*\d+$/.test(t)||/^(Précédent|Suivant|‹|›)/.test(t)){var g=b.parentNode;[].slice.call(g.children).forEach(function(x){if(x.tagName==='BUTTON'){x.style.background='#FFFFFF';x.style.color='#14202B';x.style.border='1px solid #B8C4CE';x.style.fontWeight='400';}});b.style.background='#14202B';b.style.color='#FFFFFF';b.style.border='0';b.style.fontWeight='600';toast('Filtre « '+t+' » (démonstration : les données sont fictives)',false);return;}
 toast('« '+t+' » — action simulée dans le prototype',false);});});
 })();
