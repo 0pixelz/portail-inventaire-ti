@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790825600302">
+<meta name="build" content="1790825818367">
 <title>Assistant IA — vue détaillée</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -182,8 +182,8 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
       <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
         <span>C'est noté. J'ai ouvert le <strong>billet #4418</strong> pour l'imprimante — un technicien vous contactera d'ici la fin de la journée. La demande de soumission (2 extensions de garantie) est transmise à votre représentant.</span>
         <span style="display: flex; gap: 6px; flex-wrap: wrap">
-          <a href="mon-billet.html?v=1790825600302" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
-          <a href="mes-commandes.html?v=1790825600302" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
+          <a href="mon-billet.html?v=1790825818367" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
+          <a href="mes-commandes.html?v=1790825818367" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
         </span>
       </div>
     </div>
@@ -345,7 +345,14 @@ if(ok&&cat&&!cs.some(function(c){return norm(c)===cat;}))ok=false;
 if(ok&&et){if(/Garantie/.test(et)){var d=cs.filter(function(c){return /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(c);})[0];var j=d?(new Date(d)-new Date())/864e5:-1;if(!(j>=0&&j<=90))ok=false;}else if(cs[cs.length-1]!==et)ok=false;}
 a.style.display=ok?'':'none';if(ok)n++;});vide.style.display=n?'none':'block';}
 R.addEventListener('input',appliquer);[C,T,E].forEach(function(x){if(x)x.addEventListener('change',appliquer);});appliquer();})();
-document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-sf')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
+document.querySelectorAll('[data-onglets]').forEach(function(G){var bs=[].slice.call(G.querySelectorAll('[data-onglet]'));var rows=[].slice.call(document.querySelectorAll('[data-groupe]'));if(!rows.length)return;
+function nb(k){return k==='*'?rows.length:rows.filter(function(r){return r.getAttribute('data-groupe').split(' ').indexOf(k)>-1;}).length;}
+bs.forEach(function(b){var k=b.getAttribute('data-onglet');if(b.textContent.indexOf('·')>-1)b.textContent=b.textContent.split('·')[0].trim()+' · '+nb(k);});
+var vide=document.createElement('div');vide.textContent='Aucun élément dans cette catégorie.';vide.style.cssText='padding:24px 16px;text-align:center;color:#5B6B78;font-size:14px;display:none;grid-column:1/-1';var last=rows[rows.length-1];last.parentNode.insertBefore(vide,last.nextSibling);
+function choisir(b){var k=b.getAttribute('data-onglet'),n=0;bs.forEach(function(x){var on=x===b;x.setAttribute('aria-pressed',on?'true':'false');x.style.background=on?'#14202B':'#FFFFFF';x.style.color=on?'#FFFFFF':'#14202B';x.style.border=on?'0':'1px solid #B8C4CE';x.style.fontWeight=on?'600':'400';});
+rows.forEach(function(r){var ok=k==='*'||r.getAttribute('data-groupe').split(' ').indexOf(k)>-1;r.style.display=ok?'':'none';if(ok)n++;});vide.style.display=n?'none':'block';}
+bs.forEach(function(b){b.addEventListener('click',function(){choisir(b);});});var a=bs.filter(function(b){return /14202B/i.test(b.getAttribute('style')||'')&&/background: #14202B/i.test(b.getAttribute('style')||'');})[0]||bs[0];choisir(a);});
+document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-sf')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-onglet')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
 b.addEventListener('click',function(){var t=(b.getAttribute('aria-label')||b.textContent).replace(/\s+/g,' ').trim();if(/^(Tout|Postes|Portables|Écrans|Réseau|Services|Concessionnaires|Tous)/.test(t)||/·\s*\d+$/.test(t)||/^(Précédent|Suivant|‹|›)/.test(t)){var g=b.parentNode;[].slice.call(g.children).forEach(function(x){if(x.tagName==='BUTTON'){x.style.background='#FFFFFF';x.style.color='#14202B';x.style.border='1px solid #B8C4CE';x.style.fontWeight='400';}});b.style.background='#14202B';b.style.color='#FFFFFF';b.style.border='0';b.style.fontWeight='600';toast('Filtre « '+t+' » (démonstration : les données sont fictives)',false);return;}
 toast('« '+t+' » — action simulée dans le prototype',false);});});
 })();
