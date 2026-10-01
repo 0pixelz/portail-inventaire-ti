@@ -1,0 +1,9 @@
+# Netlify : sert le prototype (dossier docs/) + le relais IA (netlify/functions/claude.mjs → /api/chat).
+[build]
+  publish = "docs"
+  command = "echo 'Prototype statique — aucune compilation'"
+  functions = "netlify/functions"
+
+[build.environment]
+  # Le dépôt contient aussi une app Next.js (phase 2) : ne pas la compiler ici.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"

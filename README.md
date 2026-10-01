@@ -55,26 +55,30 @@ Les boutons sans page dédiée (ex. « Changer la photo ») affichent un message
 
 > Si le lien donne 404 : **Settings → Pages → Build and deployment → Source : Deploy from a branch → Branch : `main`, dossier `/docs`** → Save. Le site est en ligne 1 à 2 minutes plus tard. GitHub Pages sur un dépôt **privé** exige un compte Pro; sinon rendre le dépôt public (Settings → General → Danger zone → Change visibility) ou glisser le dossier `docs/` sur https://app.netlify.com/drop.
 
-## 🤖 Assistant IA réel (API Claude)
+## 🤖 Assistant IA réel (API Claude) — clé gardée sur le serveur
 
-L'assistant flottant (client, admin = Copilote, site public) fonctionne en **mode démo** par défaut. Pour des réponses réelles :
+GitHub Pages ne sert que des fichiers publics : une clé API placée dans le site serait visible par tous (et révoquée automatiquement par Anthropic). La clé vit donc sur **Netlify**, connecté à ce dépôt GitHub :
 
-1. Créer une clé sur https://console.anthropic.com (idéalement une clé dédiée avec une limite de dépenses).
-2. Sur n'importe quelle page du prototype, ouvrir l'assistant → icône **⚙** → coller la clé (`sk-ant-…`) → choisir le modèle → **Enregistrer**.
+- `netlify/functions/claude.mjs` — relais sécurisé `/api/chat` (lit `ANTHROPIC_API_KEY`, accepte seulement ce site, plafonne modèles / longueur / débit).
+- `netlify.toml` — Netlify sert `docs/` + la fonction; se redéploie à chaque push sur `main`.
+- `docs/ia-config.js` — sur Netlify, l'assistant utilise `/api/chat` automatiquement.
 
-La clé reste **uniquement dans votre navigateur** (localStorage) et n'est envoyée qu'à `api.anthropic.com`; elle n'est jamais dans ce dépôt. L'assistant peut :
+### Mise en ligne (une seule fois)
+1. https://app.netlify.com → **Sign up with GitHub**.
+2. **Add new project → Import an existing project → GitHub** → choisir `portail-inventaire-ti` → **Deploy** (les réglages viennent de `netlify.toml`).
+3. **Project configuration → Environment variables → Add a variable** : `ANTHROPIC_API_KEY` = votre clé (`sk-ant-api03-…`), cocher *Secret* → **Deploys → Trigger deploy**.
+4. Ouvrir `https://<votre-site>.netlify.app/inventaire.html` → l'assistant affiche « Connecté à Claude » pour tout le monde.
 
-- lire n'importe quelle page de son espace (inventaire, billets, commandes, soumissions, catalogue…) pour répondre avec les vraies données du site;
-- ouvrir une page, filtrer la liste affichée, créer un billet, ajouter un produit au panier (client);
-- côté admin (Copilote) : accès à toutes les pages, résumés, soumissions, brouillons de courriels.
+Optionnel : pour que la copie GitHub Pages utilise aussi l'IA, mettre l'adresse Netlify dans `window.__IA_PROXY_NETLIFY` (`docs/ia-config.js`).
+Fixer une **limite de dépenses mensuelle** : console.anthropic.com → Billing → Spend limits.
 
-Le client ne voit jamais les pages admin (outils et pages filtrés par espace). Code : `docs/assistant-ia.js`.
-En production, la clé doit vivre sur le serveur (`app/api/chat/route.ts`), jamais dans le navigateur des clients.
+Sans relais configuré, l'assistant reste en mode démo (un admin peut tester avec sa propre clé via ⚙, gardée dans son navigateur seulement).
 
 ## Structure du dépôt
 
 ```
-docs/                 Prototype HTML autonome (35 pages) — servi par GitHub Pages
+docs/                 Prototype HTML autonome — servi par GitHub Pages et Netlify
+netlify/functions/    Relais IA sécurisé (clé API côté serveur)
 supabase/schema.sql   Modèle de données + politiques RLS (isolation par client)
 app/api/chat/route.ts Assistant IA : boucle d'outils avec l'API Claude
 app/inventaire/       Tableau de bord client (Next.js, App Router)
