@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nouveau client</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F4}
+a{color:#0F6E8C}a:hover{color:#0B5570}
+</style>
+<style>@media (max-width: 820px) {
+  body > div { flex-direction: column !important; min-height: 0 !important; }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  [style*="padding: 72px 64px"], [style*="padding: 56px 64px"], [style*="padding: 40px"] { padding: 32px 16px !important; }
+  [style*="padding: 18px 64px"], [style*="padding: 24px 64px"] { padding: 14px 16px !important; }
+  [style*="padding: 32px 40px"], [style*="padding: 28px 32px"], [style*="padding: 24px 24px"], [style*="padding: 48px"] { padding: 16px !important; }
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 22px !important; }
+  body > div > header nav { display: none !important; }
+  body > div > header { flex-wrap: wrap !important; gap: 10px !important; }
+  body > div > nav { flex: none !important; width: 100% !important; box-sizing: border-box !important; padding: 12px !important; gap: 12px !important; }
+  body > div > nav > div:nth-child(2) { flex-direction: row !important; overflow-x: auto !important; gap: 6px !important; }
+  body > div > nav > div:nth-child(2) > a { white-space: nowrap !important; flex: none !important; }
+  body > div > nav > div:nth-child(3), body > div > nav > div[style*="margin-top: auto"], body > div > nav > a[style*="margin-top: auto"] { display: none !important; }
+  body > div > aside { flex: none !important; width: 100% !important; border-left: 0 !important; border-top: 1px solid #D5DCE2 !important; }
+  main > header { flex-direction: column !important; align-items: stretch !important; }
+  main > header > div[style*="display: flex; gap: 10px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"], [style*="display: flex; gap: 8px; padding: 10px 14px"], [style*="display: flex; gap: 8px"][style*="height: 36px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"] > input, [style*="display: flex; gap: 8px; padding: 10px 14px"] > input { width: 100% !important; margin-left: 0 !important; flex: 1 1 100% !important; }
+  [style*="text-transform: uppercase; letter-spacing: 0.04em"] { display: none !important; }
+  a[href="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
+  a[href="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: 50vh !important; }
+  aside[style*="position: sticky"] { position: static !important; }
+  img { max-width: 100% !important; height: auto !important; }
+  form { max-width: 100% !important; }
+  [style*="flex: 0 0 46%"] { flex: none !important; padding: 24px 16px !important; gap: 16px !important; }
+  [style*="flex: 0 0 46%"] > div:last-child { display: none !important; }
+  [style*="display: flex; gap: 8px"] > button[style*="flex: 1"] { min-width: 100% !important; }
+  [style*="display: flex; gap: 12px; align-items: center"] > a { flex: 1 !important; justify-content: center !important; }
+}
+@media (max-width: 820px) {
+  div[style="display: flex; gap: 8px"] { flex-wrap: wrap !important; }
+  body > div > nav { min-width: 0 !important; max-width: 100% !important; overflow: hidden !important; }
+  body > div > nav > div:nth-child(2) { min-width: 0 !important; -webkit-overflow-scrolling: touch; }
+  body > div > main { min-width: 0 !important; max-width: 100% !important; }
+}
+@media (max-width: 820px) {
+  [style*="grid-template-columns: repeat(4, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(5, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"] { grid-template-columns: 1fr 1fr !important; }
+}
+/* Assistant flottant : toujours visible, à toute largeur */
+section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { position: fixed !important; }
+@media (max-width: 820px) {
+  button[aria-label="Ouvrir l'assistant"] { right: 16px !important; bottom: 16px !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 84px !important; max-height: calc(100vh - 100px) !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: auto !important; max-height: 45vh !important; }
+}
+@media (max-width: 820px) {
+  [data-user-name] { display: none !important; }
+  [data-usermenu] { margin-left: auto !important; }
+}
+@media (max-width: 820px) {
+  body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
+}
+@media (max-width: 820px) {
+  main, main > *, main form, main form > section, main section { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
+  input, select, textarea { max-width: 100% !important; min-width: 0 !important; }
+  footer, footer > span { flex-wrap: wrap !important; gap: 10px !important; }
+}
+</style>
+</head>
+<body>
+
+
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 1400px; display: flex; background: #EEF1F4">
+
+  <nav style="flex: 0 0 200px; background: #0B1218; color: #FFFFFF; padding: 24px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 30px; height: 30px; background: #B4540A; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2-2z"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">[ENTREPRISE]</span><span style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em">ADMINISTRATION</span></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <a href="admin-tableau.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
+      <a href="admin.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Billets</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #2A3B49; color: #FFFFFF">12</span></a>
+      <a href="admin-inventaire.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire (tous)</a>
+      <a href="admin-clients.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: #B4540A; color: #FFFFFF; font-weight: 600; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Clients</a>
+      <a href="admin-commandes.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commandes</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #2A3B49; color: #FFFFFF">3</span></a>
+      <a href="utilisateurs.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a>
+      <a href="admin-rapports.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M10 19v-9M16 19v-5M22 19H2"></path></svg>Rapports</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em; padding: 0 12px">TECHNICIENS EN LIGNE</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Jonathan (vous)</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Samuel</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #7F8F9C"><span style="width: 8px; height: 8px; background: #5B6B78; display: inline-block"></span>Karine · en route</div>
+    </div>
+    <a href="inventaire.html" style="margin-top: auto; padding: 10px 12px; background: #1F2E3B; color: #D5DCE2; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Voir le portail client</a>
+  </nav>
+
+  <main style="flex: 1; padding: 24px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; min-width: 0">
+    <a href="admin-clients.html" style="font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Clients</a>
+    <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Nouveau client</h1>
+        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Organisation, emplacements, contact, forfait. L'inventaire se remplit ensuite (visite, import CSV ou saisie).</p>
+      </div>
+      <div style="display: flex; gap: 10px">
+        <div style="position: relative" data-usermenu>
+          <button  aria-label="Menu du compte" aria-haspopup="true" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 6px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; cursor: pointer">
+            <span style="width: 28px; height: 28px; background: #B4540A; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span>
+            <span data-user-name style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15"><span style="font-size: 13px; font-weight: 600; color: #14202B; white-space: nowrap">Jonathan Plouffe</span><span style="font-size: 11px; color: #5B6B78; white-space: nowrap">Propriétaire · Administration</span></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div role="menu" style="display: none; position: absolute; right: 0; top: 46px; width: 240px; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 10px 24px rgba(20,32,43,0.14); z-index: 20; flex-direction: column">
+            <div style="padding: 12px 14px; border-bottom: 1px solid #EEF1F4; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">Jonathan Plouffe</span><span style="font-size: 12px; color: #5B6B78">Propriétaire · Administration</span></div>
+            <a href="#profil" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Mon profil</a><a href="#parametres" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Paramètres de l'entreprise</a><a href="utilisateurs.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a><a href="#facturation" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path></svg>Facturation et forfaits</a><a href="connexion.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #9B1C1C; text-decoration: none; border-top: 1px solid #EEF1F4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3M21 3v18"></path></svg>Déconnexion</a>
+          </div>
+        </div></div>
+    </header>
+
+    <div style="display: grid; grid-template-columns: 1fr 360px; gap: 18px; align-items: start" data-form>
+      <form style="display: flex; flex-direction: column; gap: 16px">
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">1. Organisation</h2>
+          <div style="display: grid; grid-template-columns: 2fr 1.4fr; gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="org" style="font-size: 13px; font-weight: 600">Nom de l'entreprise</label><input id="org" type="text" value="Groupe Auto Laurentides" data-org style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="sect" style="font-size: 13px; font-weight: 600">Type de client</label><select id="sect" data-secteur style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option selected>Concessionnaire automobile</option><option>Clinique dentaire</option><option>Clinique médicale / physio</option><option>Cabinet comptable</option><option>Cabinet juridique / notaires</option><option>Garderie / CPE</option><option>Commerce de détail</option><option>Atelier / industriel</option><option>Organisme / OBNL</option><option>Autre</option></select></div>
+          </div>
+          <div data-secteur-aide style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: #E6F1F5; border: 1px solid #B9D6E1; font-size: 13px; color: #2A3B49"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E8C" stroke-width="2" style="flex: none; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg><span>Concessionnaire : catégories d'équipement ajoutées automatiquement — postes de vente, bornes d'atelier, tablettes de diagnostic (OBD), imprimantes d'étiquettes et de contrats, caméras, affichage en salle d'exposition, Wi-Fi atelier/cour. Équipements critiques en priorité Haute par défaut : serveur DMS, réseau atelier.</span></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="neq" style="font-size: 13px; font-weight: 600">No d'entreprise (NEQ)</label><input id="neq" type="text" placeholder="1234567890" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="site" style="font-size: 13px; font-weight: 600">Site web</label><input id="site" type="url" placeholder="https://" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="lang" style="font-size: 13px; font-weight: 600">Langue des communications</label><select id="lang" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option selected>Français</option><option>Anglais</option><option>Bilingue</option></select></div>
+          </div>
+        </section>
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 16px; font-weight: 600">2. Emplacements</h2><span style="font-size: 12.5px; color: #5B6B78">Chaque appareil sera rattaché à un emplacement (et à une pièce : atelier, salle d'exposition, bureau F&amp;I…)</span></div>
+          <div data-emplacements style="display: flex; flex-direction: column; gap: 12px">
+          <div data-emplacement style="display: grid; grid-template-columns: 1.2fr 2fr 110px 40px; gap: 10px; align-items: end">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="en1" style="font-size: 13px; font-weight: 600">Nom de l'emplacement</label><input id="en1" type="text" value="Concession Saint-Jérôme (siège)" placeholder="Siège social, Succursale Blainville…" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="ea1" style="font-size: 13px; font-weight: 600">Adresse</label><input id="ea1" type="text" value="1200 boul. du Curé-Labelle, Saint-Jérôme" placeholder="No, rue, ville" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="eb1" style="font-size: 13px; font-weight: 600">Appareils (≈)</label><input id="eb1" type="number" value="38" min="0" data-nb style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <button type="button" aria-label="Retirer cet emplacement" data-retirer style="height: 44px; width: 40px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #9B1C1C; font-size: 18px">×</button>
+          </div>
+          <div data-emplacement style="display: grid; grid-template-columns: 1.2fr 2fr 110px 40px; gap: 10px; align-items: end">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="en2" style="font-size: 13px; font-weight: 600">Nom de l'emplacement</label><input id="en2" type="text" value="Succursale Blainville" placeholder="Siège social, Succursale Blainville…" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="ea2" style="font-size: 13px; font-weight: 600">Adresse</label><input id="ea2" type="text" value="900 boul. Curé-Labelle, Blainville" placeholder="No, rue, ville" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="eb2" style="font-size: 13px; font-weight: 600">Appareils (≈)</label><input id="eb2" type="number" value="24" min="0" data-nb style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <button type="button" aria-label="Retirer cet emplacement" data-retirer style="height: 44px; width: 40px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #9B1C1C; font-size: 18px">×</button>
+          </div>
+          </div>
+          <button type="button"  data-ajouter style="align-self: flex-start; height: 38px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; font-weight: 600; color: #14202B">+ Ajouter un emplacement</button>
+        </section>
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">3. Contact principal</h2>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="cn" style="font-size: 13px; font-weight: 600">Nom</label><input id="cn" type="text" value="Martin Lévesque" data-contact style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="cr" style="font-size: 13px; font-weight: 600">Rôle</label><input id="cr" type="text" value="Directeur général" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="ce" style="font-size: 13px; font-weight: 600">Courriel</label><input id="ce" type="email" value="m.levesque@…" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="ct" style="font-size: 13px; font-weight: 600">Téléphone</label><input id="ct" type="tel" value="450 555-0190" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+          </div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 13.5px; color: #2A3B49">
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" checked style="width: 16px; height: 16px"> Inviter au portail comme <strong>Admin de l'organisation</strong></label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" checked style="width: 16px; height: 16px"> Contact pour la facturation</label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" style="width: 16px; height: 16px"> Contact d'urgence (joignable hors heures)</label>
+          </div>
+          <button type="button" style="align-self: flex-start; height: 38px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; font-weight: 600; color: #14202B">+ Ajouter un contact (directeur de service, responsable TI…)</button>
+        </section>
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">4. Forfait et options</h2>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px" role="radiogroup" aria-label="Forfait">
+            <label data-forfait="v" style="border: 1px solid #B8C4CE; padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="forfait" value="8" style="width: 16px; height: 16px"><strong>Visibilité</strong></span><span style="font-size: 12.5px; color: #5B6B78">Portail, alertes, assistant IA</span><span style="font-size: 18px; font-weight: 600">8 $ <span style="font-size: 12px; font-weight: 400; color: #5B6B78">/ appareil / mois</span></span></label>
+            <label data-forfait="g" style="border: 1px solid #B8C4CE; padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="forfait" value="25" style="width: 16px; height: 16px"><strong>Géré</strong></span><span style="font-size: 12.5px; color: #5B6B78">+ support illimité, sur place, sauvegardes</span><span style="font-size: 18px; font-weight: 600">25 $ <span style="font-size: 12px; font-weight: 400; color: #5B6B78">/ appareil / mois</span></span></label>
+            <label data-forfait="m" style="border: 2px solid #B4540A; padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="forfait" value="55" checked style="width: 16px; height: 16px"><strong>Géré + matériel</strong></span><span style="font-size: 12.5px; color: #5B6B78">+ appareils fournis, remplacés aux 4 ans</span><span style="font-size: 18px; font-weight: 600">55 $ <span style="font-size: 12px; font-weight: 400; color: #5B6B78">/ appareil / mois</span></span></label>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; font-size: 13.5px; color: #2A3B49">
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" data-option value="6" checked style="width: 16px; height: 16px"> Sécurité renforcée (MFA, chiffrement, sauvegarde hors site) <span style="color: #5B6B78">+6 $ / appareil</span></label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" data-option value="4" checked style="width: 16px; height: 16px"> Support prioritaire 7 jours (atelier ouvert le samedi) <span style="color: #5B6B78">+4 $ / appareil</span></label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" data-option value="3" style="width: 16px; height: 16px"> Surveillance réseau 24/7 <span style="color: #5B6B78">+3 $ / appareil</span></label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" data-option value="0" style="width: 16px; height: 16px"> Reprise et recyclage des anciens appareils <span style="color: #5B6B78">inclus</span></label>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px">
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="fact" style="font-size: 13px; font-weight: 600">Facturation</label><select id="fact" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option selected>Mensuelle, prélèvement automatique</option><option>Mensuelle, sur facture (30 jours)</option><option>Annuelle (−5 %)</option></select></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="deb" style="font-size: 13px; font-weight: 600">Début du service</label><input id="deb" type="text" value="1er novembre 2026" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px"><label for="rem" style="font-size: 13px; font-weight: 600">Remise négociée</label><input id="rem" type="text" placeholder="Ex. : −10 % volume" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+          </div>
+        </section>
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">5. Inventaire initial</h2>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+            <label style="border: 2px solid #14202B; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="inv" checked style="width: 16px; height: 16px"><strong>Visite d'inventaire</strong></span><span style="font-size: 12.5px; color: #5B6B78">Un technicien scanne et étiquette tout sur place (2 emplacements ≈ 1 journée)</span></label>
+            <label style="border: 1px solid #B8C4CE; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="inv" style="width: 16px; height: 16px"><strong>Importer un fichier</strong></span><span style="font-size: 12.5px; color: #5B6B78">CSV ou Excel du client ou de l'ancien fournisseur</span></label>
+            <label style="border: 1px solid #B8C4CE; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer"><span style="display: flex; align-items: center; gap: 8px"><input type="radio" name="inv" style="width: 16px; height: 16px"><strong>Plus tard</strong></span><span style="font-size: 12.5px; color: #5B6B78">Créer le client maintenant, l'inventaire vide</span></label>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="notes" style="font-size: 13px; font-weight: 600">Notes internes</label><textarea id="notes" rows="2" placeholder="Ancien fournisseur, contrat en cours, particularités (DMS utilisé, heures d&#39;ouverture de l&#39;atelier…)" style="padding: 10px 12px; border: 1px solid #F0D9B5; background: #FFF8EE; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box; width: 100%"></textarea></div>
+        </section>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px">
+          <a href="admin-clients.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border: 1px solid #B8C4CE; color: #14202B; font-size: 14px; text-decoration: none">Annuler</a>
+          <button type="button"  data-creer style="height: 44px; padding: 0 20px; background: #B4540A; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Créer le client</button>
+        </div>
+      </form>
+
+      <aside style="display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px">
+        <section style="background: #14202B; color: #FFFFFF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #F0B98A">ESTIMATION</span>
+          <div style="font-size: 18px; font-weight: 600" data-est-nom>Groupe Auto Laurentides</div>
+          <div style="font-size: 13px; color: #B8C4CE"><span data-est-nb>62</span> appareils · <span data-est-emp>2</span> emplacements · <span data-est-forfait>Géré + matériel</span></div>
+          <div style="background: #1F2E3B; padding: 14px; display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 32px; font-weight: 600" data-est-mensuel>4 030 $</span><span style="font-size: 13px; color: #B8C4CE">/ mois, avant taxes</span></div>
+            <div style="font-size: 12.5px; color: #B8C4CE"><span data-est-detail>62 × (55 $ + 10 $ d'options)</span></div>
+            <div style="font-size: 12.5px; color: #B8C4CE">≈ <span data-est-annuel>48 360 $</span> / an</div>
+          </div>
+          <span style="font-size: 12px; color: #7F8F9C; line-height: 1.4">Le nombre d'appareils est confirmé après l'inventaire; la facture suit le nombre réel chaque mois.</span>
+        </section>
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">Après la création</h2>
+          <ol style="margin: 0; padding-left: 18px; line-height: 1.7; color: #2A3B49"><li>Invitation envoyée au contact principal</li><li>Visite d'inventaire à planifier (Karine ou Samuel)</li><li>Portail prêt dès que les appareils sont saisis</li><li>Plan de remplacement généré après 30 jours</li></ol>
+        </section>
+      </aside>
+    </div>
+
+    <section style="display: none; max-width: 720px; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 32px; flex-direction: column; gap: 16px; align-items: flex-start" data-conf aria-live="polite">
+      <div style="width: 48px; height: 48px; background: #DDF3E4; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg></div>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 600"><span data-conf-nom>Groupe Auto Laurentides</span> est créé</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #2A3B49">Type : <strong data-conf-sect>Concessionnaire automobile</strong> · <span data-conf-emp>2</span> emplacements · forfait <strong data-conf-forfait>Géré + matériel</strong>. <span data-conf-contact>Martin Lévesque</span> a reçu son invitation au portail.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <button style="height: 44px; padding: 0 18px; background: #B4540A; border: 0; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600">Planifier la visite d'inventaire</button>
+        <a href="admin-inventaire.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid #B8C4CE; color: #14202B; font-size: 14px; text-decoration: none">Importer un inventaire (CSV)</a>
+        <a href="admin-clients.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; color: #0F6E8C; font-size: 14px; text-decoration: none">Retour aux clients</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){var FOR={'8':'Visibilité','25':'Géré','55':'Géré + matériel'};var wrap=document.querySelector('[data-emplacements]');var n=2;
+function fmt(v){return v.toLocaleString('fr-CA',{style:'currency',currency:'CAD',maximumFractionDigits:0});}
+function calc(){var nb=0;document.querySelectorAll('[data-nb]').forEach(function(i){nb+=parseInt(i.value||'0',10);});var f=document.querySelector('input[name=forfait]:checked');var base=parseInt(f.value,10);var opt=0;document.querySelectorAll('[data-option]:checked').forEach(function(o){opt+=parseInt(o.value,10);});var m=nb*(base+opt);
+document.querySelector('[data-est-nb]').textContent=nb;document.querySelector('[data-est-emp]').textContent=wrap.querySelectorAll('[data-emplacement]').length;document.querySelector('[data-est-forfait]').textContent=FOR[f.value];document.querySelector('[data-est-mensuel]').textContent=fmt(m);document.querySelector('[data-est-detail]').textContent=nb+' × ('+base+' $'+(opt?' + '+opt+' $ d’options':'')+')';document.querySelector('[data-est-annuel]').textContent=fmt(m*12);document.querySelector('[data-est-nom]').textContent=document.querySelector('[data-org]').value||'Nouveau client';
+document.querySelectorAll('[data-forfait]').forEach(function(l){var on=l.querySelector('input').checked;l.style.border=on?'2px solid #B4540A':'1px solid #B8C4CE';});
+var aide=document.querySelector('[data-secteur-aide]');aide.style.display=document.querySelector('[data-secteur]').value==='Concessionnaire automobile'?'flex':'none';}
+function bind(row){row.querySelector('[data-retirer]').addEventListener('click',function(){if(wrap.querySelectorAll('[data-emplacement]').length>1){row.remove();calc();}});row.querySelector('[data-nb]').addEventListener('input',calc);}
+wrap.querySelectorAll('[data-emplacement]').forEach(bind);
+document.querySelector('[data-ajouter]').addEventListener('click',function(){n++;var r=wrap.querySelector('[data-emplacement]').cloneNode(true);r.querySelectorAll('input').forEach(function(i){i.value=i.type==='number'?'0':'';i.id=i.id.replace(/\d+$/,n);});r.querySelectorAll('label').forEach(function(l){l.htmlFor=l.htmlFor.replace(/\d+$/,n);});wrap.appendChild(r);bind(r);calc();r.querySelector('input').focus();});
+document.addEventListener('change',calc);document.querySelector('[data-org]').addEventListener('input',calc);
+document.querySelector('[data-creer]').addEventListener('click',function(){var f=document.querySelector('input[name=forfait]:checked');document.querySelector('[data-conf-nom]').textContent=document.querySelector('[data-org]').value||'Nouveau client';document.querySelector('[data-conf-sect]').textContent=document.querySelector('[data-secteur]').value;document.querySelector('[data-conf-emp]').textContent=wrap.querySelectorAll('[data-emplacement]').length;document.querySelector('[data-conf-forfait]').textContent=FOR[f.value];document.querySelector('[data-conf-contact]').textContent=document.querySelector('[data-contact]').value;document.querySelector('[data-form]').style.display='none';document.querySelector('[data-conf]').style.display='flex';window.scrollTo(0,0);});
+calc();})();
+</script><script>
+(function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
+</script>
+</body>
+</html>

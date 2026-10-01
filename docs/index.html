@@ -65,6 +65,11 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 @media (max-width: 820px) {
   body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
 }
+@media (max-width: 820px) {
+  main, main > *, main form, main form > section, main section { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
+  input, select, textarea { max-width: 100% !important; min-width: 0 !important; }
+  footer, footer > span { flex-wrap: wrap !important; gap: 10px !important; }
+}
 </style>
 </head>
 <body>
@@ -196,13 +201,14 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 
   <section id="clients" style="padding: 56px 64px; background: #14202B; color: #FFFFFF; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center">
     <div style="display: flex; flex-direction: column; gap: 12px">
-      <h2 style="margin: 0; font-size: 28px; font-weight: 600">Conçu pour les PME de 5 à 50 postes</h2>
+      <h2 style="margin: 0; font-size: 28px; font-weight: 600">Conçu pour les PME de 5 à 80 postes — et les concessionnaires automobiles</h2>
       <p style="margin: 0; font-size: 16px; color: #B8C4CE; line-height: 1.5">Nous connaissons vos logiciels, vos contraintes et vos heures d'ouverture. Nous sommes dans les Laurentides et sur la Rive-Nord — un technicien peut être chez vous le jour même.</p>
     </div>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
       <div style="border: 1px solid #2A3B49; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Cliniques dentaires et médicales</span><span style="font-size: 13px; color: #B8C4CE">Logiciels de gestion de clinique, imagerie, confidentialité des dossiers</span></div>
       <div style="border: 1px solid #2A3B49; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Cabinets comptables et juridiques</span><span style="font-size: 13px; color: #B8C4CE">Période des impôts, sauvegardes, accès à distance sécurisé</span></div>
       <div style="border: 1px solid #2A3B49; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Garderies et organismes</span><span style="font-size: 13px; color: #B8C4CE">Budgets serrés, matériel reconditionné, Wi-Fi fiable</span></div>
+      <div style="border: 1px solid #B4540A; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Concessionnaires automobiles</span><span style="font-size: 13px; color: #B8C4CE">DMS, postes de vente et F&amp;I, tablettes de diagnostic, imprimantes d'étiquettes, Wi-Fi atelier et cour, plusieurs succursales</span></div>
       <div style="border: 1px solid #2A3B49; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Commerces et ateliers</span><span style="font-size: 13px; color: #B8C4CE">Points de vente, imprimantes d'étiquettes, caméras</span></div>
     </div>
   </section>

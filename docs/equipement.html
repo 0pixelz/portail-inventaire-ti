@@ -65,6 +65,11 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 @media (max-width: 820px) {
   body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
 }
+@media (max-width: 820px) {
+  main, main > *, main form, main form > section, main section { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
+  input, select, textarea { max-width: 100% !important; min-width: 0 !important; }
+  footer, footer > span { flex-wrap: wrap !important; gap: 10px !important; }
+}
 </style>
 </head>
 <body>
