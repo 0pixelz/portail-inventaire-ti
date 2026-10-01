@@ -24,6 +24,8 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Client — plan de remplacement | [plan-remplacement.html](https://0pixelz.github.io/portail-inventaire-ti/plan-remplacement.html) |
 | Client — catalogue / panier | [commande.html](https://0pixelz.github.io/portail-inventaire-ti/commande.html) |
 | Client — commande confirmée | [commande-confirmee.html](https://0pixelz.github.io/portail-inventaire-ti/commande-confirmee.html) |
+| Client — suivi d'une commande | [ma-commande.html](https://0pixelz.github.io/portail-inventaire-ti/ma-commande.html) |
+| Client — facture (imprimable) | [facture.html](https://0pixelz.github.io/portail-inventaire-ti/facture.html) |
 | Client — mes commandes et soumissions | [mes-commandes.html](https://0pixelz.github.io/portail-inventaire-ti/mes-commandes.html) |
 | Client — mon compte (profil, paramètres, notifications, utilisateurs) | [mon-compte.html](https://0pixelz.github.io/portail-inventaire-ti/mon-compte.html) |
 | Client — assistant IA, vue détaillée | [assistant.html](https://0pixelz.github.io/portail-inventaire-ti/assistant.html) |
