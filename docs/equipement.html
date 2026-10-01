@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiche d'un équipement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F4}
+a{color:#0F6E8C}a:hover{color:#0B5570}
+</style>
+</head>
+<body>
+
+
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 860px; display: flex; background: #EEF1F4">
+
+  <nav style="flex: 0 0 232px; background: #14202B; color: #FFFFFF; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 30px; height: 30px; background: #0F6E8C; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M8 20h8M12 16v4"></path></svg>
+      </div>
+      <div style="font-weight: 700; font-size: 15px">[ENTREPRISE]</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <a href="inventaire.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
+      <a href="inventaire.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #0F6E8C; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire</a>
+      <a href="equipement.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>Historique</a>
+      <a href="commande.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commander</a>
+    </div>
+    <div style="margin-top: auto; padding: 12px; background: #1F2E3B; display: flex; flex-direction: column; gap: 2px">
+      <div style="font-size: 13px; font-weight: 600">Clinique Dentaire Ste-Rose</div>
+      <div style="font-size: 12px; color: #B8C4CE">marie.tremblay@… · Admin</div>
+    </div>
+  </nav>
+
+  <main style="flex: 1; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; min-width: 0">
+    <a href="inventaire.html" style="font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Retour à l'inventaire</a>
+    <header style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <h1 style="margin: 0; font-size: 26px; font-weight: 600">Écran salle 3</h1>
+          <span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #FDEBD3; color: #8A4306">En réparation</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #5B6B78">LG 27UL500 · Écran · No de série <span style="font-family: 'IBM Plex Mono', monospace">LG27-908ATX</span></p>
+      </div>
+      <div style="display: flex; gap: 10px">
+        <button style="height: 40px; padding: 0 16px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Imprimer l'étiquette</button>
+        <button style="height: 40px; padding: 0 16px; background: #0F6E8C; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF">Ouvrir un billet</button>
+      </div>
+    </header>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Détails</h2>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px">
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Emplacement</span><span style="font-weight: 500">Salle 3</span></div>
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Utilisateur assigné</span><span style="font-weight: 500">Dre Lavoie</span></div>
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Date d'installation</span><span style="font-weight: 500">2023-10-19</span></div>
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Fin de garantie</span><span style="font-weight: 500; color: #B4540A">2026-10-19 · dans 19 jours</span></div>
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Prix d'achat</span><span style="font-weight: 500">389,00 $</span></div>
+            <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: #5B6B78">Fournisseur</span><span style="font-weight: 500">[VOTRE ENTREPRISE]</span></div>
+          </div>
+        </section>
+
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Historique</h2>
+          <div style="display: flex; flex-direction: column; gap: 0">
+            
+              <div style="display: grid; grid-template-columns: 110px 14px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 14px; align-items: start">
+                <span style="color: #5B6B78; font-size: 13px; padding-top: 2px">2026-09-26</span>
+                <span style="width: 10px; height: 10px; margin-top: 5px; background: #B4540A; display: block"></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">Envoyé en réparation</span><span style="font-size: 13px; color: #5B6B78">Billet #4412 — image scintillante. Prêt d’un écran temporaire.</span></span>
+              </div>
+            
+              <div style="display: grid; grid-template-columns: 110px 14px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 14px; align-items: start">
+                <span style="color: #5B6B78; font-size: 13px; padding-top: 2px">2026-09-24</span>
+                <span style="width: 10px; height: 10px; margin-top: 5px; background: #0F6E8C; display: block"></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">Problème signalé par le client</span><span style="font-size: 13px; color: #5B6B78">Marie Tremblay via le portail.</span></span>
+              </div>
+            
+              <div style="display: grid; grid-template-columns: 110px 14px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 14px; align-items: start">
+                <span style="color: #5B6B78; font-size: 13px; padding-top: 2px">2025-02-11</span>
+                <span style="width: 10px; height: 10px; margin-top: 5px; background: #0F6E8C; display: block"></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">Déplacé</span><span style="font-size: 13px; color: #5B6B78">Salle 2 → Salle 3.</span></span>
+              </div>
+            
+              <div style="display: grid; grid-template-columns: 110px 14px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 14px; align-items: start">
+                <span style="color: #5B6B78; font-size: 13px; padding-top: 2px">2023-10-19</span>
+                <span style="width: 10px; height: 10px; margin-top: 5px; background: #1B6B3A; display: block"></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">Installé</span><span style="font-size: 13px; color: #5B6B78">Technicien : [NOM]. Facture 2023-1042.</span></span>
+              </div>
+            
+          </div>
+        </section>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Documents</h2>
+          <a href="#doc" style="display: flex; align-items: center; gap: 10px; font-size: 14px; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"></path><path d="M14 2v6h6"></path></svg>Facture 2023-1042.pdf</a>
+          <a href="#doc" style="display: flex; align-items: center; gap: 10px; font-size: 14px; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"></path><path d="M14 2v6h6"></path></svg>Certificat de garantie.pdf</a>
+        </section>
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Code QR</h2>
+          <div style="width: 120px; height: 120px; border: 1px dashed #B8C4CE; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5B6B78; text-align: center">[QR de l'étiquette]</div>
+          <p style="margin: 0; font-size: 13px; color: #5B6B78">Collé sur l'appareil — un scan ouvre cette fiche.</p>
+        </section>
+        <section style="background: #E6F1F5; border: 1px solid #B9D6E1; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">Garantie bientôt échue</h2>
+          <p style="margin: 0; font-size: 13px; color: #2A3B49">Demandez une soumission de remplacement ou une extension de garantie.</p>
+          <a href="commande.html" style="font-size: 13px; font-weight: 600; text-decoration: none">Voir les options →</a>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+</body>
+</html>
