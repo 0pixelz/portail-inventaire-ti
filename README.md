@@ -33,6 +33,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Admin — nouveau billet pour un client | [admin-nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/admin-nouveau-billet.html) |
 | Admin — inventaire de tous les clients | [admin-inventaire.html](https://0pixelz.github.io/portail-inventaire-ti/admin-inventaire.html) |
 | Admin — importer un inventaire (CSV) | [admin-import.html](https://0pixelz.github.io/portail-inventaire-ti/admin-import.html) |
+| Admin — fiche d'un équipement (gestion) | [admin-equipement.html](https://0pixelz.github.io/portail-inventaire-ti/admin-equipement.html) |
 | Admin — ajouter un équipement | [admin-ajouter-equipement.html](https://0pixelz.github.io/portail-inventaire-ti/admin-ajouter-equipement.html) |
 | Admin — clients | [admin-clients.html](https://0pixelz.github.io/portail-inventaire-ti/admin-clients.html) |
 | Admin — fiche client | [admin-client.html](https://0pixelz.github.io/portail-inventaire-ti/admin-client.html) |
