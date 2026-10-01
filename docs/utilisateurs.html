@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utilisateurs et rôles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F4}
+a{color:#0F6E8C}a:hover{color:#0B5570}
+</style>
+<style>@media (max-width: 820px) {
+  body > div { flex-direction: column !important; min-height: 0 !important; }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  [style*="padding: 72px 64px"], [style*="padding: 56px 64px"], [style*="padding: 40px"] { padding: 32px 16px !important; }
+  [style*="padding: 18px 64px"], [style*="padding: 24px 64px"] { padding: 14px 16px !important; }
+  [style*="padding: 32px 40px"], [style*="padding: 28px 32px"], [style*="padding: 24px 24px"], [style*="padding: 48px"] { padding: 16px !important; }
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 22px !important; }
+  body > div > header nav { display: none !important; }
+  body > div > header { flex-wrap: wrap !important; gap: 10px !important; }
+  body > div > nav { flex: none !important; width: 100% !important; box-sizing: border-box !important; padding: 12px !important; gap: 12px !important; }
+  body > div > nav > div:nth-child(2) { flex-direction: row !important; overflow-x: auto !important; gap: 6px !important; }
+  body > div > nav > div:nth-child(2) > a { white-space: nowrap !important; flex: none !important; }
+  body > div > nav > div:nth-child(3), body > div > nav > div[style*="margin-top: auto"], body > div > nav > a[style*="margin-top: auto"] { display: none !important; }
+  body > div > aside { flex: none !important; width: 100% !important; border-left: 0 !important; border-top: 1px solid #D5DCE2 !important; }
+  main > header { flex-direction: column !important; align-items: stretch !important; }
+  main > header > div[style*="display: flex; gap: 10px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"], [style*="display: flex; gap: 8px; padding: 10px 14px"], [style*="display: flex; gap: 8px"][style*="height: 36px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"] > input, [style*="display: flex; gap: 8px; padding: 10px 14px"] > input { width: 100% !important; margin-left: 0 !important; flex: 1 1 100% !important; }
+  [style*="text-transform: uppercase; letter-spacing: 0.04em"] { display: none !important; }
+  a[href="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
+  a[href="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: 50vh !important; }
+  aside[style*="position: sticky"] { position: static !important; }
+  img { max-width: 100% !important; height: auto !important; }
+  form { max-width: 100% !important; }
+  [style*="flex: 0 0 46%"] { flex: none !important; padding: 24px 16px !important; gap: 16px !important; }
+  [style*="flex: 0 0 46%"] > div:last-child { display: none !important; }
+  [style*="display: flex; gap: 8px"] > button[style*="flex: 1"] { min-width: 100% !important; }
+  [style*="display: flex; gap: 12px; align-items: center"] > a { flex: 1 !important; justify-content: center !important; }
+}
+@media (max-width: 820px) {
+  div[style="display: flex; gap: 8px"] { flex-wrap: wrap !important; }
+  body > div > nav { min-width: 0 !important; max-width: 100% !important; overflow: hidden !important; }
+  body > div > nav > div:nth-child(2) { min-width: 0 !important; -webkit-overflow-scrolling: touch; }
+  body > div > main { min-width: 0 !important; max-width: 100% !important; }
+}
+@media (max-width: 820px) {
+  [style*="grid-template-columns: repeat(4, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(5, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px"] { grid-template-columns: 1fr 1fr !important; }
+}
+/* Assistant flottant : toujours visible, à toute largeur */
+section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { position: fixed !important; }
+@media (max-width: 820px) {
+  button[aria-label="Ouvrir l'assistant"] { right: 16px !important; bottom: 16px !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 84px !important; max-height: calc(100vh - 100px) !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: auto !important; max-height: 45vh !important; }
+}
+@media (max-width: 820px) {
+  [data-user-name] { display: none !important; }
+  [data-usermenu] { margin-left: auto !important; }
+}
+@media (max-width: 820px) {
+  body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
+}
+</style>
+</head>
+<body>
+
+
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 1040px; display: flex; background: #EEF1F4">
+
+  <nav style="flex: 0 0 200px; background: #0B1218; color: #FFFFFF; padding: 24px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 30px; height: 30px; background: #B4540A; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2-2z"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">[ENTREPRISE]</span><span style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em">ADMINISTRATION</span></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <a href="admin.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
+      <a href="admin.html" style="display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Billets</span><span style="font-size: 11px; font-weight: 700; padding: 2px 7px; background: #2A3B49; color: #FFFFFF">12</span></a>
+      <a href="admin.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire (tous)</a>
+      <a href="admin.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Clients</a>
+      <a href="admin.html" style="display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commandes</span><span style="font-size: 11px; font-weight: 700; padding: 2px 7px; background: #2A3B49; color: #FFFFFF">3</span></a>
+      <a href="utilisateurs.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: #B4540A; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a>
+      <a href="admin.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M10 19v-9M16 19v-5M22 19H2"></path></svg>Rapports</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em; padding: 0 12px">TECHNICIENS EN LIGNE</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Jonathan (vous)</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Samuel</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #7F8F9C"><span style="width: 8px; height: 8px; background: #5B6B78; display: inline-block"></span>Karine · en route</div>
+    </div>
+    <a href="inventaire.html" style="margin-top: auto; padding: 10px 12px; background: #1F2E3B; color: #D5DCE2; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Voir le portail client</a>
+  </nav>
+
+  <main style="flex: 1; padding: 24px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; min-width: 0">
+    <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Utilisateurs et rôles</h1>
+        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Qui a accès à quoi — votre équipe et les comptes de vos clients</p>
+      </div>
+      <div style="display: flex; gap: 10px">
+        <button  style="height: 40px; padding: 0 16px; background: #B4540A; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF">Inviter un utilisateur</button>
+        <div style="position: relative" data-usermenu>
+          <button  aria-label="Menu du compte" aria-haspopup="true" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 6px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; cursor: pointer">
+            <span style="width: 28px; height: 28px; background: #B4540A; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span>
+            <span data-user-name style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15"><span style="font-size: 13px; font-weight: 600; color: #14202B; white-space: nowrap">Jonathan Plouffe</span><span style="font-size: 11px; color: #5B6B78; white-space: nowrap">Propriétaire · Administration</span></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div role="menu" style="display: none; position: absolute; right: 0; top: 46px; width: 240px; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 10px 24px rgba(20,32,43,0.14); z-index: 20; flex-direction: column">
+            <div style="padding: 12px 14px; border-bottom: 1px solid #EEF1F4; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">Jonathan Plouffe</span><span style="font-size: 12px; color: #5B6B78">Propriétaire · Administration</span></div>
+            <a href="#profil" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Mon profil</a><a href="#parametres" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Paramètres de l'entreprise</a><a href="#roles" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a><a href="#facturation" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path></svg>Facturation et forfaits</a><a href="connexion.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #9B1C1C; text-decoration: none; border-top: 1px solid #EEF1F4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3M21 3v18"></path></svg>Déconnexion</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <section aria-label="Inviter un utilisateur" style="background: #FFFFFF; border: 2px solid #B4540A; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; justify-content: space-between; align-items: center"><h2 style="margin: 0; font-size: 16px; font-weight: 600">Inviter un utilisateur</h2><button  aria-label="Fermer" style="width: 32px; height: 32px; background: transparent; border: 0; font-size: 18px; color: #5B6B78; font-family: inherit">×</button></div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-nom" style="font-size: 13px; font-weight: 600">Nom complet</label><input id="inv-nom" type="text" placeholder="Prénom Nom" style="height: 42px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-courriel" style="font-size: 13px; font-weight: 600">Courriel</label><input id="inv-courriel" type="email" placeholder="nom@entreprise.com" style="height: 42px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-org" style="font-size: 13px; font-weight: 600">Organisation</label><select id="inv-org" style="height: 42px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF"><option>[ENTREPRISE] — mon équipe</option><option>Clinique Dentaire Ste-Rose</option><option>Garderie Les Lucioles</option><option>Comptabilité Marchand</option><option>Studio Nord Design</option><option>+ Nouvelle organisation…</option></select></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-role" style="font-size: 13px; font-weight: 600">Rôle</label><select id="inv-role" style="height: 42px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF"><option>Client — lecture</option><option>Client — admin de l'organisation</option><option>Technicien</option><option>Administrateur</option></select></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+        <span style="font-size: 13px; color: #5B6B78">La personne reçoit un courriel avec un lien valable 7 jours pour créer son mot de passe.</span>
+        <span style="display: flex; gap: 8px"><button  style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px">Annuler</button><button  style="height: 40px; padding: 0 16px; background: #B4540A; border: 0; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600">Envoyer l'invitation</button></span>
+      </div>
+    </section>
+    
+
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #D5DCE2">
+        <div style="display: flex; flex-direction: column; gap: 2px"><h2 style="margin: 0; font-size: 16px; font-weight: 600">Mon équipe — [ENTREPRISE]</h2><span style="font-size: 13px; color: #5B6B78">Voient tous les clients. Seuls les administrateurs gèrent les utilisateurs et la facturation.</span></div>
+        <span style="font-size: 13px; color: #5B6B78">3 membres</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 8px 16px; font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D5DCE2"><div>Personne</div><div>Rôle</div><div>Dernière connexion</div><div>Statut</div><div></div></div>
+      
+        <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #B4540A; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Jonathan Plouffe</span><span style="font-size: 12px; color: #5B6B78">jonathan@[entreprise].ca</span></span></div>
+          <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Administrateur</option><option>Technicien</option><option>Administrateur</option></select></div>
+          <div style="color: #2A3B49">Aujourd'hui, 8 h 02</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+          <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Réinitialiser le mot de passe" title="Réinitialiser le mot de passe" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l9-9M15 8l2 2M18 5l2 2"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+        </div>
+      
+        <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #1B6B3A; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">SB</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Samuel B.</span><span style="font-size: 12px; color: #5B6B78">samuel@[entreprise].ca</span></span></div>
+          <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Technicien</option><option>Technicien</option><option>Administrateur</option></select></div>
+          <div style="color: #2A3B49">Aujourd'hui, 7 h 45</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+          <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Réinitialiser le mot de passe" title="Réinitialiser le mot de passe" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l9-9M15 8l2 2M18 5l2 2"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+        </div>
+      
+        <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #6B3FA0; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">KL</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Karine L.</span><span style="font-size: 12px; color: #5B6B78">karine@[entreprise].ca</span></span></div>
+          <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Technicien</option><option>Technicien</option><option>Administrateur</option></select></div>
+          <div style="color: #2A3B49">Hier, 17 h 20</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+          <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Réinitialiser le mot de passe" title="Réinitialiser le mot de passe" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l9-9M15 8l2 2M18 5l2 2"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+        </div>
+      
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #D5DCE2; gap: 12px; flex-wrap: wrap">
+        <div style="display: flex; flex-direction: column; gap: 2px"><h2 style="margin: 0; font-size: 16px; font-weight: 600">Comptes clients</h2><span style="font-size: 13px; color: #5B6B78">Chaque utilisateur ne voit que l'inventaire de son organisation. « Admin » peut inviter ses collègues et commander.</span></div>
+        <label for="rech" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Rechercher</label>
+        <input id="rech" type="search" placeholder="Organisation, nom, courriel…" style="width: 260px; height: 36px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; box-sizing: border-box">
+      </div>
+      
+        <div style="display: flex; flex-direction: column; border-bottom: 1px solid #D5DCE2">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #F5F7F9; gap: 12px; flex-wrap: wrap">
+            <div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg><span style="font-weight: 600; font-size: 14px">Clinique Dentaire Ste-Rose</span><span style="font-size: 12.5px; color: #5B6B78">Géré · 3 utilisateurs · 42 équipements</span></div>
+            <span style="display: flex; gap: 8px"><a href="inventaire.html" style="font-size: 13px; text-decoration: none; font-weight: 600">Voir son portail</a><button style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12.5px">+ Inviter</button></span>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #0F6E8C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">MT</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Marie Tremblay</span><span style="font-size: 12px; color: #5B6B78">marie.tremblay@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Admin de l'organisation</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Aujourd'hui, 9 h 10</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #2A3B49; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">DL</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Dre Lavoie</span><span style="font-size: 12px; color: #5B6B78">c.lavoie@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Lecture</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Il y a 12 jours</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #2A3B49; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">AR</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Annie R.</span><span style="font-size: 12px; color: #5B6B78">annie.r@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Lecture</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">—</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">Invitation envoyée</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+        </div>
+      
+        <div style="display: flex; flex-direction: column; border-bottom: 1px solid #D5DCE2">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #F5F7F9; gap: 12px; flex-wrap: wrap">
+            <div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg><span style="font-weight: 600; font-size: 14px">Garderie Les Lucioles</span><span style="font-size: 12.5px; color: #5B6B78">Géré + matériel · 2 utilisateurs · 18 équipements</span></div>
+            <span style="display: flex; gap: 8px"><a href="inventaire.html" style="font-size: 13px; text-decoration: none; font-weight: 600">Voir son portail</a><button style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12.5px">+ Inviter</button></span>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #0F6E8C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">SC</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Sophie Côté</span><span style="font-size: 12px; color: #5B6B78">direction@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Admin de l'organisation</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Aujourd'hui, 8 h 30</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #2A3B49; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">MB</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Martin B.</span><span style="font-size: 12px; color: #5B6B78">martin.b@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Lecture</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Il y a 3 mois</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Désactivé</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+        </div>
+      
+        <div style="display: flex; flex-direction: column; border-bottom: 1px solid #D5DCE2">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #F5F7F9; gap: 12px; flex-wrap: wrap">
+            <div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg><span style="font-weight: 600; font-size: 14px">Comptabilité Marchand</span><span style="font-size: 12.5px; color: #5B6B78">Visibilité · 1 utilisateurs · 9 équipements</span></div>
+            <span style="display: flex; gap: 8px"><a href="inventaire.html" style="font-size: 13px; text-decoration: none; font-weight: 600">Voir son portail</a><button style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12.5px">+ Inviter</button></span>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #0F6E8C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">PM</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Pierre Marchand</span><span style="font-size: 12px; color: #5B6B78">pierre@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Admin de l'organisation</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Il y a 5 jours</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+        </div>
+      
+        <div style="display: flex; flex-direction: column; border-bottom: 1px solid #D5DCE2">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #F5F7F9; gap: 12px; flex-wrap: wrap">
+            <div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg><span style="font-weight: 600; font-size: 14px">Studio Nord Design</span><span style="font-size: 12.5px; color: #5B6B78">Géré · 2 utilisateurs · 14 équipements</span></div>
+            <span style="display: flex; gap: 8px"><a href="inventaire.html" style="font-size: 13px; text-decoration: none; font-weight: 600">Voir son portail</a><button style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12.5px">+ Inviter</button></span>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #0F6E8C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JD</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Julie D.</span><span style="font-size: 12px; color: #5B6B78">julie@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Admin de l'organisation</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Hier, 16 h 05</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 120px; gap: 10px; padding: 10px 16px; align-items: center; border-top: 1px solid #EEF1F4; font-size: 13.5px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; background: #2A3B49; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">FT</span><span style="display: flex; flex-direction: column"><span style="font-weight: 600">Félix T.</span><span style="font-size: 12px; color: #5B6B78">felix@…</span></span></div>
+              <div><select aria-label="Rôle" style="height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; background: #FFFFFF; width: 100%"><option>Lecture</option><option>Lecture</option><option>Admin de l'organisation</option></select></div>
+              <div style="color: #2A3B49">Hier, 11 h 40</div>
+              <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+              <div style="display: flex; gap: 6px; justify-content: flex-end"><button aria-label="Renvoyer l'invitation ou réinitialiser" title="Réinitialiser / renvoyer" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14202B" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2-2M20 12a8 8 0 0 1-14 5l-2 2M18 3v4h-4M6 21v-4h4"></path></svg></button><button aria-label="Désactiver" title="Désactiver" style="width: 32px; height: 32px; background: #FFFFFF; border: 1px solid #B8C4CE; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9B1C1C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M5.5 5.5l13 13"></path></svg></button></div>
+            </div>
+          
+        </div>
+      
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 16px; font-weight: 600">Ce que chaque rôle peut faire</h2>
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 0; font-size: 13px; border: 1px solid #EEF1F4">
+        <div style="padding: 8px 10px; background: #F5F7F9; font-weight: 600"></div><div style="padding: 8px 10px; background: #F5F7F9; font-weight: 600; text-align: center">Client · lecture</div><div style="padding: 8px 10px; background: #F5F7F9; font-weight: 600; text-align: center">Client · admin</div><div style="padding: 8px 10px; background: #F5F7F9; font-weight: 600; text-align: center">Technicien</div><div style="padding: 8px 10px; background: #F5F7F9; font-weight: 600; text-align: center">Administrateur</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Voir l’inventaire de son organisation</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Voir l’inventaire de tous les clients</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Signaler un problème / parler à l’assistant</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Commander et approuver une soumission</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Inviter des utilisateurs dans son organisation</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Modifier l’inventaire, assigner des billets</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+          <div style="padding: 8px 10px; border-top: 1px solid #EEF1F4">Gérer l’équipe, la facturation et les forfaits</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #B8C4CE; font-weight: 600">—</div><div style="padding: 8px 10px; border-top: 1px solid #EEF1F4; text-align: center; color: #1B6B3A; font-weight: 600">Oui</div>
+        
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){var sec=document.querySelector('section[aria-label="Inviter un utilisateur"]');sec.style.display='none';
+function tg(){sec.style.display=sec.style.display==='none'?'flex':'none';if(sec.style.display==='flex')sec.scrollIntoView({behavior:'smooth',block:'start'});}
+document.querySelectorAll('button').forEach(function(b){var t=b.textContent.trim();if(t==='Inviter un utilisateur'||t==='Annuler'||t==="Envoyer l'invitation"||b.getAttribute('aria-label')==='Fermer')b.addEventListener('click',tg);});})();
+</script><script>
+(function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
+</script>
+</body>
+</html>

@@ -76,15 +76,35 @@ function lookup(scope, pathStr) {
   return pathStr.split('.').reduce((o, k) => (o == null ? undefined : o[k]), scope);
 }
 function esc(v) { return String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+function matchBlock(tpl, tag, from) {
+  // retourne [openStart, openEnd, closeStart, closeEnd] du premier <tag ...>...</tag> à partir de `from`, en gérant l'imbrication
+  const openRe = new RegExp('<' + tag + '\\b[^>]*>', 'g'); openRe.lastIndex = from;
+  const m = openRe.exec(tpl); if (!m) return null;
+  let depth = 1, i = m.index + m[0].length;
+  const anyRe = new RegExp('<' + tag + '\\b[^>]*>|</' + tag + '>', 'g'); anyRe.lastIndex = i;
+  let t;
+  while ((t = anyRe.exec(tpl))) { depth += t[0][1] === '/' ? -1 : 1; if (depth === 0) return [m.index, m.index + m[0].length, t.index, t.index + t[0].length, m[0]]; }
+  return null;
+}
 function render(tpl, scope, fnMap) {
-  // sc-for (non imbriqués dans nos fichiers → traitement récursif par niveau)
-  tpl = tpl.replace(/<sc-for list="\{\{\s*([\w.$]+)\s*\}\}" as="(\w+)"[^>]*>([\s\S]*?)<\/sc-for>/g, (m, listPath, as, body) => {
-    const list = lookup(scope, listPath) || [];
-    return list.map((item, i) => render(body, { ...scope, [as]: item, $index: i }, fnMap)).join('');
-  });
-  tpl = tpl.replace(/<sc-if value="\{\{\s*([\w.$]+)\s*\}\}"[^>]*>([\s\S]*?)<\/sc-if>/g, (m, cond, body) =>
-    lookup(scope, cond) ? render(body, scope, fnMap) : '');
-  // handlers: onClick="{{x}}" → data-action pour le JS autonome
+  for (const tag of ['sc-for', 'sc-if']) {
+    let pos = 0, out = '';
+    while (true) {
+      const b = matchBlock(tpl, tag, pos); if (!b) { out += tpl.slice(pos); break; }
+      out += tpl.slice(pos, b[0]);
+      const open = b[4], body = tpl.slice(b[1], b[2]);
+      if (tag === 'sc-for') {
+        const listPath = open.match(/list="\{\{\s*([\w.$]+)\s*\}\}"/)[1], as = open.match(/as="(\w+)"/)[1];
+        const list = lookup(scope, listPath) || [];
+        out += list.map((item, i) => render(body, { ...scope, [as]: item, $index: i }, fnMap)).join('');
+      } else {
+        const cond = open.match(/value="\{\{\s*([\w.$]+)\s*\}\}"/)[1];
+        out += lookup(scope, cond) ? render(body, scope, fnMap) : '';
+      }
+      pos = b[3];
+    }
+    tpl = out;
+  }
   tpl = tpl.replace(/onClick="\{\{\s*([\w.$]+)\s*\}\}"/g, (m, p) => fnMap ? fnMap(p, scope) : '');
   tpl = tpl.replace(/\{\{\s*([\w.$]+)\s*\}\}/g, (m, p) => { const v = lookup(scope, p); return typeof v === 'function' ? '' : esc(v); });
   return tpl;
