@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790824846557">
+<meta name="build" content="1790825454773">
 <title>Assistant IA — vue détaillée</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -131,6 +131,10 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
   body > div > nav [data-notifmenu], body > div > nav [data-cart] { margin-left: 0 !important; }
   body > div > nav [data-notifmenu] { margin-left: auto !important; }
 }
+@media (max-width: 820px) {
+  /* cloche collée à l'avatar quand il n'y a pas de panier (admin) */
+  body > div > nav [data-notifmenu] ~ [data-usermenu], body > div > nav [data-cart] ~ [data-usermenu] { margin-left: 8px !important; }
+}
 </style>
 </head>
 <body>
@@ -178,8 +182,8 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
       <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
         <span>C'est noté. J'ai ouvert le <strong>billet #4418</strong> pour l'imprimante — un technicien vous contactera d'ici la fin de la journée. La demande de soumission (2 extensions de garantie) est transmise à votre représentant.</span>
         <span style="display: flex; gap: 6px; flex-wrap: wrap">
-          <a href="mon-billet.html?v=1790824846557" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
-          <a href="mes-commandes.html?v=1790824846557" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
+          <a href="mon-billet.html?v=1790825454773" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
+          <a href="mes-commandes.html?v=1790825454773" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
         </span>
       </div>
     </div>
