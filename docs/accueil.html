@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790824527358">
+<meta name="build" content="1790824846557">
 <title>Site public — accueil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -31,8 +31,8 @@ a{color:#0F6E8C}a:hover{color:#0B5570}
   [style*="display: flex; gap: 12px; padding: 14px 16px"], [style*="display: flex; gap: 8px; padding: 10px 14px"], [style*="display: flex; gap: 8px"][style*="height: 36px"] { flex-wrap: wrap !important; }
   [style*="display: flex; gap: 12px; padding: 14px 16px"] > input, [style*="display: flex; gap: 8px; padding: 10px 14px"] > input { width: 100% !important; margin-left: 0 !important; flex: 1 1 100% !important; }
   [style*="text-transform: uppercase; letter-spacing: 0.04em"] { display: none !important; }
-  a[href="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
-  a[href="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
+  a[href^="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
+  a[href^="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
   section[data-floating] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
   section[data-floating] > div[style*="height: 330px"] { height: 50vh !important; }
   aside[style*="position: sticky"] { position: static !important; }
@@ -150,8 +150,8 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
       <a href="#contact" style="text-decoration: none; color: #14202B">Contact</a>
     </nav>
     <div data-header-actions style="display: flex; gap: 8px; align-items: center">
-      <a href="connexion.html" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Portail client</a>
-      <a href="admin.html" title="Accès admin" aria-label="Accès admin" style="display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; color: #5B6B78; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="1"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><span data-admin-label>Admin</span></a>
+      <a href="connexion.html?v=1790824846557" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Portail client</a>
+      <a href="admin.html?v=1790824846557" title="Accès admin" aria-label="Accès admin" style="display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; color: #5B6B78; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="1"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><span data-admin-label>Admin</span></a>
       <a href="#contact" style="display: inline-flex; align-items: center; height: 40px; padding: 0 18px; background: #0F6E8C; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap">Planifier un appel</a>
     </div>
   </header>
@@ -163,7 +163,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
       <p style="margin: 0; font-size: 18px; line-height: 1.5; color: #B8C4CE; max-width: 540px">Nous gérons et fournissons votre matériel informatique — avec un portail où votre inventaire complet est visible en tout temps, un prix par appareil sans surprise, et un support en français 24/7.</p>
       <div style="display: flex; gap: 12px; align-items: center">
         <a href="#contact" style="display: inline-flex; align-items: center; height: 48px; padding: 0 22px; background: #0F6E8C; color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none">Obtenir mon inventaire gratuit</a>
-        <a href="connexion.html" style="display: inline-flex; align-items: center; height: 48px; padding: 0 18px; color: #FFFFFF; font-size: 15px; font-weight: 500; text-decoration: none; border: 1px solid #5B6B78">Voir le portail en démo</a>
+        <a href="connexion.html?v=1790824846557" style="display: inline-flex; align-items: center; height: 48px; padding: 0 18px; color: #FFFFFF; font-size: 15px; font-weight: 500; text-decoration: none; border: 1px solid #5B6B78">Voir le portail en démo</a>
       </div>
       <span style="font-size: 13px; color: #7F8F9C">Première visite : nous inventorions tout votre parc, sans frais et sans engagement.</span>
     </div>
@@ -235,7 +235,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
     <div style="display: flex; flex-direction: column; gap: 8px; max-width: 640px">
       <h2 style="margin: 0; font-size: 32px; font-weight: 600">Tarifs simples, par appareil, par mois</h2>
       <p style="margin: 0; font-size: 16px; color: #5B6B78; line-height: 1.5">Un poste, un portable, un écran ou un équipement réseau = un appareil. Résiliable avec 30 jours de préavis.</p>
-      <a href="evaluateur.html" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; height: 44px; padding: 0 16px; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 14px; font-weight: 600; text-decoration: none; align-self: flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H5v14h14v-4M14 4h6v6M20 4l-9 9"></path></svg>Pas certain ? Évaluez votre parc en 2 minutes</a>
+      <a href="evaluateur.html?v=1790824846557" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; height: 44px; padding: 0 16px; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 14px; font-weight: 600; text-decoration: none; align-self: flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H5v14h14v-4M14 4h6v6M20 4l-9 9"></path></svg>Pas certain ? Évaluez votre parc en 2 minutes</a>
     </div>
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch">
       <div style="border: 1px solid #D5DCE2; padding: 28px; display: flex; flex-direction: column; gap: 16px">
@@ -294,7 +294,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
 
   <footer style="padding: 24px 64px; border-top: 1px solid #D5DCE2; display: flex; justify-content: space-between; font-size: 13px; color: #5B6B78">
     <span>© 2026 [ENTREPRISE] · Laurentides, Québec</span>
-    <span style="display: flex; gap: 20px"><a href="connexion.html" style="text-decoration: none">Portail client</a><a href="admin.html" style="text-decoration: none">Accès admin</a><a href="#approche" style="text-decoration: none">Politique de non-verrouillage</a><a href="#contact" style="text-decoration: none">Confidentialité</a></span>
+    <span style="display: flex; gap: 20px"><a href="connexion.html?v=1790824846557" style="text-decoration: none">Portail client</a><a href="admin.html?v=1790824846557" style="text-decoration: none">Accès admin</a><a href="#approche" style="text-decoration: none">Politique de non-verrouillage</a><a href="#contact" style="text-decoration: none">Confidentialité</a></span>
   </footer>
 </div>
 
@@ -339,7 +339,7 @@ function openScanner(input){var ov=document.createElement('div');ov.setAttribute
 ov.innerHTML='<div style="font-weight:600;font-size:16px">Scannez l’étiquette de l’appareil</div><div style="position:relative;width:min(92vw,420px);aspect-ratio:1;background:#000;overflow:hidden"><video playsinline muted autoplay style="width:100%;height:100%;object-fit:cover"></video><div style="position:absolute;inset:12%;border:3px solid #7FC3D8;box-shadow:0 0 0 999px rgba(0,0,0,.35)"></div></div><div data-msg style="color:#B8C4CE;text-align:center;max-width:420px">Alignez le code QR dans le cadre. Le no de série sera cherché automatiquement.</div><div style="display:flex;gap:8px"><button type="button" data-demo style="height:40px;padding:0 14px;background:#0F6E8C;border:0;color:#fff;font:600 13px inherit">Simuler un scan (démo)</button><button type="button" data-close style="height:40px;padding:0 14px;background:#fff;border:0;color:#14202B;font:600 13px inherit">Fermer</button></div>';
 document.body.appendChild(ov);var video=ov.querySelector('video'),msg=ov.querySelector('[data-msg]'),stream=null,raf=0,done=false;
 function close(){done=true;cancelAnimationFrame(raf);if(stream)stream.getTracks().forEach(function(t){t.stop();});ov.remove();}
-function found(code){if(done)return;close();var sn=code;var m=code.match(/(?:sn|serie|s)=([^&]+)/i)||code.match(new RegExp('/([A-Za-z0-9-]{6,})/?$'));if(m)sn=decodeURIComponent(m[1]);input.value=sn;input.focus();window.__toast('Code lu : '+sn+' — recherche dans l’inventaire',true);var row=[].slice.call(document.querySelectorAll('a[href="equipement.html"], a[href="billet.html"]')).find(function(r){return r.textContent.indexOf(sn)>-1;});if(row){row.style.outline='3px solid #0F6E8C';row.scrollIntoView({behavior:'smooth',block:'center'});}}
+function found(code){if(done)return;close();var sn=code;var m=code.match(/(?:sn|serie|s)=([^&]+)/i)||code.match(new RegExp('/([A-Za-z0-9-]{6,})/?$'));if(m)sn=decodeURIComponent(m[1]);input.value=sn;input.focus();window.__toast('Code lu : '+sn+' — recherche dans l’inventaire',true);var row=[].slice.call(document.querySelectorAll('a[href^="equipement.html"], a[href^="billet.html"]')).find(function(r){return r.textContent.indexOf(sn)>-1;});if(row){row.style.outline='3px solid #0F6E8C';row.scrollIntoView({behavior:'smooth',block:'center'});}}
 ov.querySelector('[data-close]').addEventListener('click',close);ov.querySelector('[data-demo]').addEventListener('click',function(){found('https://portail.exemple/equipement?sn=LG27-908ATX');});
 if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){msg.textContent='Caméra non disponible dans ce navigateur (le site doit être servi en HTTPS). Utilisez « Simuler un scan ».';return;}
 navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}}).then(function(s){stream=s;video.srcObject=s;return video.play();}).then(function(){
@@ -357,8 +357,13 @@ NM.querySelectorAll('[data-notif]').forEach(function(a){a.addEventListener('clic
 NM.querySelector('[data-notif-all]').addEventListener('click',function(){var L=lus();NM.querySelectorAll('[data-notif]').forEach(function(a){if(L.indexOf(a.dataset.notif)<0)L.push(a.dataset.notif);});setLus(L);paint();toast('Toutes les notifications sont marquées comme lues',true);});
 paint();}
 
+
+var SF=[].slice.call(document.querySelectorAll('[data-sf]'));if(SF.length){var srows=[].slice.call(document.querySelectorAll('[data-soum]'));function sm(r,f){var k=r.dataset.statut;if(f==='all')return true;if(f==='ref')return k==='ref'||k==='expd';return k===f;}
+function sap(f){srows.forEach(function(r){r.style.display=sm(r,f)?'grid':'none';});SF.forEach(function(b){var on=b.dataset.sf===f;b.setAttribute('aria-pressed',on);b.style.background=on?'#14202B':'#FFFFFF';b.style.color=on?'#FFFFFF':'#14202B';b.style.borderColor=on?'#14202B':'#B8C4CE';b.style.fontWeight=on?'600':'400';});}
+SF.forEach(function(b){b.querySelector('[data-sc]').textContent=srows.filter(function(r){return sm(r,b.dataset.sf);}).length;b.addEventListener('click',function(){sap(b.dataset.sf);});});sap('all');}
+
 document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){window.print();});});
-document.querySelectorAll('[data-export-csv]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var rows=[];document.querySelectorAll('a[href="equipement.html"][style*="grid"], [data-billet]').forEach(function(r){rows.push([].slice.call(r.children).map(function(c){return '"'+c.innerText.replace(/\s+/g,' ').trim().replace(/"/g,'""')+'"';}).join(','));});
+document.querySelectorAll('[data-export-csv]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var rows=[];document.querySelectorAll('a[href^="equipement.html"][style*="grid"], [data-billet]').forEach(function(r){rows.push([].slice.call(r.children).map(function(c){return '"'+c.innerText.replace(/\s+/g,' ').trim().replace(/"/g,'""')+'"';}).join(','));});
 if(!rows.length)rows=['"Équipement","Catégorie","No de série","Emplacement","Garantie","État"','"Poste réception 1 — Dell OptiPlex 7010","Poste de travail","DL7010-4K2M9","Réception","2027-03-14","Actif"'];
 var blob=new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=b.getAttribute('data-export-csv')+'.csv';document.body.appendChild(a);a.click();a.remove();toast('Export CSV téléchargé : '+a.download+' ('+rows.length+' lignes)',true);});});
 var CK='panier';function getCart(){try{var c=JSON.parse(localStorage.getItem(CK));if(Array.isArray(c))return c;}catch(e){}return [{nom:'LG 27UL500 — 27 po 4K',cat:'Écran',prix:'389,00 $',qte:1},{nom:'Extension de garantie 2 ans',cat:'Service',prix:'79,00 $',qte:1}];}
@@ -375,19 +380,19 @@ c.forEach(function(it,i){var r=tpl.cloneNode(true);r.children[0].innerHTML='<spa
 r.querySelector('[data-plus]').addEventListener('click',function(){it.qte++;setCart(c);window.__renderCart();});r.querySelector('[data-moins]').addEventListener('click',function(){it.qte=Math.max(1,it.qte-1);setCart(c);window.__renderCart();});r.querySelector('[data-suppr]').addEventListener('click',function(){c.splice(i,1);setCart(c);window.__renderCart();toast(it.nom+' retiré du panier',false);});CL.appendChild(r);});
 var inst=document.querySelector('[data-install]');var instP=inst&&inst.checked?0:0;document.querySelector('[data-sous]').textContent=money(sub);document.querySelector('[data-inst]').textContent=inst&&inst.checked?'Incluse':'—';document.querySelector('[data-tps]').textContent=money(sub*0.05);document.querySelector('[data-tvq]').textContent=money(sub*0.09975);document.querySelector('[data-total]').textContent=money(sub*1.14975);renderBadge();};
 var inst=document.querySelector('[data-install]');if(inst)inst.addEventListener('change',window.__renderCart);window.__renderCart();
-document.querySelectorAll('a[href="commande-confirmee.html"]').forEach(function(a){a.addEventListener('click',function(){setCart([]);});});}
+document.querySelectorAll('a[href^="commande-confirmee.html"]').forEach(function(a){a.addEventListener('click',function(){setCart([]);});});}
 if(/commande-confirmee.html$/.test(location.pathname)){setCart([]);}
 var L=document.querySelector('[data-lignes]');if(L){function money(v){return v.toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})+' $';}function num(s){return parseFloat(String(s).replace(/[^0-9,\.]/g,'').replace(',','.'))||0;}
 function calc(){var sub=0;L.querySelectorAll('[data-ligne]').forEach(function(r){var t=num(r.querySelector('[data-qte]').value)*num(r.querySelector('[data-pu]').value);r.querySelector('[data-total]').textContent=money(t);sub+=t;});document.querySelector('[data-sous]').textContent=money(sub);document.querySelector('[data-taxes]').textContent=money(sub*0.14975);document.querySelector('[data-grand]').textContent=money(sub*1.14975);}
 function bind(r){r.querySelector('[data-retirer]').addEventListener('click',function(){r.remove();calc();});r.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc);});}
 L.querySelectorAll('[data-ligne]').forEach(bind);
 document.querySelectorAll('[data-ajouter-ligne]').forEach(function(b){b.addEventListener('click',function(){var items=b.textContent.indexOf('2 lignes')>-1?[['Extension de garantie 2 ans — portable Dre Lavoie','1','79,00 $'],['Dell OptiPlex 7020 Micro — remplacement poste salle 1','1','1 099,00 $']]:[['Article du catalogue','1','0,00 $']];items.forEach(function(it){var r=L.querySelector('[data-ligne]')||document.createElement('div');r=r.cloneNode(true);r.children[0].textContent=it[0];r.querySelector('[data-qte]').value=it[1];r.querySelector('[data-pu]').value=it[2];L.appendChild(r);bind(r);});calc();toast(items.length+' ligne(s) ajoutée(s)',true);});});calc();}
-document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
+document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-sf')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
 b.addEventListener('click',function(){var t=(b.getAttribute('aria-label')||b.textContent).replace(/\s+/g,' ').trim();if(/^(Tout|Postes|Portables|Écrans|Réseau|Services|Concessionnaires|Tous)/.test(t)||/·\s*\d+$/.test(t)||/^(Précédent|Suivant|‹|›)/.test(t)){var g=b.parentNode;[].slice.call(g.children).forEach(function(x){if(x.tagName==='BUTTON'){x.style.background='#FFFFFF';x.style.color='#14202B';x.style.border='1px solid #B8C4CE';x.style.fontWeight='400';}});b.style.background='#14202B';b.style.color='#FFFFFF';b.style.border='0';b.style.fontWeight='600';toast('Filtre « '+t+' » (démonstration : les données sont fictives)',false);return;}
 toast('« '+t+' » — action simulée dans le prototype',false);});});
 })();
 </script><script>
-(function(){if(location.protocol==='file:')return;fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){var mine=document.querySelector('meta[name=build]').content;if(v.build!==mine){try{if(sessionStorage.getItem('reloaded-'+v.build))return;sessionStorage.setItem('reloaded-'+v.build,'1');}catch(e){}location.reload();}}).catch(function(){});})();
+(function(){if(location.protocol==='file:')return;fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){var mine=document.querySelector('meta[name=build]').content;if(v.build!==mine){try{if(sessionStorage.getItem('reloaded-'+v.build))return;sessionStorage.setItem('reloaded-'+v.build,'1');}catch(e){}var u=new URL(location.href);u.searchParams.set('v',v.build);location.replace(u.toString());}}).catch(function(){});})();
 </script>
 </body>
 </html>

@@ -44,6 +44,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Admin — planifier une visite | [admin-visite.html](https://0pixelz.github.io/portail-inventaire-ti/admin-visite.html) |
 | Admin — commandes et soumissions | [admin-commandes.html](https://0pixelz.github.io/portail-inventaire-ti/admin-commandes.html) |
 | Admin — détail d'une commande | [admin-commande.html](https://0pixelz.github.io/portail-inventaire-ti/admin-commande.html) |
+| Admin — suivi des soumissions | [admin-soumissions.html](https://0pixelz.github.io/portail-inventaire-ti/admin-soumissions.html) |
 | Admin — nouvelle soumission | [admin-soumission.html](https://0pixelz.github.io/portail-inventaire-ti/admin-soumission.html) |
 | Admin — catalogue et prix | [admin-catalogue.html](https://0pixelz.github.io/portail-inventaire-ti/admin-catalogue.html) |
 | Admin — utilisateurs et rôles | [utilisateurs.html](https://0pixelz.github.io/portail-inventaire-ti/utilisateurs.html) |
