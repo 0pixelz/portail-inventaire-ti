@@ -104,14 +104,14 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
           <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6B78">#4421</span>
           <h1 style="margin: 0; font-size: 22px; font-weight: 600">Réseau en panne — 14 postes hors ligne</h1>
-          <span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Haute</span>
-          <span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">En cours</span>
+          <span data-badge-prio style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Haute</span>
+          <span data-badge-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">En cours</span>
         </div>
         <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Garderie Les Lucioles · ouvert il y a 2 h par Sophie Côté via le portail client · SLA haute priorité : réponse 1 h <span style="color: #1B6B3A; font-weight: 600">✓ 22 min</span>, résolution 8 h <span style="color: #B4540A; font-weight: 600">reste 5 h 40</span></p>
       </div>
       <div style="display: flex; gap: 10px">
         <button style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Créer une commande</button>
-        <button style="height: 40px; padding: 0 16px; background: #1B6B3A; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF">Résoudre le billet</button>
+        <button  data-resoudre style="white-space: nowrap; height: 40px; padding: 0 16px; background: #1B6B3A; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF">Résoudre le billet</button>
         <div style="position: relative" data-usermenu>
           <button  aria-label="Menu du compte" aria-haspopup="true" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 6px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; cursor: pointer">
             <span style="width: 28px; height: 28px; background: #B4540A; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span>
@@ -137,7 +137,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 
         <section style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #D5DCE2"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Activité</h2><span style="font-size: 12.5px; color: #5B6B78">Le client voit les messages publics, pas les notes internes</span></div>
-          <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 14px">
+          <div data-activite style="padding: 16px 20px; display: flex; flex-direction: column; gap: 14px">
             
               <div style="display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start">
                 <span style="width: 32px; height: 32px; background: #0F6E8C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">SC</span>
@@ -188,6 +188,10 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
               </div>
             
           </div>
+          <div data-resolu-bloc style="display: none; margin: 0 20px 16px; background: #DDF3E4; border: 1px solid #A9DDB9; padding: 12px 14px; flex-direction: column; gap: 4px; font-size: 13.5px">
+            <span style="font-weight: 600; color: #1B6B3A">Billet résolu par Jonathan · aujourd'hui</span>
+            <span style="color: #2A3B49">Le client a reçu un courriel de confirmation et peut rouvrir le billet dans les 7 jours s'il le juge non réglé. Temps total : 2 h 05.</span>
+          </div>
           <div style="border-top: 1px solid #D5DCE2; padding: 14px 20px; display: flex; flex-direction: column; gap: 10px">
             <div style="display: flex; gap: 6px">
               <button style="height: 32px; padding: 0 12px; background: #14202B; color: #FFFFFF; border: 0; font-family: inherit; font-size: 13px; font-weight: 600">Répondre au client</button>
@@ -212,7 +216,8 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div style="display: flex; flex-direction: column; gap: 5px"><label for="as" style="font-size: 12px; font-weight: 600; color: #5B6B78">Assigné à</label><select id="as" style="height: 38px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; background: #FFFFFF; width: 100%"><option>Non assigné</option><option>Jonathan</option><option selected>Samuel</option><option>Karine</option></select></div>
           <div style="display: flex; flex-direction: column; gap: 5px"><label for="ty" style="font-size: 12px; font-weight: 600; color: #5B6B78">Type</label><select id="ty" style="height: 38px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; background: #FFFFFF; width: 100%"><option>Incident</option><option selected>Panne réseau</option><option>Demande</option><option>Remplacement</option><option>Question</option></select></div>
           <div style="display: flex; flex-direction: column; gap: 5px"><label for="vi" style="font-size: 12px; font-weight: 600; color: #5B6B78">Visite planifiée</label><input id="vi" type="text" value="Aujourd'hui 10 h 30 — Samuel" style="height: 38px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; box-sizing: border-box; width: 100%"></div>
-          <button style="height: 38px; background: #14202B; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13.5px; font-weight: 600">Enregistrer</button>
+          <button data-enregistrer style="height: 38px; background: #14202B; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13.5px; font-weight: 600">Enregistrer</button>
+          <span data-saved style="display: none; font-size: 12.5px; color: #1B6B3A; font-weight: 600">✓ Modifications enregistrées</span>
         </section>
 
         <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px; display: flex; flex-direction: column; gap: 10px">
@@ -241,6 +246,16 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 </div>
 
 <script>
+(function(){var KEY='billets-statut',NO='4421';var badge=document.querySelector('[data-badge-statut]'),prioB=document.querySelector('[data-badge-prio]'),btn=document.querySelector('[data-resoudre]'),bloc=document.querySelector('[data-resolu-bloc]'),fil=document.querySelector('[data-activite]'),st=document.getElementById('st'),pr=document.getElementById('pr'),as=document.getElementById('as'),saved=document.querySelector('[data-saved]');
+var MAP={'Ouvert':['ouvert','#E6F1F5','#0B5570'],'En cours':['encours','#FDEBD3','#8A4306'],'En attente client':['attente','#EEF1F4','#5B6B78'],'En attente pièce':['attente','#EEF1F4','#5B6B78'],'Résolu':['resolu','#DDF3E4','#1B6B3A'],'Fermé':['resolu','#EEF1F4','#5B6B78']};
+var PRIO={'Basse':['#EEF1F4','#5B6B78'],'Normale':['#EEF1F4','#2A3B49'],'Haute':['#FBE1E1','#9B1C1C']};
+function store(k){try{var o=JSON.parse(localStorage.getItem(KEY)||'{}');o[NO]=k;localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+function setStatut(label){var m=MAP[label]||MAP['Ouvert'];badge.textContent=label;badge.style.background=m[1];badge.style.color=m[2];st.value=label;var r=label==='Résolu'||label==='Fermé';btn.textContent=r?'Rouvrir le billet':'Résoudre le billet';btn.style.background=r?'#5B6B78':'#1B6B3A';bloc.style.display=r?'flex':'none';store(m[0]);}
+function journal(t){var d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start';d.innerHTML='<span style="width:32px;height:32px;background:#5B6B78;color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center">⚙</span><div style="display:flex;flex-direction:column;gap:6px;background:#F5F7F9;border:1px solid #EEF1F4;padding:10px 12px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:#5B6B78"><span><strong style="color:#14202B">Système</strong> · changement</span><span>à l’instant</span></div><div data-txt style="font-size:14px;line-height:1.5;color:#2A3B49"></div></div>';d.querySelector('[data-txt]').textContent=t;fil.appendChild(d);}
+btn.addEventListener('click',function(){var r=badge.textContent==='Résolu';setStatut(r?'En cours':'Résolu');journal(r?'Billet rouvert par Jonathan.':'Billet résolu par Jonathan · le client est avisé par courriel.');});
+document.querySelector('[data-enregistrer]').addEventListener('click',function(){setStatut(st.value);var p=PRIO[pr.value]||PRIO['Normale'];prioB.textContent=pr.value;prioB.style.background=p[0];prioB.style.color=p[1];journal('Modifications enregistrées : statut '+st.value+' · priorité '+pr.value+' · assigné à '+as.value+'.');saved.style.display='inline';setTimeout(function(){saved.style.display='none';},2500);});
+try{var o=JSON.parse(localStorage.getItem(KEY)||'{}');if(o[NO]==='resolu')setStatut('Résolu');}catch(e){}})();
+</script><script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
 </script>
 </body>

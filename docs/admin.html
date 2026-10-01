@@ -125,18 +125,19 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
     <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
       <div style="background: #FFFFFF; border: 1px solid #D5DCE2; border-top: 3px solid #B4540A; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Billets ouverts</span><span style="font-size: 28px; font-weight: 600; line-height: 1">12</span><span style="font-size: 12px; color: #B4540A">3 haute priorité</span></div>
       <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Non assignés</span><span style="font-size: 28px; font-weight: 600; line-height: 1">4</span><span style="font-size: 12px; color: #5B6B78">dont 2 créés par l'IA</span></div>
-      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Temps de réponse moyen</span><span style="font-size: 28px; font-weight: 600; line-height: 1">2,4 h</span><span style="font-size: 12px; color: #1B6B3A">cible : 4 h</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Résolus ce mois</span><span style="font-size: 28px; font-weight: 600; line-height: 1">64</span><span style="font-size: 12px; color: #1B6B3A">1re réponse : 2,4 h (cible 4 h)</span></div>
       <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Garanties à relancer (30 j)</span><span style="font-size: 28px; font-weight: 600; line-height: 1">17</span><span style="font-size: 12px; color: #5B6B78">chez 6 clients</span></div>
       <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Commandes à traiter</span><span style="font-size: 28px; font-weight: 600; line-height: 1">3</span><span style="font-size: 12px; color: #5B6B78">4 212 $ au total</span></div>
     </div>
 
     <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
       <div style="display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #D5DCE2; align-items: center">
-        <button style="height: 34px; padding: 0 12px; background: #14202B; color: #FFFFFF; border: 0; font-family: inherit; font-size: 13px; font-weight: 600">Ouverts · 12</button>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Mes billets · 5</button>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Non assignés · 4</button>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">En attente client · 2</button>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Fermés</button>
+        <button data-filtre="ouverts" aria-pressed="true" style="height: 34px; padding: 0 12px; background: #14202B; color: #FFFFFF; border: 1px solid #14202B; font-family: inherit; font-size: 13px; font-weight: 600">Ouverts · <span data-count>7</span></button>
+        <button data-filtre="moi" aria-pressed="false" style="height: 34px; padding: 0 12px; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Mes billets · <span data-count>2</span></button>
+        <button data-filtre="nonassigne" aria-pressed="false" style="height: 34px; padding: 0 12px; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Non assignés · <span data-count>2</span></button>
+        <button data-filtre="attente" aria-pressed="false" style="height: 34px; padding: 0 12px; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">En attente client · <span data-count>1</span></button>
+        <button data-filtre="resolus" aria-pressed="false" style="height: 34px; padding: 0 12px; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Résolus · <span data-count>4</span></button>
+        <button data-filtre="tous" aria-pressed="false" style="height: 34px; padding: 0 12px; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Tous</button>
         <label for="rech" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Rechercher</label>
         <input id="rech" type="search" placeholder="Client, équipement, no de série…" style="margin-left: auto; width: 280px; height: 34px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px; box-sizing: border-box">
       </div>
@@ -144,7 +145,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
         <div>No</div><div>Sujet</div><div>Client</div><div>Équipement</div><div>Priorité</div><div>Assigné à</div><div>Statut</div>
       </div>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4421" data-statut="encours" data-tech="Samuel" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4421</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Réseau en panne — 14 postes hors ligne</span><span style="font-size: 12px; color: #5B6B78">Portail client · il y a 2 h</span></div>
           <div>Garderie Les Lucioles</div>
@@ -154,7 +155,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">En cours</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4420" data-statut="ouvert" data-tech="Non assigné" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4420</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Nouvel employé — poste à préparer</span><span style="font-size: 12px; color: #5B6B78">Courriel · il y a 3 h</span></div>
           <div>Comptabilité Marchand</div>
@@ -164,7 +165,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #E6F1F5; color: #0B5570">Ouvert</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4419" data-statut="encours" data-tech="Jonathan" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4419</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Portable ne démarre plus</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · il y a 5 h</span></div>
           <div>Clinique Dentaire Ste-Rose</div>
@@ -174,7 +175,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">En cours</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4418" data-statut="attente" data-tech="Karine" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4418</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Imprimante fait un bruit anormal</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · hier</span></div>
           <div>Clinique Dentaire Ste-Rose</div>
@@ -184,7 +185,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Attente client</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4417" data-statut="ouvert" data-tech="Jonathan" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4417</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Extension de garantie ×2 — soumission</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · hier</span></div>
           <div>Clinique Dentaire Ste-Rose</div>
@@ -194,7 +195,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #E6F1F5; color: #0B5570">Ouvert</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4415" data-statut="ouvert" data-tech="Non assigné" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4415</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Sauvegarde cloud échoue depuis lundi</span><span style="font-size: 12px; color: #5B6B78">Technicien · il y a 2 j</span></div>
           <div>Studio Nord Design</div>
@@ -204,7 +205,7 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #E6F1F5; color: #0B5570">Ouvert</span></div>
         </a>
       
-        <a href="billet.html" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+        <a href="billet.html" data-billet="4412" data-statut="encours" data-tech="Karine" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4412</div>
           <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Écran scintille — en réparation</span><span style="font-size: 12px; color: #5B6B78">Portail client · il y a 5 j</span></div>
           <div>Clinique Dentaire Ste-Rose</div>
@@ -212,6 +213,46 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #2A3B49">Normale</span></div>
           <div style="display: flex; align-items: center; gap: 6px"><span style="width: 22px; height: 22px; background: #6B3FA0; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">KL</span>Karine</div>
           <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">En cours</span></div>
+        </a>
+      
+        <a href="billet.html" data-billet="4410" data-statut="resolu" data-tech="Samuel" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4410</div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Wi-Fi lent dans la salle de réunion</span><span style="font-size: 12px; color: #5B6B78">Portail client · résolu hier</span></div>
+          <div>Studio Nord Design</div>
+          <div style="font-size: 13px; color: #2A3B49">UniFi U6 Pro</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #2A3B49">Normale</span></div>
+          <div style="display: flex; align-items: center; gap: 6px"><span style="width: 22px; height: 22px; background: #1B6B3A; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">SB</span>Samuel</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Résolu</span></div>
+        </a>
+      
+        <a href="billet.html" data-billet="4407" data-statut="resolu" data-tech="Jonathan" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4407</div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Courriels bloqués en sortie</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · résolu il y a 2 j</span></div>
+          <div>Notaires Lacasse &amp; Fils</div>
+          <div style="font-size: 13px; color: #2A3B49">—</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Haute</span></div>
+          <div style="display: flex; align-items: center; gap: 6px"><span style="width: 22px; height: 22px; background: #0F6E8C; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span>Jonathan</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Résolu</span></div>
+        </a>
+      
+        <a href="billet.html" data-billet="4401" data-statut="resolu" data-tech="Assistant IA" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4401</div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Mot de passe Wi-Fi invités</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · résolu le 12 sept.</span></div>
+          <div>Clinique Dentaire Ste-Rose</div>
+          <div style="font-size: 13px; color: #2A3B49">—</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Basse</span></div>
+          <div style="display: flex; align-items: center; gap: 6px"><span style="width: 22px; height: 22px; background: #14202B; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">IA</span>Assistant IA</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Résolu</span></div>
+        </a>
+      
+        <a href="billet.html" data-billet="4396" data-statut="resolu" data-tech="Karine" style="display: grid; grid-template-columns: 52px 2.6fr 1.3fr 1.2fr 80px 1fr 100px; gap: 10px; padding: 11px 14px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 13.5px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">#4396</div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Poste de la caisse ne démarre plus</span><span style="font-size: 12px; color: #5B6B78">Courriel · résolu le 9 sept.</span></div>
+          <div>Atelier Mécanique Dubé</div>
+          <div style="font-size: 13px; color: #2A3B49">OptiPlex 3090</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Haute</span></div>
+          <div style="display: flex; align-items: center; gap: 6px"><span style="width: 22px; height: 22px; background: #6B3FA0; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">KL</span>Karine</div>
+          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Résolu</span></div>
         </a>
       
     </div>
@@ -261,6 +302,13 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
 </div>
 
 <script>
+(function(){var rows=[].slice.call(document.querySelectorAll('[data-billet]'));var tabs=[].slice.call(document.querySelectorAll('[data-filtre]'));
+try{var st=JSON.parse(localStorage.getItem('billets-statut')||'{}');rows.forEach(function(r){var k=st[r.dataset.billet];if(k){r.dataset.statut=k;var b=r.querySelector('div:last-child span');if(b){b.textContent=k==='resolu'?'Résolu':k==='attente'?'Attente client':k==='encours'?'En cours':'Ouvert';b.style.background=k==='resolu'?'#DDF3E4':k==='encours'?'#FDEBD3':k==='attente'?'#EEF1F4':'#E6F1F5';b.style.color=k==='resolu'?'#1B6B3A':k==='encours'?'#8A4306':k==='attente'?'#5B6B78':'#0B5570';}}});}catch(e){}
+function match(r,f){var s=r.dataset.statut,t=r.dataset.tech;if(f==='tous')return true;if(f==='resolus')return s==='resolu';if(f==='ouverts')return s!=='resolu';if(f==='moi')return t==='Jonathan'&&s!=='resolu';if(f==='nonassigne')return t==='Non assigné'&&s!=='resolu';if(f==='attente')return s==='attente';return true;}
+function apply(f){rows.forEach(function(r){r.style.display=match(r,f)?'grid':'none';});tabs.forEach(function(b){var on=b.dataset.filtre===f;b.setAttribute('aria-pressed',on);b.style.background=on?'#14202B':'#FFFFFF';b.style.color=on?'#FFFFFF':'#14202B';b.style.borderColor=on?'#14202B':'#B8C4CE';b.style.fontWeight=on?'600':'400';});}
+tabs.forEach(function(b){var c=b.querySelector('[data-count]');if(c)c.textContent=rows.filter(function(r){return match(r,b.dataset.filtre);}).length;b.addEventListener('click',function(){apply(b.dataset.filtre);});});
+apply('ouverts');})();
+</script><script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
 </script>
 </body>
