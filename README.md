@@ -6,7 +6,7 @@ Portail client de gestion d'inventaire informatique : chaque client a son compte
 
 **https://0pixelz.github.io/portail-inventaire-ti/**
 
-Fonctionne sur ordinateur et iPhone (les pages sont conçues pour 1280 px — sur mobile, pincer pour zoomer).
+Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 
 | Page | Lien |
 |---|---|
@@ -50,7 +50,7 @@ lib/supabase.ts       Client Supabase côté serveur
 ## Prochaines étapes
 
 - [ ] Fixer les tarifs (`[X] $` dans `docs/index.html`, props dans `docs/evaluateur.html`) et le nom d'entreprise
-- [ ] Version mobile du site public et du portail client
+- [x] Version mobile du prototype (règles dans `docs/responsive.css`, injectées dans chaque page)
 - [ ] Pages Next.js : connexion, fiche équipement, billets, admin
 - [ ] Phase 2 : catalogue, panier, commandes → ajout automatique à l'inventaire à la livraison
 - [ ] Streaming des réponses IA et transfert à un technicien
