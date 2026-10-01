@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="build" content="1790824430190">
 <title>Paramètres (admin)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -260,6 +261,8 @@ document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-
 b.addEventListener('click',function(){var t=(b.getAttribute('aria-label')||b.textContent).replace(/\s+/g,' ').trim();if(/^(Tout|Postes|Portables|Écrans|Réseau|Services|Concessionnaires|Tous)/.test(t)||/·\s*\d+$/.test(t)||/^(Précédent|Suivant|‹|›)/.test(t)){var g=b.parentNode;[].slice.call(g.children).forEach(function(x){if(x.tagName==='BUTTON'){x.style.background='#FFFFFF';x.style.color='#14202B';x.style.border='1px solid #B8C4CE';x.style.fontWeight='400';}});b.style.background='#14202B';b.style.color='#FFFFFF';b.style.border='0';b.style.fontWeight='600';toast('Filtre « '+t+' » (démonstration : les données sont fictives)',false);return;}
 toast('« '+t+' » — action simulée dans le prototype',false);});});
 })();
+</script><script>
+(function(){if(location.protocol==='file:')return;fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){var mine=document.querySelector('meta[name=build]').content;if(v.build!==mine){try{if(sessionStorage.getItem('reloaded-'+v.build))return;sessionStorage.setItem('reloaded-'+v.build,'1');}catch(e){}location.reload();}}).catch(function(){});})();
 </script>
 </body>
 </html>

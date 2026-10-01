@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="build" content="1790824430190">
 <title>Chargement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -193,6 +194,8 @@ toast('« '+t+' » — action simulée dans le prototype',false);});});
 </script><script>
 (function(){var go=function(){location.replace('accueil.html');};try{if(sessionStorage.getItem('splash-vu')){go();return;}sessionStorage.setItem('splash-vu','1');}catch(e){}
 var p=document.querySelector('[data-passer]');p.addEventListener('click',function(e){e.preventDefault();go();});setTimeout(go,6200);})();
+</script><script>
+(function(){if(location.protocol==='file:')return;fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){var mine=document.querySelector('meta[name=build]').content;if(v.build!==mine){try{if(sessionStorage.getItem('reloaded-'+v.build))return;sessionStorage.setItem('reloaded-'+v.build,'1');}catch(e){}location.reload();}}).catch(function(){});})();
 </script>
 </body>
 </html>
