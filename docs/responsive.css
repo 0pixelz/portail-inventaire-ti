@@ -51,7 +51,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
   [data-usermenu] { margin-left: auto !important; }
 }
 @media (max-width: 820px) {
-  body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
+  body > div > nav [role=menu] { position: fixed !important; top: 64px !important; z-index: 10001 !important; right: 12px !important; width: 260px !important; }
 }
 @media (max-width: 820px) {
   main, main > *, main form, main form > section, main section { min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; }
@@ -82,4 +82,11 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
   [data-cart] + [data-usermenu] { margin-left: 8px !important; }
   [data-cart-line] { grid-template-columns: 1fr 1fr !important; }
   [data-cart-line] > div:first-child { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 820px) {
+  body > div > nav [data-notif-panel] { position: fixed !important; top: 64px !important; z-index: 10001 !important; left: 12px !important; right: 12px !important; width: auto !important; max-height: calc(100vh - 80px) !important; }
+}
+@media (max-width: 820px) {
+  [data-notif-all] { white-space: nowrap !important; }
+  body > div > nav { position: relative; z-index: 10000; }
 }
