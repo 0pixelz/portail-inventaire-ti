@@ -15,6 +15,9 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Connexion client | [connexion.html](https://0pixelz.github.io/portail-inventaire-ti/connexion.html) |
 | Tableau de bord client + assistant IA | [inventaire.html](https://0pixelz.github.io/portail-inventaire-ti/inventaire.html) |
 | Fiche d'un équipement | [equipement.html](https://0pixelz.github.io/portail-inventaire-ti/equipement.html) |
+| Signaler un problème (client) | [nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/nouveau-billet.html) |
+| Mes billets (client) | [mes-billets.html](https://0pixelz.github.io/portail-inventaire-ti/mes-billets.html) |
+| Suivi d'un billet (client) | [mon-billet.html](https://0pixelz.github.io/portail-inventaire-ti/mon-billet.html) |
 | Catalogue / panier (phase 2) | [commande.html](https://0pixelz.github.io/portail-inventaire-ti/commande.html) |
 | Assistant client — vue détaillée | [assistant.html](https://0pixelz.github.io/portail-inventaire-ti/assistant.html) |
 | Administration + copilote interne | [admin.html](https://0pixelz.github.io/portail-inventaire-ti/admin.html) |

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Commander — catalogue</title>
+<title>Signaler un problème</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -84,10 +84,11 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
       <a href="inventaire.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire</a>
-      <a href="mes-billets.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
+      <a href="mes-billets.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #0F6E8C; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Mes billets</a>
-      <a href="commande.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #0F6E8C; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commander</a>
+      <a href="commande.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px; justify-content: space-between; gap: 12px">
+        <span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commander</span>
+        <span style="font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px; background: #2A3B49; color: #B8C4CE; letter-spacing: 0.05em">BIENTÔT</span></a>
     </div>
     <div style="margin-top: auto; padding: 12px; background: #1F2E3B; display: flex; flex-direction: column; gap: 2px">
       <div style="font-size: 13px; font-weight: 600">Clinique Dentaire Ste-Rose</div>
@@ -96,14 +97,13 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
   </nav>
 
   <main style="flex: 1; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; min-width: 0">
+    <a href="equipement.html" style="font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Retour</a>
     <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 4px">
-        <h1 style="margin: 0; font-size: 26px; font-weight: 600">Commander</h1>
-        <p style="margin: 0; font-size: 14px; color: #5B6B78">Catalogue négocié pour votre organisation · les prix affichés excluent les taxes</p>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 600">Signaler un problème</h1>
+        <p style="margin: 0; font-size: 14px; color: #5B6B78">Un technicien vous répond en moins de 4 h ouvrables (1 h si urgent). Vous suivez tout dans « Mes billets ».</p>
       </div>
       <div style="display: flex; gap: 10px">
-        <button style="height: 40px; padding: 0 16px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Mes commandes</button>
-      
         <div style="position: relative" data-usermenu>
           <button  aria-label="Menu du compte" aria-haspopup="true" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 6px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; cursor: pointer">
             <span style="width: 28px; height: 28px; background: #0F6E8C; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">MT</span>
@@ -114,126 +114,87 @@ section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { posit
             <div style="padding: 12px 14px; border-bottom: 1px solid #EEF1F4; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">Marie Tremblay</span><span style="font-size: 12px; color: #5B6B78">Clinique Dentaire Ste-Rose · Admin</span></div>
             <a href="#profil" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Mon profil</a><a href="#parametres" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Paramètres</a><a href="#notifs" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"></path></svg>Notifications (courriel, SMS)</a><a href="#utilisateurs" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs de mon organisation</a><a href="connexion.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #9B1C1C; text-decoration: none; border-top: 1px solid #EEF1F4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3M21 3v18"></path></svg>Déconnexion</a>
           </div>
-        </div>
-      </div>
+        </div></div>
     </header>
 
-    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start">
-      <div style="display: flex; flex-direction: column; gap: 16px">
-        <div style="display: flex; gap: 8px">
-          <button style="height: 36px; padding: 0 14px; background: #14202B; color: #FFFFFF; border: 0; font-family: inherit; font-size: 13px; font-weight: 600">Tout</button>
-          <button style="height: 36px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Postes</button>
-          <button style="height: 36px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Portables</button>
-          <button style="height: 36px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Écrans</button>
-          <button style="height: 36px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Réseau</button>
-          <button style="height: 36px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Services</button>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/ecran.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Écran</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">LG 27UL500 — 27 po 4K</div>
-                <div style="font-size: 12px; color: #5B6B78">IPS, HDMI ×2, DisplayPort</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">389,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/portable.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Portable</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">Lenovo ThinkPad T14 Gen 5</div>
-                <div style="font-size: 12px; color: #5B6B78">i7, 16 Go, 512 Go, Win 11 Pro</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">1 749,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/poste.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Poste</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">Dell OptiPlex 7020 Micro</div>
-                <div style="font-size: 12px; color: #5B6B78">i5, 16 Go, 256 Go, support VESA</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">1 099,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/ap.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Réseau</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">UniFi U7 Pro — point d’accès</div>
-                <div style="font-size: 12px; color: #5B6B78">Wi-Fi 7, PoE+</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">279,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/garantie.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Service</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">Extension de garantie 2 ans</div>
-                <div style="font-size: 12px; color: #5B6B78">Pièces et main-d’œuvre sur place</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">79,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-            <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-              <img src="img/install.svg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block">
-              <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
-                <div style="font-size: 11px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.05em">Service</div>
-                <div style="font-size: 14px; font-weight: 600; line-height: 1.3">Installation sur place</div>
-                <div style="font-size: 12px; color: #5B6B78">Déplacement, configuration, étiquetage</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px">
-                  <span style="font-size: 16px; font-weight: 600">120,00 $</span>
-                  <button style="height: 34px; padding: 0 12px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Ajouter</button>
-                </div>
-              </div>
-            </div>
-          
-        </div>
-      </div>
-
-      <aside style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 20px; display: flex; flex-direction: column; gap: 14px">
-        <h2 style="margin: 0; font-size: 16px; font-weight: 600">Panier (2)</h2>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
-          <div style="display: flex; justify-content: space-between; gap: 10px"><span>LG 27UL500 <span style="color: #5B6B78">× 1</span></span><span>389,00 $</span></div>
-          <div style="display: flex; justify-content: space-between; gap: 10px"><span>Extension garantie 2 ans <span style="color: #5B6B78">× 1</span></span><span>79,00 $</span></div>
-        </div>
-        <div style="border-top: 1px solid #D5DCE2; padding-top: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 14px">
-          <div style="display: flex; justify-content: space-between"><span style="color: #5B6B78">Sous-total</span><span>468,00 $</span></div>
-          <div style="display: flex; justify-content: space-between"><span style="color: #5B6B78">TPS + TVQ</span><span>70,08 $</span></div>
-          <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 16px"><span>Total</span><span>538,08 $</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start" data-form>
+      <form style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 24px 28px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="eq" style="font-size: 13px; font-weight: 600">Équipement concerné</label>
+          <select id="eq" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option selected>Écran salle 3 — LG 27UL500 (LG27-908ATX)</option><option>Poste réception 1 — Dell OptiPlex 7010</option><option>Portable Dre Lavoie — ThinkPad T14</option><option>Routeur principal — UDM-Pro</option><option>Imprimante admin — Brother MFC-L3780</option><option>Je ne sais pas / plusieurs appareils</option><option>Pas un appareil (courriel, logiciel, accès…)</option></select>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="site" style="font-size: 13px; font-weight: 600">Livrer / installer à</label>
-          <select id="site" style="height: 40px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF"><option>Salle 3 — remplace « Écran salle 3 »</option><option>Réception</option><option>Nouvel emplacement…</option></select>
+          <label for="ty" style="font-size: 13px; font-weight: 600">Quel est le problème ?</label>
+          <select id="ty" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option>Ne s'allume plus / ne démarre pas</option><option selected>Fonctionne mal (lent, écran, bruit…)</option><option>Pas d'Internet ou de réseau</option><option>Impression</option><option>Accès, mot de passe, courriel</option><option>Besoin d'un nouvel appareil ou d'un déplacement</option><option>Autre</option></select>
         </div>
-        <button style="height: 46px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Passer la commande</button>
-        <p style="margin: 0; font-size: 12px; color: #5B6B78">L'équipement livré s'ajoute automatiquement à votre inventaire.</p>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="desc" style="font-size: 13px; font-weight: 600">Décrivez ce qui se passe</label>
+          <textarea id="desc" rows="5" placeholder="Depuis quand ? Qu'avez-vous déjà essayé ? Y a-t-il un message d'erreur ?" style="padding: 10px 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box; width: 100%">L'image scintille par moments depuis hier matin, surtout quand le logiciel de radiographie est ouvert. J'ai vérifié que le câble HDMI est bien branché.</textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 13px; font-weight: 600">Impact sur votre travail</span>
+            <div style="display: flex; gap: 6px" role="radiogroup" aria-label="Impact">
+              <button type="button" style="flex: 1; height: 44px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Je peux travailler</button>
+              <button type="button" style="flex: 1; height: 44px; background: #14202B; color: #FFFFFF; border: 1px solid #14202B; font-family: inherit; font-size: 13px; font-weight: 600">Ça me ralentit</button>
+              <button type="button" style="flex: 1; height: 44px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Je suis bloqué(e)</button>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="tel" style="font-size: 13px; font-weight: 600">Vous joindre</label>
+            <input id="tel" type="tel" value="450 555-0187 (Marie, réception)" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%">
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 600">Photo ou capture d'écran (facultatif)</span>
+          <label for="photo" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 64px; border: 1px dashed #B8C4CE; background: #F5F7F9; font-size: 13.5px; color: #5B6B78; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 15l5-5 4 4 3-3 6 6"></path></svg>Toucher pour ajouter une photo</label>
+          <input id="photo" type="file" accept="image/*" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-top: 1px solid #EEF1F4; padding-top: 16px">
+          <span style="font-size: 13px; color: #5B6B78">Vous recevrez un courriel de confirmation avec le numéro du billet.</span>
+          <button type="button"  data-envoyer style="height: 46px; padding: 0 20px; background: #0F6E8C; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Envoyer le signalement</button>
+        </div>
+      </form>
+
+      <aside style="display: flex; flex-direction: column; gap: 16px">
+        <section style="background: #14202B; color: #FFFFFF; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 10px"><div style="width: 30px; height: 30px; background: #0F6E8C; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg></div><span style="font-size: 14px; font-weight: 600">L'assistant a regardé cet appareil</span></div>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #D5DCE2">L'écran salle 3 est <strong style="color: #FFFFFF">déjà en réparation</strong> (billet #4412, envoyé le 26 sept.). Un écran de prêt est en place. Si le problème concerne l'écran de prêt, continuez ce signalement.</p>
+          <a href="mes-billets.html" style="font-size: 13px; color: #7FC3D8; text-decoration: none; font-weight: 600">Voir le billet #4412 →</a>
+        </section>
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">Essayez d'abord (2 min)</h2>
+          <ol style="margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.6; color: #2A3B49"><li>Débranchez le câble vidéo et rebranchez-le fermement.</li><li>Éteignez l'écran 10 secondes, rallumez.</li><li>Essayez un autre câble si vous en avez un.</li></ol>
+        </section>
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">C'est urgent ?</h2>
+          <span style="color: #2A3B49">Plusieurs postes ou toute la clinique est arrêtée : appelez-nous.</span>
+          <span style="font-weight: 600">[TÉLÉPHONE URGENCE]</span>
+        </section>
       </aside>
     </div>
+
+    <section style="display: none; max-width: 720px; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 32px; flex-direction: column; gap: 16px; align-items: flex-start" data-conf aria-live="polite">
+      <div style="width: 48px; height: 48px; background: #DDF3E4; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg></div>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 600">Billet #4423 créé</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #2A3B49">Merci Marie. Votre signalement « Fonctionne mal — Écran salle 3 » est reçu. Un technicien vous répondra <strong>avant 14 h aujourd'hui</strong>. Un courriel de confirmation vient de vous être envoyé.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: 100%">
+        <div style="background: #F5F7F9; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; color: #5B6B78">Numéro</span><span style="font-weight: 600; font-family: 'IBM Plex Mono', monospace">#4423</span></div>
+        <div style="background: #F5F7F9; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; color: #5B6B78">Priorité</span><span style="font-weight: 600">Normale</span></div>
+        <div style="background: #F5F7F9; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; color: #5B6B78">Statut</span><span style="font-weight: 600; color: #0B5570">Ouvert</span></div>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <a href="mon-billet.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; background: #0F6E8C; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">Suivre mon billet</a>
+        <a href="mes-billets.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid #B8C4CE; color: #14202B; font-size: 14px; text-decoration: none">Tous mes billets</a>
+        <a href="inventaire.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; color: #0F6E8C; font-size: 14px; text-decoration: none">Retour à l'inventaire</a>
+      </div>
+    </section>
   </main>
 </div>
 
 <script>
+(function(){var f=document.querySelector('[data-form]'),c=document.querySelector('[data-conf]');document.querySelector('[data-envoyer]').addEventListener('click',function(){f.style.display='none';c.style.display='flex';window.scrollTo(0,0);});})();
+</script><script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
 </script>
 </body>
