@@ -22,7 +22,8 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Client — mes billets | [mes-billets.html](https://0pixelz.github.io/portail-inventaire-ti/mes-billets.html) |
 | Client — suivi d'un billet | [mon-billet.html](https://0pixelz.github.io/portail-inventaire-ti/mon-billet.html) |
 | Client — plan de remplacement | [plan-remplacement.html](https://0pixelz.github.io/portail-inventaire-ti/plan-remplacement.html) |
-| Client — catalogue / panier | [commande.html](https://0pixelz.github.io/portail-inventaire-ti/commande.html) |
+| Client — panier (gestion, quantités, livraison) | [panier.html](https://0pixelz.github.io/portail-inventaire-ti/panier.html) |
+| Client — catalogue | [commande.html](https://0pixelz.github.io/portail-inventaire-ti/commande.html) |
 | Client — commande confirmée | [commande-confirmee.html](https://0pixelz.github.io/portail-inventaire-ti/commande-confirmee.html) |
 | Client — suivi d'une commande | [ma-commande.html](https://0pixelz.github.io/portail-inventaire-ti/ma-commande.html) |
 | Client — facture (imprimable) | [facture.html](https://0pixelz.github.io/portail-inventaire-ti/facture.html) |
