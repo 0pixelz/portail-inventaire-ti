@@ -6,6 +6,8 @@
   var CFG = window.__ASSIST || { mode: 'client', page: 'index.html' };
   var SITE = window.__SITE || [];
   var LS_KEY = 'claude-cle-api', LS_MODEL = 'claude-modele';
+  var PROXY = (window.__IA_PROXY || '').replace(/\/$/, '');
+  function connecte() { return !!PROXY || !!get(LS_KEY); }
   var CONV_KEY = 'ia-conv-' + CFG.mode;
   var MODELES = [
     ['claude-sonnet-5-5', 'Claude Sonnet 5.5 (recommandé)'],
@@ -146,9 +148,10 @@
   var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
 
   function appel(msgs) {
-    return fetch('https://api.anthropic.com/v1/messages', {
+    var perso = get(LS_KEY);
+    return fetch(perso || !PROXY ? 'https://api.anthropic.com/v1/messages' : PROXY, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': get(LS_KEY), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      headers: perso || !PROXY ? { 'content-type': 'application/json', 'x-api-key': perso, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } : { 'content-type': 'application/json' },
       body: JSON.stringify({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: msgs })
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) {
@@ -189,7 +192,7 @@
     }
     boucle().catch(function (e) {
       messages = messages.slice(0, debut); // annule ce tour
-      var m = e.status === 401 ? 'Clé API refusée. Vérifiez-la dans ⚙ Réglages.' : e.status === 429 ? 'Limite de requêtes atteinte. Réessayez dans un instant.' : e.status === 400 ? 'Requête refusée par l’API : ' + e.message : (e.status ? 'Erreur API (' + e.status + ') : ' + e.message : 'Connexion impossible à l’API Claude (réseau).');
+      var m = e.status === 401 ? (get(LS_KEY) || !PROXY ? 'Clé API refusée. Vérifiez-la dans ⚙ Réglages.' : 'Le service IA est mal configuré (clé refusée). Avisez l’administrateur.') : e.status === 429 ? 'Limite de requêtes atteinte. Réessayez dans un instant.' : e.status === 400 ? 'Requête refusée par l’API : ' + e.message : (e.status ? 'Erreur API (' + e.status + ') : ' + e.message : 'Connexion impossible à l’API Claude (réseau).');
       attente.innerHTML = '<span style="color:#9B1C1C">' + esc(m) + '</span>';
       sauver(messages);
     }).then(function () { occupe = false; });
@@ -206,7 +209,7 @@
     fermer.parentNode.insertBefore(g, fermer);
     // pastille d'état dans le sous-titre
     var sous = panel.querySelector('div > div > span + span');
-    function etat() { if (sous) { var on = !!get(LS_KEY); sous.lastChild.nodeValue = on ? ' Connecté à Claude' : ' Mode démo · ajoutez votre clé ⚙'; var dot = sous.querySelector('span'); if (dot) dot.style.background = on ? '#3FBF7F' : '#E3A008'; } }
+    function etat() { if (sous) { var on = connecte(); sous.lastChild.nodeValue = on ? ' Connecté à Claude' : ' Mode démo · ajoutez votre clé ⚙'; var dot = sous.querySelector('span'); if (dot) dot.style.background = on ? '#3FBF7F' : '#E3A008'; } }
     etat();
 
     var R = document.createElement('div'); R.setAttribute('data-ia-panneau', '');
@@ -218,13 +221,14 @@
       '<span style="font-size:12px;color:#5B6B78;line-height:1.4">La clé reste seulement dans ce navigateur (jamais envoyée ailleurs qu’à api.anthropic.com, jamais dans GitHub). Pour le vrai site, elle sera sur le serveur. Créez une clé dédiée avec une limite de dépenses dans console.anthropic.com.</span>';
     panel.insertBefore(R, fil);
     var ci = R.querySelector('[data-ia-cle]'), ms = R.querySelector('[data-ia-modele]');
+    if (PROXY) { ci.parentNode.style.display = CFG.mode === 'admin' ? 'flex' : 'none'; ci.placeholder = 'Optionnel — le service IA est déjà configuré'; R.querySelector('[data-ia-oublier]').style.display = CFG.mode === 'admin' ? '' : 'none'; R.lastChild.textContent = 'L’assistant est connecté à Claude par le serveur de l’entreprise : aucune clé à saisir.'; }
     g.addEventListener('click', function (e) { e.stopPropagation(); var o = R.style.display !== 'flex'; R.style.display = o ? 'flex' : 'none'; if (o) { ci.value = get(LS_KEY); ms.value = get(LS_MODEL) || MODELES[0][0]; } });
     R.querySelector('[data-ia-ok]').addEventListener('click', function () { var k = ci.value.trim(); if (k && !/^sk-ant-/.test(k)) { window.__toast && window.__toast('Une clé API Claude commence par « sk-ant- »', false); return; } set(LS_KEY, k); set(LS_MODEL, ms.value); R.style.display = 'none'; etat(); window.__toast && window.__toast(k ? 'Assistant connecté à Claude (' + ms.options[ms.selectedIndex].text.split(' (')[0] + ')' : 'Clé retirée — mode démo', !!k); });
     R.querySelector('[data-ia-oublier]').addEventListener('click', function () { set(LS_KEY, ''); ci.value = ''; etat(); R.style.display = 'none'; window.__toast && window.__toast('Clé retirée de ce navigateur — mode démo', false); });
     R.querySelector('[data-ia-vider]').addEventListener('click', function () { messages = []; sauver(messages); [].slice.call(fil.querySelectorAll('[data-ia-hist]')).forEach(function (n) { n.remove(); }); R.style.display = 'none'; window.__toast && window.__toast('Nouvelle conversation', true); });
 
     // réafficher la conversation (après navigation)
-    if (get(LS_KEY) && messages.length) {
+    if (connecte() && messages.length) {
       messages.forEach(function (m) {
         if (typeof m.content === 'string') { bulleMoi(fil, m.content, COL); fil.lastChild.setAttribute('data-ia-hist', ''); }
         else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); if (t && !m.content.some(function (b) { return b.type === 'tool_use'; })) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } else if (t) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } }
@@ -235,7 +239,7 @@
   }
 
   window.__IA = {
-    actif: function () { return !!get(LS_KEY); },
+    actif: function () { return connecte(); },
     envoyer: function (q) { var panel = document.querySelector('section[data-floating]'); var fil = panel.querySelector('div[style*="overflow: auto"]'); envoyer(q, panel, fil); }
   };
   installer();
