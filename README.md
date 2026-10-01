@@ -55,6 +55,22 @@ Les boutons sans page dédiée (ex. « Changer la photo ») affichent un message
 
 > Si le lien donne 404 : **Settings → Pages → Build and deployment → Source : Deploy from a branch → Branch : `main`, dossier `/docs`** → Save. Le site est en ligne 1 à 2 minutes plus tard. GitHub Pages sur un dépôt **privé** exige un compte Pro; sinon rendre le dépôt public (Settings → General → Danger zone → Change visibility) ou glisser le dossier `docs/` sur https://app.netlify.com/drop.
 
+## 🤖 Assistant IA réel (API Claude)
+
+L'assistant flottant (client, admin = Copilote, site public) fonctionne en **mode démo** par défaut. Pour des réponses réelles :
+
+1. Créer une clé sur https://console.anthropic.com (idéalement une clé dédiée avec une limite de dépenses).
+2. Sur n'importe quelle page du prototype, ouvrir l'assistant → icône **⚙** → coller la clé (`sk-ant-…`) → choisir le modèle → **Enregistrer**.
+
+La clé reste **uniquement dans votre navigateur** (localStorage) et n'est envoyée qu'à `api.anthropic.com`; elle n'est jamais dans ce dépôt. L'assistant peut :
+
+- lire n'importe quelle page de son espace (inventaire, billets, commandes, soumissions, catalogue…) pour répondre avec les vraies données du site;
+- ouvrir une page, filtrer la liste affichée, créer un billet, ajouter un produit au panier (client);
+- côté admin (Copilote) : accès à toutes les pages, résumés, soumissions, brouillons de courriels.
+
+Le client ne voit jamais les pages admin (outils et pages filtrés par espace). Code : `docs/assistant-ia.js`.
+En production, la clé doit vivre sur le serveur (`app/api/chat/route.ts`), jamais dans le navigateur des clients.
+
 ## Structure du dépôt
 
 ```

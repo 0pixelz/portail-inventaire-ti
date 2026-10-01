@@ -1,0 +1,242 @@
+/* Assistant IA branché sur l'API Claude (prototype).
+   La clé API est saisie par l'utilisateur dans le panneau ⚙ de l'assistant et reste
+   uniquement dans le navigateur (localStorage). Elle n'est jamais dans le dépôt.
+   En production : passer par un serveur (voir app/api/chat/route.ts). */
+(function () {
+  var CFG = window.__ASSIST || { mode: 'client', page: 'index.html' };
+  var SITE = window.__SITE || [];
+  var LS_KEY = 'claude-cle-api', LS_MODEL = 'claude-modele';
+  var CONV_KEY = 'ia-conv-' + CFG.mode;
+  var MODELES = [
+    ['claude-sonnet-5-5', 'Claude Sonnet 5.5 (recommandé)'],
+    ['claude-haiku-4-5-20251001', 'Claude Haiku 4.5 (rapide, économique)'],
+    ['claude-opus-5-5', 'Claude Opus 5.5 (le plus puissant)']
+  ];
+
+  function get(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+  function set(k, v) { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch (e) {} }
+  function esc(t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  // ---------- Pages accessibles selon l'espace ----------
+  var permis = SITE.filter(function (p) {
+    if (CFG.mode === 'admin') return true;
+    if (CFG.mode === 'client') return p.espace === 'client' || p.espace === 'public';
+    return p.espace === 'public';
+  });
+  var nomsPermis = permis.map(function (p) { return p.page; });
+  function titreDe(f) { for (var i = 0; i < SITE.length; i++) if (SITE[i].page === f) return SITE[i].titre; return f; }
+
+  // ---------- Extraction du texte d'une page ----------
+  var BLOCS = /^(DIV|P|LI|H1|H2|H3|H4|H5|H6|SECTION|HEADER|ARTICLE|TR|LABEL|A|BUTTON|ASIDE|FOOTER|UL|OL|TABLE|FORM)$/;
+  function texteDe(root) {
+    var out = [];
+    (function walk(n) {
+      if (n.nodeType === 3) { out.push(n.nodeValue); return; }
+      if (n.nodeType !== 1) return;
+      var t = n.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'SVG' || t === 'svg' || t === 'NAV') return;
+      if (n.hasAttribute && (n.hasAttribute('data-floating') || n.hasAttribute('data-notif-panel') || n.getAttribute('role') === 'menu' || n.hasAttribute('data-usermenu'))) return;
+      if (t === 'SELECT') { var opts = [].map.call(n.options || [], function (o) { return o.textContent.trim(); }); out.push(' [liste : ' + opts.join(' | ') + '] '); return; }
+      if (t === 'INPUT' || t === 'TEXTAREA') { var v = n.value || n.getAttribute('value') || ''; var ph = n.getAttribute('placeholder') || ''; if (v || ph) out.push(' [' + (v ? 'valeur : ' + v : 'champ : ' + ph) + '] '); return; }
+      if (t === 'IMG') return;
+      var bloc = BLOCS.test(t);
+      if (bloc) out.push('\n');
+      for (var c = n.firstChild; c; c = c.nextSibling) walk(c);
+      if (bloc) out.push('\n'); else out.push(' ');
+    })(root);
+    return out.join('').split('\n').map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).filter(Boolean).join('\n');
+  }
+  function textePageCourante() { return texteDe(document.querySelector('main') || document.body).slice(0, 7000); }
+  var cachePages = {};
+  function lirePage(f) {
+    if (nomsPermis.indexOf(f) < 0) return Promise.resolve('Accès refusé : cette page n’est pas accessible depuis cet espace.');
+    if (f === CFG.page) return Promise.resolve(textePageCourante());
+    if (cachePages[f]) return Promise.resolve(cachePages[f]);
+    return fetch(f + '?v=' + (CFG.build || '')).then(function (r) { return r.text(); }).then(function (html) {
+      html = html.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '');
+      var d = new DOMParser().parseFromString(html, 'text/html');
+      var t = texteDe(d.querySelector('main') || d.body).slice(0, 12000);
+      cachePages[f] = t; return t;
+    }).catch(function () { return 'Impossible de lire la page ' + f + '.'; });
+  }
+
+  // ---------- Actions ----------
+  function majPanierBadges(c) { var n = c.reduce(function (s, x) { return s + (+x.qte || 0); }, 0); document.querySelectorAll('[data-cart-count]').forEach(function (b) { b.textContent = n; b.style.display = n ? '' : 'none'; }); }
+  function panier() { try { var c = JSON.parse(localStorage.getItem('panier')); if (Array.isArray(c)) return c; } catch (e) {} return [{ nom: 'LG 27UL500 — 27 po 4K', cat: 'Écran', prix: '389,00 $', qte: 1 }, { nom: 'Extension de garantie 2 ans', cat: 'Service', prix: '79,00 $', qte: 1 }]; }
+  var navigationEnAttente = null;
+
+  var OUTILS = {
+    lire_page: {
+      def: { name: 'lire_page', description: 'Lit le contenu texte d’une page du portail (inventaire, billets, commandes, soumissions, catalogue, clients, rapports, paramètres…). Utilise-le dès que la réponse dépend de données que tu n’as pas encore. Tu peux l’appeler plusieurs fois.', input_schema: { type: 'object', properties: { page: { type: 'string', enum: nomsPermis, description: 'Nom du fichier de la page' } }, required: ['page'] } },
+      run: function (i) { return lirePage(i.page); }, statut: function (i) { return 'Lecture : ' + titreDe(i.page) + '…'; }
+    },
+    ouvrir_page: {
+      def: { name: 'ouvrir_page', description: 'Ouvre une page du portail pour l’utilisateur (navigation). Utilise-le quand il demande d’aller quelque part, de voir, d’ouvrir ou de remplir un formulaire. La page s’ouvre après ta réponse.', input_schema: { type: 'object', properties: { page: { type: 'string', enum: nomsPermis }, ancre: { type: 'string', description: 'Optionnel : ancre (#…) ou no de série à présélectionner' } }, required: ['page'] } },
+      run: function (i) { if (nomsPermis.indexOf(i.page) < 0) return 'Page non permise.'; navigationEnAttente = i.page + '?v=' + (CFG.build || '') + (i.ancre ? '#' + String(i.ancre).replace(/^#/, '') : ''); return 'La page « ' + titreDe(i.page) + ' » va s’ouvrir après ta réponse.'; },
+      statut: function (i) { return 'Ouverture : ' + titreDe(i.page); }
+    },
+    filtrer_page: {
+      def: { name: 'filtrer_page', description: 'Tape un texte dans le champ de recherche de la page actuelle pour filtrer la liste affichée (no de série, nom, client, emplacement). Texte vide = réinitialiser.', input_schema: { type: 'object', properties: { texte: { type: 'string' } }, required: ['texte'] } },
+      run: function (i) { var r = document.getElementById('rech') || document.querySelector('[data-etq-rech]') || document.querySelector('main input[type=search]'); if (!r) return 'Aucun champ de recherche sur cette page.'; r.value = i.texte || ''; r.dispatchEvent(new Event('input')); return 'Filtre appliqué : « ' + (i.texte || '') + ' ».'; },
+      statut: function () { return 'Filtrage de la liste…'; }
+    },
+    creer_billet: {
+      def: { name: 'creer_billet', description: 'Crée un billet de support. Avant de l’appeler, assure-toi d’avoir l’appareil et une description du problème; demande confirmation si l’utilisateur ne l’a pas clairement demandé.', input_schema: { type: 'object', properties: { appareil: { type: 'string' }, description: { type: 'string' }, priorite: { type: 'string', enum: ['Basse', 'Normale', 'Haute'] }, client: { type: 'string', description: 'Admin seulement : nom du client' } }, required: ['appareil', 'description'] } },
+      run: function (i) {
+        var l = []; try { l = JSON.parse(localStorage.getItem('billets-ia')) || []; } catch (e) {}
+        var no = 4424 + l.length; l.push({ no: no, appareil: i.appareil, description: i.description, priorite: i.priorite || 'Normale', client: i.client || (CFG.mode === 'client' ? 'Clinique Dentaire Ste-Rose' : ''), date: new Date().toISOString() });
+        set('billets-ia', JSON.stringify(l));
+        window.__toast && window.__toast('Billet #' + no + ' créé — ' + i.appareil, true);
+        return 'Billet #' + no + ' créé (priorité ' + (i.priorite || 'Normale') + '). Un technicien est avisé. (Prototype : enregistré dans ce navigateur.)';
+      },
+      statut: function () { return 'Création du billet…'; }
+    },
+    ajouter_au_panier: {
+      def: { name: 'ajouter_au_panier', description: 'Ajoute un produit du catalogue au panier du client. Lis d’abord commande.html pour connaître les produits et prix exacts.', input_schema: { type: 'object', properties: { produit: { type: 'string', description: 'Nom exact du produit tel qu’affiché au catalogue' }, quantite: { type: 'integer', minimum: 1 } }, required: ['produit'] } },
+      run: function (i) {
+        return fetch('commande.html?v=' + (CFG.build || '')).then(function (r) { return r.text(); }).then(function (html) {
+          var d = new DOMParser().parseFromString(html, 'text/html');
+          var prods = [].map.call(d.querySelectorAll('[data-produit]'), function (p) { return { nom: p.getAttribute('data-produit'), prix: p.getAttribute('data-prix'), cat: p.getAttribute('data-cat') }; });
+          var q = i.produit.toLowerCase(), p = prods.filter(function (x) { return x.nom.toLowerCase() === q; })[0] || prods.filter(function (x) { return x.nom.toLowerCase().indexOf(q) > -1 || q.indexOf(x.nom.toLowerCase().split(' —')[0]) > -1; })[0];
+          if (!p) return 'Produit introuvable. Produits disponibles : ' + prods.map(function (x) { return x.nom + ' (' + x.prix + ')'; }).join('; ');
+          var c = panier(), ex = c.filter(function (x) { return x.nom === p.nom; })[0], n = i.quantite || 1;
+          if (ex) ex.qte = (+ex.qte || 0) + n; else c.push({ nom: p.nom, cat: p.cat, prix: p.prix, qte: n });
+          set('panier', JSON.stringify(c)); majPanierBadges(c);
+          window.__toast && window.__toast(n + ' × ' + p.nom + ' ajouté au panier', true);
+          return 'Ajouté : ' + n + ' × ' + p.nom + ' à ' + p.prix + '. Panier : ' + c.map(function (x) { return x.qte + ' × ' + x.nom; }).join(', ') + '.';
+        }).catch(function () { return 'Impossible de lire le catalogue.'; });
+      },
+      statut: function () { return 'Ajout au panier…'; }
+    }
+  };
+  var actifs = CFG.mode === 'public' ? ['lire_page', 'ouvrir_page'] : CFG.mode === 'admin' ? ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet'] : ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'ajouter_au_panier'];
+
+  // ---------- Instructions système ----------
+  function systeme() {
+    var commun = 'Tu es intégré au portail web d’une entreprise québécoise de services TI gérés (MSP) qui s’appelle pour l’instant « [ENTREPRISE] ». ' +
+      'Réponds toujours en français québécois professionnel, de façon brève et directe (l’écran est souvent un iPhone) : 2 à 6 phrases ou une courte liste. ' +
+      'Ne devine jamais une donnée (appareil, no de série, date, prix, statut) : lis la page qui la contient avec lire_page. Si l’info n’existe pas sur le site, dis-le. ' +
+      'Pour diriger l’utilisateur vers une page, écris un lien markdown [Titre](fichier.html) ou utilise ouvrir_page s’il veut y aller. ' +
+      'Aujourd’hui : ' + new Date().toLocaleDateString('fr-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '. ' +
+      'Offre : prix par appareil par mois — Visibilité 8 $, Géré 25 $, Géré + matériel 55 $ (indicatifs); visite d’inventaire gratuite (scan + étiquettes QR, portail prêt en 48 h); remplacement planifié; support en français; aucun verrouillage; reprise et recyclage; spécialité PME 5-50 postes des Laurentides / Rive-Nord et concessionnaires automobiles (DMS, postes F&I, tablettes de diagnostic, Wi-Fi atelier et cour, multi-succursales). ' +
+      'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement.';
+    var role = CFG.mode === 'admin'
+      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. N’envoie jamais rien à un client : propose un brouillon.'
+      : CFG.mode === 'client'
+        ? 'Tu es l’assistant support de Marie Tremblay (administratrice) chez le client Clinique Dentaire Ste-Rose. Tu connais son inventaire, ses billets, ses commandes, soumissions, factures, son plan de remplacement et le catalogue. Tu peux créer un billet, ajouter au panier, filtrer la liste et ouvrir des pages. Tu ne parles jamais des autres clients ni des prix internes. Pour une urgence (toute la clinique arrêtée), recommande d’appeler le support et crée un billet de priorité Haute. Si un problème dépasse tes moyens, propose qu’un technicien prenne le relais.'
+        : 'Tu es l’assistant du site public. Tu expliques les services, les forfaits, la visite gratuite et l’évaluateur de forfait, et tu invites à réserver la visite ou à essayer l’évaluateur. Tu n’as pas accès aux données des clients.';
+    var pages = 'Pages accessibles (fichier — titre) :\n' + permis.map(function (p) { return '- ' + p.page + ' — ' + p.titre; }).join('\n');
+    return commun + '\n\n' + role + '\n\n' + pages + '\n\nPage actuellement ouverte : ' + CFG.page + ' (' + titreDe(CFG.page) + '). Son contenu :\n"""\n' + textePageCourante() + '\n"""';
+  }
+
+  // ---------- Conversation ----------
+  function charger() { try { return JSON.parse(sessionStorage.getItem(CONV_KEY)) || []; } catch (e) { return []; } }
+  function sauver(m) { try { sessionStorage.setItem(CONV_KEY, JSON.stringify(m.slice(-30))); } catch (e) {} }
+  var messages = charger();
+
+  function mdHtml(t) {
+    var h = esc(t);
+    h = h.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    h = h.replace(/\[([^\]]+)\]\(([a-z0-9-]+\.html)(#[^)]*)?\)/gi, function (m, txt, f, a) { return '<a href="' + f + '?v=' + (CFG.build || '') + (a || '') + '" style="color:inherit;font-weight:600">' + txt + '</a>'; });
+    h = h.split('\n').map(function (l) { return /^\s*[-•]\s+/.test(l) ? '<div style="padding-left:12px;text-indent:-10px">• ' + l.replace(/^\s*[-•]\s+/, '') + '</div>' : (/^#+\s/.test(l) ? '<strong>' + l.replace(/^#+\s/, '') + '</strong>' : l); }).join('<br>');
+    return h.replace(/(<\/div>)<br>/g, '$1');
+  }
+  function bulleIA(fil, html) { var d = document.createElement('div'); d.style.cssText = 'align-self:flex-start;max-width:88%;background:#fff;border:1px solid #D5DCE2;padding:10px 12px;overflow-wrap:anywhere'; d.innerHTML = html; fil.appendChild(d); fil.scrollTop = fil.scrollHeight; return d; }
+  function bulleMoi(fil, t, col) { var d = document.createElement('div'); d.style.cssText = 'align-self:flex-end;max-width:85%;background:' + col + ';color:#fff;padding:10px 12px;overflow-wrap:anywhere'; d.textContent = t; fil.appendChild(d); fil.scrollTop = fil.scrollHeight; }
+  var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
+
+  function appel(msgs) {
+    return fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': get(LS_KEY), 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: msgs })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok) { var m = (j && j.error && j.error.message) || ('HTTP ' + r.status); var e = new Error(m); e.status = r.status; throw e; }
+        return j;
+      });
+    });
+  }
+
+  var occupe = false;
+  function envoyer(q, panel, fil) {
+    if (occupe) return; occupe = true;
+    bulleMoi(fil, q, COL);
+    var debut = messages.length;
+    messages.push({ role: 'user', content: q });
+    var attente = bulleIA(fil, '<span style="color:#5B6B78">…</span>');
+    var tours = 0;
+    function boucle() {
+      tours++;
+      return appel(messages).then(function (rep) {
+        messages.push({ role: 'assistant', content: rep.content });
+        var uses = (rep.content || []).filter(function (b) { return b.type === 'tool_use'; });
+        if (rep.stop_reason === 'tool_use' && uses.length && tours < 8) {
+          attente.innerHTML = '<span style="color:#5B6B78">' + esc(uses.map(function (u) { return OUTILS[u.name] ? OUTILS[u.name].statut(u.input || {}) : u.name; }).join(' · ')) + '</span>';
+          return Promise.all(uses.map(function (u) {
+            var o = OUTILS[u.name];
+            var p = o && actifs.indexOf(u.name) > -1 ? Promise.resolve(o.run(u.input || {})) : Promise.resolve('Outil non disponible ici.');
+            return p.then(function (res) { return { type: 'tool_result', tool_use_id: u.id, content: String(res) }; });
+          })).then(function (results) { messages.push({ role: 'user', content: results }); return boucle(); });
+        }
+        var texte = (rep.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim() || 'C’est fait.';
+        attente.innerHTML = mdHtml(texte);
+        fil.scrollTop = fil.scrollHeight;
+        // ne garder que le texte dans l'historique affichable
+        sauver(messages);
+        if (navigationEnAttente) { var u = navigationEnAttente; navigationEnAttente = null; setTimeout(function () { location.href = u; }, 1400); }
+      });
+    }
+    boucle().catch(function (e) {
+      messages = messages.slice(0, debut); // annule ce tour
+      var m = e.status === 401 ? 'Clé API refusée. Vérifiez-la dans ⚙ Réglages.' : e.status === 429 ? 'Limite de requêtes atteinte. Réessayez dans un instant.' : e.status === 400 ? 'Requête refusée par l’API : ' + e.message : (e.status ? 'Erreur API (' + e.status + ') : ' + e.message : 'Connexion impossible à l’API Claude (réseau).');
+      attente.innerHTML = '<span style="color:#9B1C1C">' + esc(m) + '</span>';
+      sauver(messages);
+    }).then(function () { occupe = false; });
+  }
+
+  // ---------- Réglages (⚙) ----------
+  function installer() {
+    var panel = document.querySelector('section[data-floating]'); if (!panel) return;
+    var fermer = panel.querySelector('[aria-label="Fermer l\'assistant"]'); if (!fermer) return;
+    var fil = panel.querySelector('div[style*="overflow: auto"]');
+    var g = document.createElement('button'); g.type = 'button'; g.setAttribute('data-ia-reglages', ''); g.setAttribute('aria-label', 'Réglages de l’assistant'); g.title = 'Réglages (clé API Claude)';
+    g.style.cssText = 'width:32px;height:32px;background:transparent;border:0;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer';
+    g.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>';
+    fermer.parentNode.insertBefore(g, fermer);
+    // pastille d'état dans le sous-titre
+    var sous = panel.querySelector('div > div > span + span');
+    function etat() { if (sous) { var on = !!get(LS_KEY); sous.lastChild.nodeValue = on ? ' Connecté à Claude' : ' Mode démo · ajoutez votre clé ⚙'; var dot = sous.querySelector('span'); if (dot) dot.style.background = on ? '#3FBF7F' : '#E3A008'; } }
+    etat();
+
+    var R = document.createElement('div'); R.setAttribute('data-ia-panneau', '');
+    R.style.cssText = 'display:none;flex-direction:column;gap:10px;padding:14px;background:#fff;border-bottom:1px solid #D5DCE2;font-size:13px;color:#14202B';
+    R.innerHTML = '<strong style="font-size:14px">Assistant IA — réglages</strong>' +
+      '<label style="display:flex;flex-direction:column;gap:4px;font-weight:600">Clé API Claude<input data-ia-cle type="password" autocomplete="off" placeholder="sk-ant-…" style="height:38px;padding:0 10px;border:1px solid #B8C4CE;font:inherit;font-weight:400"></label>' +
+      '<label style="display:flex;flex-direction:column;gap:4px;font-weight:600">Modèle<select data-ia-modele style="height:38px;padding:0 8px;border:1px solid #B8C4CE;font:inherit;font-weight:400;background:#fff">' + MODELES.map(function (m) { return '<option value="' + m[0] + '">' + m[1] + '</option>'; }).join('') + '</select></label>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" data-ia-ok style="height:36px;padding:0 14px;background:' + COL + ';border:0;color:#fff;font:inherit;font-weight:600">Enregistrer</button><button type="button" data-ia-oublier style="height:36px;padding:0 12px;background:#fff;border:1px solid #B8C4CE;font:inherit">Retirer la clé</button><button type="button" data-ia-vider style="height:36px;padding:0 12px;background:#fff;border:1px solid #B8C4CE;font:inherit">Nouvelle conversation</button></div>' +
+      '<span style="font-size:12px;color:#5B6B78;line-height:1.4">La clé reste seulement dans ce navigateur (jamais envoyée ailleurs qu’à api.anthropic.com, jamais dans GitHub). Pour le vrai site, elle sera sur le serveur. Créez une clé dédiée avec une limite de dépenses dans console.anthropic.com.</span>';
+    panel.insertBefore(R, fil);
+    var ci = R.querySelector('[data-ia-cle]'), ms = R.querySelector('[data-ia-modele]');
+    g.addEventListener('click', function (e) { e.stopPropagation(); var o = R.style.display !== 'flex'; R.style.display = o ? 'flex' : 'none'; if (o) { ci.value = get(LS_KEY); ms.value = get(LS_MODEL) || MODELES[0][0]; } });
+    R.querySelector('[data-ia-ok]').addEventListener('click', function () { var k = ci.value.trim(); if (k && !/^sk-ant-/.test(k)) { window.__toast && window.__toast('Une clé API Claude commence par « sk-ant- »', false); return; } set(LS_KEY, k); set(LS_MODEL, ms.value); R.style.display = 'none'; etat(); window.__toast && window.__toast(k ? 'Assistant connecté à Claude (' + ms.options[ms.selectedIndex].text.split(' (')[0] + ')' : 'Clé retirée — mode démo', !!k); });
+    R.querySelector('[data-ia-oublier]').addEventListener('click', function () { set(LS_KEY, ''); ci.value = ''; etat(); R.style.display = 'none'; window.__toast && window.__toast('Clé retirée de ce navigateur — mode démo', false); });
+    R.querySelector('[data-ia-vider]').addEventListener('click', function () { messages = []; sauver(messages); [].slice.call(fil.querySelectorAll('[data-ia-hist]')).forEach(function (n) { n.remove(); }); R.style.display = 'none'; window.__toast && window.__toast('Nouvelle conversation', true); });
+
+    // réafficher la conversation (après navigation)
+    if (get(LS_KEY) && messages.length) {
+      messages.forEach(function (m) {
+        if (typeof m.content === 'string') { bulleMoi(fil, m.content, COL); fil.lastChild.setAttribute('data-ia-hist', ''); }
+        else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); if (t && !m.content.some(function (b) { return b.type === 'tool_use'; })) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } else if (t) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } }
+      });
+      try { if (sessionStorage.getItem('ia-ouvert') === '1') panel.style.display = 'flex'; } catch (e) {}
+    }
+    window.addEventListener('beforeunload', function () { try { sessionStorage.setItem('ia-ouvert', panel.style.display === 'flex' ? '1' : '0'); } catch (e) {} });
+  }
+
+  window.__IA = {
+    actif: function () { return !!get(LS_KEY); },
+    envoyer: function (q) { var panel = document.querySelector('section[data-floating]'); var fil = panel.querySelector('div[style*="overflow: auto"]'); envoyer(q, panel, fil); }
+  };
+  installer();
+})();
