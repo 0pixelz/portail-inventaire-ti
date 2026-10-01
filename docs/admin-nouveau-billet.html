@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nouveau billet (admin)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1F4}
+a{color:#0F6E8C}a:hover{color:#0B5570}
+</style>
+<style>@media (max-width: 820px) {
+  body > div { flex-direction: column !important; min-height: 0 !important; }
+  [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  [style*="padding: 72px 64px"], [style*="padding: 56px 64px"], [style*="padding: 40px"] { padding: 32px 16px !important; }
+  [style*="padding: 18px 64px"], [style*="padding: 24px 64px"] { padding: 14px 16px !important; }
+  [style*="padding: 32px 40px"], [style*="padding: 28px 32px"], [style*="padding: 24px 24px"], [style*="padding: 48px"] { padding: 16px !important; }
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 22px !important; }
+  body > div > header nav { display: none !important; }
+  body > div > header { flex-wrap: wrap !important; gap: 10px !important; }
+  body > div > nav { flex: none !important; width: 100% !important; box-sizing: border-box !important; padding: 12px !important; gap: 12px !important; }
+  body > div > nav > div:nth-child(2) { flex-direction: row !important; overflow-x: auto !important; gap: 6px !important; }
+  body > div > nav > div:nth-child(2) > a { white-space: nowrap !important; flex: none !important; }
+  body > div > nav > div:nth-child(3), body > div > nav > div[style*="margin-top: auto"], body > div > nav > a[style*="margin-top: auto"] { display: none !important; }
+  body > div > aside { flex: none !important; width: 100% !important; border-left: 0 !important; border-top: 1px solid #D5DCE2 !important; }
+  main > header { flex-direction: column !important; align-items: stretch !important; }
+  main > header > div[style*="display: flex; gap: 10px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"], [style*="display: flex; gap: 8px; padding: 10px 14px"], [style*="display: flex; gap: 8px"][style*="height: 36px"] { flex-wrap: wrap !important; }
+  [style*="display: flex; gap: 12px; padding: 14px 16px"] > input, [style*="display: flex; gap: 8px; padding: 10px 14px"] > input { width: 100% !important; margin-left: 0 !important; flex: 1 1 100% !important; }
+  [style*="text-transform: uppercase; letter-spacing: 0.04em"] { display: none !important; }
+  a[href="equipement.html"][style*="grid"] { grid-template-columns: 1fr 1fr !important; padding: 12px 16px !important; }
+  a[href="equipement.html"][style*="grid"] > div:first-child { grid-column: 1 / -1 !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 90px !important; width: auto !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: 50vh !important; }
+  aside[style*="position: sticky"] { position: static !important; }
+  img { max-width: 100% !important; height: auto !important; }
+  form { max-width: 100% !important; }
+  [style*="flex: 0 0 46%"] { flex: none !important; padding: 24px 16px !important; gap: 16px !important; }
+  [style*="flex: 0 0 46%"] > div:last-child { display: none !important; }
+  [style*="display: flex; gap: 8px"] > button[style*="flex: 1"] { min-width: 100% !important; }
+  [style*="display: flex; gap: 12px; align-items: center"] > a { flex: 1 !important; justify-content: center !important; }
+}
+@media (max-width: 820px) {
+  div[style="display: flex; gap: 8px"] { flex-wrap: wrap !important; }
+  body > div > nav { min-width: 0 !important; max-width: 100% !important; overflow: hidden !important; }
+  body > div > nav > div:nth-child(2) { min-width: 0 !important; -webkit-overflow-scrolling: touch; }
+  body > div > main { min-width: 0 !important; max-width: 100% !important; }
+}
+@media (max-width: 820px) {
+  [style*="grid-template-columns: repeat(4, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(5, minmax(0, 1fr))"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px"], [style*="grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"] { grid-template-columns: 1fr 1fr !important; }
+}
+/* Assistant flottant : toujours visible, à toute largeur */
+section[aria-label="Assistant"], button[aria-label="Ouvrir l'assistant"] { position: fixed !important; }
+@media (max-width: 820px) {
+  button[aria-label="Ouvrir l'assistant"] { right: 16px !important; bottom: 16px !important; }
+  section[aria-label="Assistant"] { left: 12px !important; right: 12px !important; bottom: 84px !important; max-height: calc(100vh - 100px) !important; }
+  section[aria-label="Assistant"] > div[style*="height: 330px"] { height: auto !important; max-height: 45vh !important; }
+}
+@media (max-width: 820px) {
+  [data-user-name] { display: none !important; }
+  [data-usermenu] { margin-left: auto !important; }
+}
+@media (max-width: 820px) {
+  body > div > nav [role=menu] { position: fixed !important; top: 60px !important; right: 12px !important; width: 260px !important; }
+}
+</style>
+</head>
+<body>
+
+
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 1000px; display: flex; background: #EEF1F4">
+
+  <nav style="flex: 0 0 200px; background: #0B1218; color: #FFFFFF; padding: 24px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 30px; height: 30px; background: #B4540A; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2-2z"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">[ENTREPRISE]</span><span style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em">ADMINISTRATION</span></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <a href="admin-tableau.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
+      <a href="admin.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; background: #B4540A; color: #FFFFFF; font-weight: 600; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Billets</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #FFFFFF; color: #B4540A">12</span></a>
+      <a href="admin-inventaire.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire (tous)</a>
+      <a href="admin-clients.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Clients</a>
+      <a href="admin-commandes.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commandes</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #2A3B49; color: #FFFFFF">3</span></a>
+      <a href="utilisateurs.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a>
+      <a href="admin-rapports.html" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M10 19v-9M16 19v-5M22 19H2"></path></svg>Rapports</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 11px; color: #7F8F9C; letter-spacing: 0.06em; padding: 0 12px">TECHNICIENS EN LIGNE</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Jonathan (vous)</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #D5DCE2"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Samuel</div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 12px; font-size: 13px; color: #7F8F9C"><span style="width: 8px; height: 8px; background: #5B6B78; display: inline-block"></span>Karine · en route</div>
+    </div>
+    <a href="inventaire.html" style="margin-top: auto; padding: 10px 12px; background: #1F2E3B; color: #D5DCE2; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Voir le portail client</a>
+  </nav>
+
+  <main style="flex: 1; padding: 24px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; min-width: 0">
+    <a href="admin.html" style="font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Tous les billets</a>
+    <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Nouveau billet pour un client</h1>
+        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Quand le client appelle, écrit ou vous le dit sur place — vous créez le billet à sa place, il le voit aussitôt dans son portail.</p>
+      </div>
+      <div style="display: flex; gap: 10px">
+        <div style="position: relative" data-usermenu>
+          <button  aria-label="Menu du compte" aria-haspopup="true" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 6px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; cursor: pointer">
+            <span style="width: 28px; height: 28px; background: #B4540A; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">JP</span>
+            <span data-user-name style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15"><span style="font-size: 13px; font-weight: 600; color: #14202B; white-space: nowrap">Jonathan Plouffe</span><span style="font-size: 11px; color: #5B6B78; white-space: nowrap">Propriétaire · Administration</span></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6B78" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div role="menu" style="display: none; position: absolute; right: 0; top: 46px; width: 240px; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 10px 24px rgba(20,32,43,0.14); z-index: 20; flex-direction: column">
+            <div style="padding: 12px 14px; border-bottom: 1px solid #EEF1F4; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">Jonathan Plouffe</span><span style="font-size: 12px; color: #5B6B78">Propriétaire · Administration</span></div>
+            <a href="#profil" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Mon profil</a><a href="#parametres" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Paramètres de l'entreprise</a><a href="utilisateurs.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a><a href="#facturation" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #14202B; text-decoration: none; border-top: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path></svg>Facturation et forfaits</a><a href="connexion.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 14px; color: #9B1C1C; text-decoration: none; border-top: 1px solid #EEF1F4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17l5-5-5-5M15 12H3M21 3v18"></path></svg>Déconnexion</a>
+          </div>
+        </div></div>
+    </header>
+
+    <div style="display: grid; grid-template-columns: 1fr 360px; gap: 18px; align-items: start" data-form>
+      <form style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 22px 26px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="cli" style="font-size: 13px; font-weight: 600">Client</label>
+            <select id="cli" onChange="" data-client style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%">
+              <option value="lucioles" selected>Garderie Les Lucioles</option><option value="sterose">Clinique Dentaire Ste-Rose</option><option value="marchand">Comptabilité Marchand</option><option value="nord">Studio Nord Design</option>
+            </select>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="src" style="font-size: 13px; font-weight: 600">Reçu par</label>
+            <select id="src" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option selected>Téléphone</option><option>Courriel</option><option>Sur place</option><option>Texto</option></select>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="eq" style="font-size: 13px; font-weight: 600">Équipement concerné <span style="font-weight: 400; color: #5B6B78">— inventaire de Garderie Les Lucioles (18 appareils)</span></label>
+          <select id="eq" onChange="" data-equip style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%">
+            <option value="udm" selected>Routeur principal — UDM-Pro (UDMP-91C2A0) · Local technique</option><option value="u6">Point d'accès salle 2 — UniFi U6 Pro · Salle 2</option><option value="p1">Poste direction — OptiPlex 7010 · Bureau direction</option><option value="tab">Tablettes éducatrices (×6) — iPad 9e gén. · Salles 1-3</option>
+            <option value="aucun">Aucun équipement précis / plusieurs</option>
+          </select>
+          <div data-equip-info style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: #5B6B78; padding: 8px 10px; background: #F5F7F9; border: 1px solid #EEF1F4"><span>État : <strong style="color: #8A4306">En réparation</strong></span><span>Garantie : <strong style="color: #14202B">2027-05-12</strong></span><span>Historique : <strong style="color: #14202B">2 incidents en 6 mois</strong></span></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="ty" style="font-size: 13px; font-weight: 600">Type</label><select id="ty" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option>Incident</option><option>Panne réseau</option><option>Demande</option><option>Remplacement</option><option>Question</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="pr" style="font-size: 13px; font-weight: 600">Priorité</label><select id="pr" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option>Basse</option><option selected>Normale</option><option>Haute</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="as" style="font-size: 13px; font-weight: 600">Assigné à</label><select id="as" style="height: 44px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF; width: 100%"><option>Non assigné</option><option selected>Jonathan (moi)</option><option>Samuel</option><option>Karine</option></select></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="suj" style="font-size: 13px; font-weight: 600">Sujet</label>
+          <input id="suj" type="text" placeholder="Ex. : Le poste de la réception redémarre tout seul" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="desc" style="font-size: 13px; font-weight: 600">Description <span style="font-weight: 400; color: #5B6B78">— visible par le client</span></label>
+          <textarea id="desc" rows="4" placeholder="Ce que le client a décrit, depuis quand, ce qui a été essayé…" style="padding: 10px 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box; width: 100%"></textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="note" style="font-size: 13px; font-weight: 600">Note interne <span style="font-weight: 400; color: #5B6B78">— invisible pour le client</span></label>
+          <textarea id="note" rows="2" placeholder="Pièce à apporter, mot de passe du local, hypothèse…" style="padding: 10px 12px; border: 1px solid #F0D9B5; background: #FFF8EE; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box; width: 100%"></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="vi" style="font-size: 13px; font-weight: 600">Visite planifiée (facultatif)</label><input id="vi" type="text" placeholder="Ex. : jeudi 2 oct., 13 h" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box; width: 100%"></div>
+          <div style="display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; font-size: 13.5px; color: #2A3B49">
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" checked style="width: 16px; height: 16px"> Envoyer la confirmation au client (direction@…)</label>
+            <label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" style="width: 16px; height: 16px"> Aussi par texto (450 555-0142)</label>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #EEF1F4; padding-top: 16px">
+          <a href="admin.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border: 1px solid #B8C4CE; color: #14202B; font-size: 14px; text-decoration: none">Annuler</a>
+          <button type="button"  data-creer style="height: 44px; padding: 0 20px; background: #B4540A; border: 0; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Créer le billet</button>
+        </div>
+      </form>
+
+      <aside style="display: flex; flex-direction: column; gap: 16px">
+        <section data-client-card style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 600">Garderie Les Lucioles</h2>
+          <span data-c-forfait style="color: #5B6B78">Géré + matériel · 18 appareils · 2 billet(s) ouvert(s)</span>
+          <div style="display: flex; flex-direction: column; gap: 2px; padding-top: 6px; border-top: 1px solid #EEF1F4"><span data-c-contact style="font-weight: 600">Sophie Côté</span><span data-c-coord style="color: #5B6B78">450 555-0142 · direction@…</span></div>
+          <div style="display: flex; gap: 6px"><a href="admin-clients.html" style="flex: 1; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #B8C4CE; font-size: 12.5px; color: #14202B; text-decoration: none">Fiche client</a><a href="inventaire.html" style="flex: 1; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #B8C4CE; font-size: 12.5px; color: #14202B; text-decoration: none">Son portail</a></div>
+        </section>
+        <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 600">Inventaire du client</h2>
+          
+            <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #EEF1F4"><span style="color: #2A3B49">Routeur principal</span><span style="font-weight: 600; color: #8A4306; white-space: nowrap">En réparation</span></div>
+          
+            <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #EEF1F4"><span style="color: #2A3B49">Point d'accès salle 2</span><span style="font-weight: 600; color: #1B6B3A; white-space: nowrap">Actif</span></div>
+          
+            <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #EEF1F4"><span style="color: #2A3B49">Poste direction</span><span style="font-weight: 600; color: #1B6B3A; white-space: nowrap">Actif</span></div>
+          
+            <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #EEF1F4"><span style="color: #2A3B49">Tablettes éducatrices (×6)</span><span style="font-weight: 600; color: #1B6B3A; white-space: nowrap">Actif</span></div>
+          
+          <a href="admin-inventaire.html" style="font-size: 13px; text-decoration: none; font-weight: 600">Voir les 18 appareils →</a>
+        </section>
+        <section style="background: #E6F1F5; border: 1px solid #B9D6E1; padding: 14px 16px; font-size: 13px; color: #2A3B49; display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E8C" stroke-width="2" style="flex: none; margin-top: 2px"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg><span>Le copilote peut remplir le sujet et la description à partir d'un courriel collé ou d'un résumé d'appel. Collez le texte dans la description et cliquez « Rédiger avec le copilote » (à venir).</span></section>
+      </aside>
+    </div>
+
+    <section style="display: none; max-width: 720px; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 32px; flex-direction: column; gap: 16px; align-items: flex-start" data-conf aria-live="polite">
+      <div style="width: 48px; height: 48px; background: #DDF3E4; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1B6B3A" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg></div>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 600">Billet #4424 créé pour <span data-conf-client>Garderie Les Lucioles</span></h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #2A3B49">Le client reçoit un courriel de confirmation et voit le billet dans « Mes billets ». Il est assigné à <strong data-conf-as>Jonathan</strong>, priorité <strong data-conf-pr>Normale</strong>.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <a href="billet.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; background: #B4540A; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">Ouvrir le billet</a>
+        <a href="admin.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid #B8C4CE; color: #14202B; font-size: 14px; text-decoration: none">Tous les billets</a>
+        <a href="admin-nouveau-billet.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; color: #0F6E8C; font-size: 14px; text-decoration: none">Créer un autre billet</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){var DATA=[{"id":"lucioles","nom":"Garderie Les Lucioles","forfait":"Géré + matériel","nb":18,"contact":"Sophie Côté","tel":"450 555-0142","courriel":"direction@…","ouverts":2,"equips":[{"id":"udm","nom":"Routeur principal — UDM-Pro (UDMP-91C2A0)","lieu":"Local technique","etat":"En réparation","gar":"2027-05-12","hist":"2 incidents en 6 mois"},{"id":"u6","nom":"Point d'accès salle 2 — UniFi U6 Pro","lieu":"Salle 2","etat":"Actif","gar":"2028-01-20","hist":"aucun incident"},{"id":"p1","nom":"Poste direction — OptiPlex 7010","lieu":"Bureau direction","etat":"Actif","gar":"2026-11-30","hist":"garantie expire dans 60 j"},{"id":"tab","nom":"Tablettes éducatrices (×6) — iPad 9e gén.","lieu":"Salles 1-3","etat":"Actif","gar":"2026-08-01","hist":"hors garantie"}]},{"id":"sterose","nom":"Clinique Dentaire Ste-Rose","forfait":"Géré","nb":42,"contact":"Marie Tremblay","tel":"450 555-0187","courriel":"marie.tremblay@…","ouverts":4,"equips":[{"id":"e3","nom":"Écran salle 3 — LG 27UL500 (LG27-908ATX)","lieu":"Salle 3","etat":"En réparation","gar":"2026-10-19","hist":"billet #4412 ouvert"},{"id":"t14","nom":"Portable Dre Lavoie — ThinkPad T14 (PF3R8Q1L)","lieu":"Bureau 2","etat":"En réparation","gar":"2026-11-02","hist":"billet #4419 ouvert"},{"id":"rec","nom":"Poste réception 1 — OptiPlex 7010 (DL7010-4K2M9)","lieu":"Réception","etat":"Actif","gar":"2027-03-14","hist":"aucun incident"},{"id":"imp","nom":"Imprimante salle 2 — Brother HL-L2460","lieu":"Salle 2","etat":"Actif","gar":"2026-12-21","hist":"billet #4418 ouvert"},{"id":"rt","nom":"Routeur principal — UDM-Pro (UDMP-7C1A44)","lieu":"Local technique","etat":"Actif","gar":"2028-01-08","hist":"aucun incident"}]},{"id":"marchand","nom":"Comptabilité Marchand","forfait":"Visibilité","nb":9,"contact":"Pierre Marchand","tel":"450 555-0163","courriel":"pierre@…","ouverts":1,"equips":[{"id":"c2","nom":"Poste comptable 2 — OptiPlex 7010 (DL7010-77QX2)","lieu":"Bureau fermé","etat":"Actif","gar":"2026-12-15","hist":"garantie expire dans 75 j"},{"id":"c1","nom":"Poste comptable 1 — OptiPlex 7010","lieu":"Bureau ouvert","etat":"Actif","gar":"2026-12-15","hist":"aucun incident"},{"id":"sw","nom":"Commutateur 8 ports — UniFi Lite","lieu":"Placard","etat":"Actif","gar":"2027-04-02","hist":"aucun incident"}]},{"id":"nord","nom":"Studio Nord Design","forfait":"Géré","nb":14,"contact":"Julie D.","tel":"450 555-0121","courriel":"julie@…","ouverts":1,"equips":[{"id":"nas","nom":"NAS sauvegardes — Synology DS923+ (SYN-2240KD)","lieu":"Salle serveur","etat":"Actif","gar":"2027-08-30","hist":"billet #4415 ouvert (sauvegarde)"},{"id":"mac","nom":"iMac design 1 — iMac 24 po","lieu":"Poste 1","etat":"Actif","gar":"2027-02-10","hist":"aucun incident"},{"id":"ap","nom":"Point d'accès réunion — UniFi U6 Pro","lieu":"Salle de réunion","etat":"Actif","gar":"2028-03-15","hist":"billet #4410 résolu hier"}]}];var cli=document.querySelector('[data-client]'),eq=document.querySelector('[data-equip]'),info=document.querySelector('[data-equip-info]'),card=document.querySelector('[data-client-card]');
+function colr(e){return e==='En réparation'?'#8A4306':'#1B6B3A';}
+function renderEquip(){var c=DATA.find(function(x){return x.id===cli.value;});var e=c.equips.find(function(x){return x.id===eq.value;});if(!e){info.style.display='none';return;}info.style.display='flex';info.innerHTML='<span>État : <strong style="color:'+colr(e.etat)+'">'+e.etat+'</strong></span><span>Garantie : <strong style="color:#14202B">'+e.gar+'</strong></span><span>Historique : <strong style="color:#14202B">'+e.hist+'</strong></span>';}
+function renderClient(){var c=DATA.find(function(x){return x.id===cli.value;});eq.innerHTML=c.equips.map(function(e){return '<option value="'+e.id+'">'+e.nom+' · '+e.lieu+'</option>';}).join('')+'<option value="aucun">Aucun équipement précis / plusieurs</option>';
+var lab=document.querySelector('label[for=eq] span');if(lab)lab.textContent='— inventaire de '+c.nom+' ('+c.nb+' appareils)';
+card.querySelector('h2').textContent=c.nom;card.querySelector('[data-c-forfait]').textContent=c.forfait+' · '+c.nb+' appareils · '+c.ouverts+' billet(s) ouvert(s)';card.querySelector('[data-c-contact]').textContent=c.contact;card.querySelector('[data-c-coord]').textContent=c.tel+' · '+c.courriel;
+var inv=card.nextElementSibling;var rows=inv.querySelectorAll('div');rows.forEach(function(r){r.remove();});var a=inv.querySelector('a');c.equips.forEach(function(e){var d=document.createElement('div');d.style.cssText='display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px solid #EEF1F4';d.innerHTML='<span style="color:#2A3B49"></span><span style="font-weight:600;white-space:nowrap"></span>';d.children[0].textContent=e.nom.split(' — ')[0];d.children[1].textContent=e.etat;d.children[1].style.color=colr(e.etat);inv.insertBefore(d,a);});a.textContent='Voir les '+c.nb+' appareils →';
+document.querySelectorAll('label input[type=checkbox]').forEach(function(cb,i){cb.parentNode.lastChild.textContent=i===0?' Envoyer la confirmation au client ('+c.courriel+')':' Aussi par texto ('+c.tel+')';});
+renderEquip();}
+cli.addEventListener('change',renderClient);eq.addEventListener('change',renderEquip);
+document.querySelector('[data-creer]').addEventListener('click',function(){var c=DATA.find(function(x){return x.id===cli.value;});document.querySelector('[data-conf-client]').textContent=c.nom;document.querySelector('[data-conf-as]').textContent=document.getElementById('as').value.replace(' (moi)','');document.querySelector('[data-conf-pr]').textContent=document.getElementById('pr').value;document.querySelector('[data-form]').style.display='none';document.querySelector('[data-conf]').style.display='flex';window.scrollTo(0,0);});})();
+</script><script>
+(function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){row.appendChild(um);um.style.marginLeft='auto';}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
+</script>
+</body>
+</html>

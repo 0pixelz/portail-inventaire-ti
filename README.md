@@ -28,6 +28,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Admin — commandes et soumissions | [admin-commandes.html](https://0pixelz.github.io/portail-inventaire-ti/admin-commandes.html) |
 | Admin — rapports | [admin-rapports.html](https://0pixelz.github.io/portail-inventaire-ti/admin-rapports.html) |
 | Admin — gestion d'un billet | [billet.html](https://0pixelz.github.io/portail-inventaire-ti/billet.html) |
+| Admin — nouveau billet pour un client | [admin-nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/admin-nouveau-billet.html) |
 
 > Si le lien donne 404 : **Settings → Pages → Build and deployment → Source : Deploy from a branch → Branch : `main`, dossier `/docs`** → Save. Le site est en ligne 1 à 2 minutes plus tard. GitHub Pages sur un dépôt **privé** exige un compte Pro; sinon rendre le dépôt public (Settings → General → Danger zone → Change visibility) ou glisser le dossier `docs/` sur https://app.netlify.com/drop.
 
