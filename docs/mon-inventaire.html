@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="build" content="1790826082070">
-<title>Facture F-2026-0198</title>
+<title>Mon inventaire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -140,7 +140,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
 <body>
 
 
-<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 900px; display: flex; background: #EEF1F4">
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 1000px; display: flex; background: #EEF1F4; position: relative">
 
   <nav style="flex: 0 0 232px; background: #14202B; color: #FFFFFF; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
     <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
@@ -152,7 +152,7 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
     <div style="display: flex; flex-direction: column; gap: 4px">
       <a href="inventaire.html?v=1790826082070" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
-      <a href="mon-inventaire.html?v=1790826082070" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
+      <a href="mon-inventaire.html?v=1790826082070" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #0F6E8C; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire</a>
       <a href="mes-billets.html?v=1790826082070" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Mes billets</a>
@@ -166,15 +166,16 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
     </div>
   </nav>
 
-  <main style="flex: 1; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; min-width: 0">
-    <a href="mes-commandes.html?v=1790826082070" style="font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Mes commandes</a>
+  <main style="flex: 1; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; min-width: 0">
     <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 4px">
-        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Facture F-2026-0198</h1>
-        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Commande C-104 · 2 × ThinkPad T14, 2 × station d'accueil · payée</p>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 600">Inventaire</h1>
+        <p style="margin: 0; font-size: 14px; color: #5B6B78">Équipements en place chez Clinique Dentaire Ste-Rose · mis à jour le 29 sept. 2026</p>
       </div>
       <div style="display: flex; gap: 10px">
-        <button type="button" data-print style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Imprimer / PDF</button><button type="button" data-save data-save-msg="Facture F-2026-0198 envoyée à marie.tremblay@…" style="height: 40px; padding: 0 16px; background: #0F6E8C; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF">Envoyer par courriel</button>
+        <button data-export-csv="inventaire-clinique-ste-rose" style="height: 40px; padding: 0 16px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Exporter (CSV)</button>
+        <a href="nouveau-billet.html?v=1790826082070" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; background: #0F6E8C; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">Signaler un problème</a>
+      
         <div style="position: relative" data-notifmenu>
           <button data-notif-btn aria-label="Notifications" aria-haspopup="true" style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"></path></svg><span data-notif-count style="position: absolute; top: -7px; right: -7px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: #9B1C1C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #FFFFFF">3</span></button>
           <div role="menu" data-notif-panel style="display: none; color: #14202B; position: absolute; right: 0; top: 46px; width: 380px; max-height: 70vh; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 10px 24px rgba(20,32,43,0.14); z-index: 20; flex-direction: column; overflow: hidden">
@@ -197,43 +198,192 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
         </div>
       </div>
     </header>
-    <section data-facture style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 36px 40px; display: flex; flex-direction: column; gap: 24px; max-width: 860px">
-      <div style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap">
-        <div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; align-items: center; gap: 10px"><div style="width: 36px; height: 36px; background: #0F6E8C; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M8 20h8M12 16v4"></path></svg></div><span style="font-size: 20px; font-weight: 700">[ENTREPRISE]</span></div><span style="font-size: 13px; color: #5B6B78; line-height: 1.5">[ADRESSE]<br>[TÉLÉPHONE] · facturation@…<br>TPS [NO TPS] · TVQ [NO TVQ]</span></div>
-        <div style="display: flex; flex-direction: column; gap: 4px; text-align: right"><span style="font-size: 26px; font-weight: 600">Facture</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px">F-2026-0198</span><span style="font-size: 13px; color: #5B6B78">Émise le 22 août 2026 · Échéance 21 sept. 2026</span><span style="display: inline-block; align-self: flex-end; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Payée le 1er sept. 2026</span></div>
+
+
+    <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
+      <div style="display: flex; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #D5DCE2; align-items: center">
+        <label for="rech" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Rechercher</label>
+        <div data-search-wrap style="display: flex; flex: 1; min-width: 0"><input id="rech" type="search" placeholder="Rechercher (nom, no de série, emplacement…)" style="flex: 1; height: 40px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"><button type="button" data-scan aria-label="Scanner le code QR d'un appareil" title="Scanner un code QR" style="flex: none; width: 44px; height: 40px; background: #FFFFFF; border: 1px solid #B8C4CE; border-left: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F6E8C" stroke-width="2"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"></path><rect x="7" y="7" width="4" height="4"></rect><rect x="13" y="7" width="4" height="4"></rect><rect x="7" y="13" width="4" height="4"></rect><path d="M13 13h2v2h2v2h-4z"></path></svg></button></div>
+        <label for="cat" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Catégorie</label>
+        <select id="cat" style="height: 40px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF"><option>Toutes les catégories</option><option>Postes de travail</option><option>Portables</option><option>Écrans</option><option>Réseau</option><option>Imprimantes</option></select>
+        <label for="etat" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">État</label>
+        <select id="etat" style="height: 40px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; background: #FFFFFF"><option>Tous les états</option><option>Actif</option><option>En réparation</option><option>Retiré</option></select>
       </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 13.5px; line-height: 1.5">
-        <div><span style="font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em">Facturé à</span><br><strong>Clinique Dentaire Ste-Rose</strong><br>123 boul. Ste-Rose, Laval (Québec)<br>Marie Tremblay · marie.tremblay@…</div>
-        <div><span style="font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em">Référence</span><br>Commande C-104 · Soumission S-039<br>Livraison et installation : 22 août 2026<br>Forfait Géré · 42 appareils</div>
+      <div style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 10px 16px; font-size: 12px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D5DCE2">
+        <div>Équipement</div><div>Catégorie</div><div>No de série</div><div>Emplacement</div><div>Garantie</div><div>État</div>
       </div>
-      <div style="display: flex; flex-direction: column">
-        <div style="display: grid; grid-template-columns: 2.6fr 1.4fr 60px 1fr 1fr; gap: 10px; padding: 8px 0; font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D5DCE2"><div>Description</div><div>No de série</div><div>Qté</div><div>Prix unitaire</div><div>Montant</div></div>
-        <div style="display: grid; grid-template-columns: 2.6fr 1.4fr 60px 1fr 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 13.5px"><div style="font-weight: 500">2 × Lenovo ThinkPad T14 Gen 5 — i7, 16 Go, 512 Go</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5B6B78">PF3R8Q1L, PF3R8Q1M</div><div>2</div><div>1 749,00 $</div><div style="font-weight: 600">3 498,00 $</div></div><div style="display: grid; grid-template-columns: 2.6fr 1.4fr 60px 1fr 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 13.5px"><div style="font-weight: 500">2 × Station d'accueil ThinkPad USB-C</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5B6B78">—</div><div>2</div><div>229,00 $</div><div style="font-weight: 600">458,00 $</div></div><div style="display: grid; grid-template-columns: 2.6fr 1.4fr 60px 1fr 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid #EEF1F4; font-size: 13.5px"><div style="font-weight: 500">Installation et migration des données (2 postes)</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5B6B78">22 août 2026 · Samuel</div><div>1</div><div>240,00 $</div><div style="font-weight: 600">240,00 $</div></div>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Poste réception 1</span><span style="font-size: 12px; color: #5B6B78">Dell OptiPlex 7010</span></div>
+          <div>Poste de travail</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DL7010-4K2M9</div>
+          <div>Réception</div>
+          <div style="color: #14202B">2027-03-14</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Portable Dre Lavoie</span><span style="font-size: 12px; color: #5B6B78">Lenovo ThinkPad T14</span></div>
+          <div>Portable</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">PF3R8Q1L</div>
+          <div>Bureau 2</div>
+          <div style="color: #B4540A">2026-11-02</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Écran salle 3</span><span style="font-size: 12px; color: #5B6B78">LG 27UL500</span></div>
+          <div>Écran</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">LG27-908ATX</div>
+          <div>Salle 3</div>
+          <div style="color: #B4540A">2026-10-19</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #FDEBD3; color: #8A4306">En réparation</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Routeur principal</span><span style="font-size: 12px; color: #5B6B78">Ubiquiti UDM-Pro</span></div>
+          <div>Réseau</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">UDMP-7C1A44</div>
+          <div>Local technique</div>
+          <div style="color: #14202B">2028-01-08</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Imprimante admin</span><span style="font-size: 12px; color: #5B6B78">Brother MFC-L3780</span></div>
+          <div>Imprimante</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">BR-U65221</div>
+          <div>Administration</div>
+          <div style="color: #14202B">2027-06-30</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Commutateur 24 ports</span><span style="font-size: 12px; color: #5B6B78">UniFi Switch 24 PoE</span></div>
+          <div>Réseau</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">USW24-3F9B10</div>
+          <div>Local technique</div>
+          <div style="color: #14202B">2027-12-01</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Poste salle 1</span><span style="font-size: 12px; color: #5B6B78">Dell OptiPlex 7010</span></div>
+          <div>Poste de travail</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DL7010-2B8N4</div>
+          <div>Salle 1</div>
+          <div style="color: #14202B">2027-03-14</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Poste salle 2</span><span style="font-size: 12px; color: #5B6B78">Dell OptiPlex 7010</span></div>
+          <div>Poste de travail</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DL7010-9H3T1</div>
+          <div>Salle 2</div>
+          <div style="color: #14202B">2027-03-14</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Poste réception 2</span><span style="font-size: 12px; color: #5B6B78">HP ProDesk 400 G7</span></div>
+          <div>Poste de travail</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">HPD400-5XQ21</div>
+          <div>Réception</div>
+          <div style="color: #B4540A">2026-12-08</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Portable hygiéniste</span><span style="font-size: 12px; color: #5B6B78">Dell Latitude 5440</span></div>
+          <div>Portable</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DLAT-7Q2K8</div>
+          <div>Salle 2</div>
+          <div style="color: #14202B">2028-04-11</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Écran réception</span><span style="font-size: 12px; color: #5B6B78">Dell P2422H</span></div>
+          <div>Écran</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DP24-CN0X4</div>
+          <div>Réception</div>
+          <div style="color: #14202B">2027-09-02</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Point d’accès salle d’attente</span><span style="font-size: 12px; color: #5B6B78">UniFi U6 Lite</span></div>
+          <div>Réseau</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">U6L-8E21C0</div>
+          <div>Salle d’attente</div>
+          <div style="color: #14202B">2027-11-15</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Actif</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Imprimante salle 2</span><span style="font-size: 12px; color: #5B6B78">HP LaserJet M404</span></div>
+          <div>Imprimante</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">HPLJ-PHB7741</div>
+          <div>Salle 2</div>
+          <div style="color: #B4540A">2026-12-20</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #FDEBD3; color: #8A4306">En réparation</span></div>
+        </a>
+      
+        <a href="equipement.html?v=1790826082070" style="display: grid; grid-template-columns: 2.2fr 1.1fr 1.4fr 1.2fr 1fr 1fr; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; text-decoration: none; color: #14202B; font-size: 14px">
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Ancien poste radiographie</span><span style="font-size: 12px; color: #5B6B78">Dell OptiPlex 7050</span></div>
+          <div>Poste de travail</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">DL7050-OLD31</div>
+          <div>Repris — recyclage</div>
+          <div style="color: #5B6B78">2023-02-01</div>
+          <div><span style="display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Retiré</span></div>
+        </a>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-size: 13px; color: #5B6B78">
+        <span>14 équipements · cliquez sur une ligne pour voir sa fiche</span>
+        <a href="etiquette.html?v=1790826082070" style="font-size: 13px; color: #0F6E8C; text-decoration: none; font-weight: 600">Imprimer les étiquettes QR →</a>
       </div>
-      <div style="display: flex; justify-content: flex-end"><div style="display: flex; flex-direction: column; gap: 6px; min-width: 280px; font-size: 14px"><div style="display: flex; justify-content: space-between"><span style="color: #5B6B78">Sous-total</span><span>4 196,00 $</span></div><div style="display: flex; justify-content: space-between"><span style="color: #5B6B78">TPS 5 %</span><span>209,80 $</span></div><div style="display: flex; justify-content: space-between"><span style="color: #5B6B78">TVQ 9,975 %</span><span>418,55 $</span></div><div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 600; border-top: 2px solid #14202B; padding-top: 8px"><span>Total</span><span>4 824,35 $</span></div><div style="display: flex; justify-content: space-between; color: #1B6B3A; font-weight: 600"><span>Payé</span><span>4 824,35 $</span></div></div></div>
-      <div style="border-top: 1px solid #EEF1F4; padding-top: 14px; font-size: 12.5px; color: #5B6B78; line-height: 1.5">Les appareils facturés ont été ajoutés à votre inventaire avec leur garantie (fin : 15 août 2029). Paiement par prélèvement automatique. Toute question : facturation@… · [TÉLÉPHONE]. Merci de votre confiance.</div>
-    </section>
+    </div>
   </main>
+
+  
+  <section data-floating aria-label="Assistant" style="position: absolute; right: 28px; bottom: 96px; width: 360px; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 12px 32px rgba(20,32,43,0.18); display: flex; flex-direction: column; overflow: hidden">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #14202B; color: #FFFFFF">
+      <div style="width: 30px; height: 30px; background: #0F6E8C; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; flex: 1">
+        <span style="font-size: 14px; font-weight: 600">Assistant TI</span>
+        <span style="font-size: 12px; color: #B8C4CE; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Connaît votre inventaire</span>
+      </div>
+      <button  aria-label="Fermer l'assistant" style="width: 32px; height: 32px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 18px">×</button>
+    </div>
+    <div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #F5F7F9; height: 330px; overflow: auto; font-size: 13.5px; line-height: 1.4">
+      <div style="align-self: flex-start; max-width: 85%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px">Bonjour Marie ! Je peux vous renseigner sur vos 42 équipements, vos garanties ou l'état d'une réparation. Que puis-je faire ?</div>
+      <div style="align-self: flex-end; max-width: 85%; background: #0F6E8C; color: #FFFFFF; padding: 10px 12px">Où en est l'écran de la salle 3 ?</div>
+      <div style="align-self: flex-start; max-width: 85%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
+        <span>L'<strong>écran salle 3</strong> (LG 27UL500) est en réparation depuis le 26 sept. — billet #4412, image scintillante. Un écran de prêt est en place. Retour prévu vers le 3 oct.</span>
+        <span>Sa garantie se termine le <strong>19 oct. 2026</strong>. Voulez-vous une soumission de remplacement ?</span>
+        <span style="display: flex; gap: 6px; flex-wrap: wrap">
+          <button data-save data-save-msg="Demande de soumission transmise à votre technicien — réponse d'ici 1 jour ouvrable" style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-family: inherit; font-size: 12px; font-weight: 600">Oui, une soumission</button>
+          <a href="equipement.html?v=1790826082070" style="height: 30px; padding: 0 10px; display: inline-flex; align-items: center; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir la fiche</a>
+        </span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px; padding: 10px; border-top: 1px solid #D5DCE2">
+      <label for="msg" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Votre message</label>
+      <input id="msg" type="text" placeholder="Posez une question sur votre parc…" style="flex: 1; height: 40px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; box-sizing: border-box">
+      <button aria-label="Envoyer" style="width: 40px; height: 40px; background: #0F6E8C; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12L20 4l-4 16-4-7z"></path></svg></button>
+    </div>
+    <div style="padding: 6px 12px 10px; font-size: 11px; color: #5B6B78; text-align: center">Assistant IA · un technicien peut prendre le relais à tout moment</div>
+  </section>
+  
+
+  <button  aria-label="Ouvrir l'assistant" style="position: absolute; right: 28px; bottom: 28px; width: 56px; height: 56px; border-radius: 28px; background: #0F6E8C; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(15,110,140,0.35)">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg>
+  </button>
 </div>
 
-<section data-floating aria-label="Assistant" style="display: none; position: fixed; right: 28px; bottom: 96px; width: 360px; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 12px 32px rgba(20,32,43,0.18); flex-direction: column; overflow: hidden; z-index: 9000; font-family: 'IBM Plex Sans', system-ui, sans-serif">
-  <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #14202B; color: #FFFFFF">
-    <div style="width: 30px; height: 30px; background: #0F6E8C; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg></div>
-    <div style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 14px; font-weight: 600">Assistant TI</span><span style="font-size: 12px; color: #B8C4CE; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; background: #3FBF7F; display: inline-block"></span>Connaît votre inventaire</span></div>
-    <button aria-label="Fermer l'assistant" style="width: 32px; height: 32px; background: transparent; border: 0; color: #FFFFFF; font-family: inherit; font-size: 18px">×</button>
-  </div>
-  <div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #F5F7F9; height: 330px; overflow: auto; font-size: 13.5px; line-height: 1.4">
-    <div style="align-self: flex-start; max-width: 85%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px">Bonjour Marie ! Je peux vous renseigner sur vos 42 équipements, vos garanties ou l’état d’une réparation. Que puis-je faire ?</div>
-    <div style="display: flex; gap: 6px; flex-wrap: wrap"><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Où en est ma réparation ?</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Mes garanties qui expirent</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Signaler un problème</button></div>
-  </div>
-  <div style="display: flex; gap: 8px; padding: 10px; border-top: 1px solid #D5DCE2">
-    <label for="msg" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Votre message</label>
-    <input id="msg" type="text" placeholder="Posez une question…" style="flex: 1; height: 40px; padding: 0 12px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13.5px; box-sizing: border-box">
-    <button aria-label="Envoyer" style="width: 40px; height: 40px; background: #0F6E8C; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12L20 4l-4 16-4-7z"></path></svg></button>
-  </div>
-  <div style="padding: 6px 12px 10px; font-size: 11px; color: #5B6B78; text-align: center">Assistant IA · un technicien peut prendre le relais à tout moment</div>
-</section>
-<button aria-label="Ouvrir l'assistant" style="position: fixed; right: 28px; bottom: 28px; width: 56px; height: 56px; border-radius: 28px; background: #0F6E8C; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9000; cursor: pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg></button>
 <script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),ct=document.querySelector('[data-cart]'),nf=document.querySelector('[data-notifmenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){var first=true;[nf,ct,um].forEach(function(el){if(!el)return;row.appendChild(el);if(first){el.style.marginLeft='auto';first=false;}else{el.style.marginLeft='8px';}});}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();var np=document.querySelector('[data-notif-panel]');if(np)np.style.display='none';m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
 </script><script>
