@@ -19,6 +19,11 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Assistant client — vue détaillée | [assistant.html](https://0pixelz.github.io/portail-inventaire-ti/assistant.html) |
 | Administration + copilote interne | [admin.html](https://0pixelz.github.io/portail-inventaire-ti/admin.html) |
 | Utilisateurs et rôles (admin) | [utilisateurs.html](https://0pixelz.github.io/portail-inventaire-ti/utilisateurs.html) |
+| Admin — tableau de bord | [admin-tableau.html](https://0pixelz.github.io/portail-inventaire-ti/admin-tableau.html) |
+| Admin — inventaire de tous les clients | [admin-inventaire.html](https://0pixelz.github.io/portail-inventaire-ti/admin-inventaire.html) |
+| Admin — clients | [admin-clients.html](https://0pixelz.github.io/portail-inventaire-ti/admin-clients.html) |
+| Admin — commandes et soumissions | [admin-commandes.html](https://0pixelz.github.io/portail-inventaire-ti/admin-commandes.html) |
+| Admin — rapports | [admin-rapports.html](https://0pixelz.github.io/portail-inventaire-ti/admin-rapports.html) |
 
 > Si le lien donne 404 : **Settings → Pages → Build and deployment → Source : Deploy from a branch → Branch : `main`, dossier `/docs`** → Save. Le site est en ligne 1 à 2 minutes plus tard. GitHub Pages sur un dépôt **privé** exige un compte Pro; sinon rendre le dépôt public (Settings → General → Danger zone → Change visibility) ou glisser le dossier `docs/` sur https://app.netlify.com/drop.
 
