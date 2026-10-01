@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790824430190">
+<meta name="build" content="1790824527358">
 <title>Chargement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -107,6 +107,34 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
 @media (max-width: 820px) {
   [data-notif-all] { white-space: nowrap !important; }
   body > div > nav { position: relative; z-index: 10000; }
+}
+/* ---- Contrôles d'en-tête : notifications, panier, avatar ---- */
+[data-notif-btn], [data-cart], [data-usermenu] > button {
+  border-radius: 10px !important; border: 1px solid #D5DCE2 !important; background: #FFFFFF !important; color: #14202B !important;
+  transition: box-shadow .15s, transform .15s, background .15s !important; box-shadow: 0 1px 2px rgba(20,32,43,.06) !important;
+}
+[data-notif-btn], [data-cart] { width: 40px !important; height: 40px !important; }
+[data-notif-btn]:hover, [data-cart]:hover, [data-usermenu] > button:hover { box-shadow: 0 4px 12px rgba(20,32,43,.12) !important; background: #F5F7F9 !important; }
+[data-notif-btn] svg, [data-cart] svg { width: 19px !important; height: 19px !important; stroke-width: 1.75 !important; }
+[data-notif-count], [data-cart] [data-cart-count] {
+  top: -6px !important; right: -6px !important; min-width: 17px !important; height: 17px !important; padding: 0 4px !important; font-size: 10.5px !important; line-height: 1 !important;
+  border: 2px solid #FFFFFF !important; border-radius: 9px !important; box-shadow: 0 1px 3px rgba(0,0,0,.25) !important; letter-spacing: 0 !important;
+}
+[data-usermenu] > button { height: 40px !important; padding: 0 10px 0 5px !important; gap: 8px !important; }
+[data-usermenu] > button > span:first-child { width: 30px !important; height: 30px !important; border-radius: 15px !important; font-size: 11.5px !important; letter-spacing: .02em !important; }
+[data-usermenu] > button > svg { width: 13px !important; height: 13px !important; stroke-width: 2 !important; }
+[data-usermenu] [role=menu], [data-notif-panel] { border-radius: 12px !important; border-color: #D5DCE2 !important; box-shadow: 0 14px 34px rgba(20,32,43,.16) !important; overflow: hidden !important; }
+@media (max-width: 820px) {
+  /* sur la barre sombre : boutons translucides, icônes blanches */
+  body > div > nav [data-notif-btn], body > div > nav [data-cart], body > div > nav [data-usermenu] > button {
+    background: rgba(255,255,255,.08) !important; border-color: rgba(255,255,255,.18) !important; color: #FFFFFF !important; box-shadow: none !important;
+  }
+  body > div > nav [data-notif-btn]:active, body > div > nav [data-cart]:active, body > div > nav [data-usermenu] > button:active { background: rgba(255,255,255,.16) !important; }
+  body > div > nav [data-usermenu] > button > svg { stroke: #B8C4CE !important; }
+  body > div > nav [data-notif-count], body > div > nav [data-cart] [data-cart-count] { border-color: #14202B !important; }
+  body > div > nav > div:first-child { gap: 8px !important; }
+  body > div > nav [data-notifmenu], body > div > nav [data-cart] { margin-left: 0 !important; }
+  body > div > nav [data-notifmenu] { margin-left: auto !important; }
 }
 </style>
 </head>
