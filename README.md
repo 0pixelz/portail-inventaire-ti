@@ -31,6 +31,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Client — mon compte (profil, paramètres, notifications, utilisateurs) | [mon-compte.html](https://0pixelz.github.io/portail-inventaire-ti/mon-compte.html) |
 | Client — assistant IA, vue détaillée | [assistant.html](https://0pixelz.github.io/portail-inventaire-ti/assistant.html) |
 | **Admin** — tableau de bord | [admin-tableau.html](https://0pixelz.github.io/portail-inventaire-ti/admin-tableau.html) |
+| Admin — calendrier de l’équipe (jour/semaine/mois/liste, glisser-déposer, conflits, à planifier, export .ics) | [admin-calendrier.html](https://0pixelz.github.io/portail-inventaire-ti/admin-calendrier.html) |
 | Admin — billets (filtres, résolus) | [admin.html](https://0pixelz.github.io/portail-inventaire-ti/admin.html) |
 | Admin — gestion d'un billet | [billet.html](https://0pixelz.github.io/portail-inventaire-ti/billet.html) |
 | Admin — nouveau billet pour un client | [admin-nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/admin-nouveau-billet.html) |

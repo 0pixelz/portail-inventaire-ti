@@ -94,6 +94,19 @@
       },
       statut: function () { return 'Création du billet…'; }
     },
+    creer_evenement: {
+      def: { name: 'creer_evenement', description: 'Ajoute un rendez-vous au calendrier de l’équipe (admin-calendrier.html) : intervention, visite, livraison, maintenance, relance, échéance ou interne. Lis d’abord le calendrier pour éviter les conflits du technicien. Confirme avec l’utilisateur si la demande est ambiguë.', input_schema: { type: 'object', properties: { titre: { type: 'string' }, type: { type: 'string', enum: ['intervention', 'visite', 'livraison', 'maintenance', 'relance', 'echeance', 'interne'] }, date: { type: 'string', description: 'AAAA-MM-JJ' }, debut: { type: 'string', description: 'HH:MM (vide si toute la journée)' }, fin: { type: 'string', description: 'HH:MM' }, technicien: { type: 'string', enum: ['Jonathan', 'Samuel', 'Karine', 'Tous'] }, client: { type: 'string' }, lieu: { type: 'string' }, notes: { type: 'string' } }, required: ['titre', 'type', 'date', 'technicien'] } },
+      run: function (i) {
+        var S; try { S = JSON.parse(localStorage.getItem('agenda-v1')); } catch (e) {}
+        if (!S || !S.ajouts) S = { ajouts: [], modifs: {}, suppr: [], planifies: [] };
+        var e = { id: 'ia' + Date.now(), titre: i.titre, type: i.type, date: i.date, debut: i.debut || '', fin: i.fin || '', journee: !i.debut, tech: i.technicien, client: i.client || '', lieu: i.lieu || '', notes: i.notes || '', lien: '' };
+        S.ajouts.push(e); set('agenda-v1', JSON.stringify(S));
+        if (window.__CAL) window.__CAL.rafraichir();
+        window.__toast && window.__toast('Ajouté au calendrier : ' + i.titre, true);
+        return 'Événement ajouté au calendrier : ' + i.titre + ', ' + i.date + (i.debut ? ' de ' + i.debut + ' à ' + (i.fin || '?') : ' (toute la journée)') + ', ' + i.technicien + '. (Prototype : enregistré dans ce navigateur.)';
+      },
+      statut: function () { return 'Ajout au calendrier…'; }
+    },
     ajouter_au_panier: {
       def: { name: 'ajouter_au_panier', description: 'Ajoute un produit du catalogue au panier du client. Lis d’abord commande.html pour connaître les produits et prix exacts.', input_schema: { type: 'object', properties: { produit: { type: 'string', description: 'Nom exact du produit tel qu’affiché au catalogue' }, quantite: { type: 'integer', minimum: 1 } }, required: ['produit'] } },
       run: function (i) {
@@ -112,7 +125,7 @@
       statut: function () { return 'Ajout au panier…'; }
     }
   };
-  var actifs = CFG.mode === 'public' ? ['lire_page', 'ouvrir_page'] : CFG.mode === 'admin' ? ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet'] : ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'ajouter_au_panier'];
+  var actifs = CFG.mode === 'public' ? ['lire_page', 'ouvrir_page'] : CFG.mode === 'admin' ? ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'creer_evenement'] : ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'ajouter_au_panier'];
 
   // ---------- Instructions système ----------
   function systeme() {
@@ -124,7 +137,7 @@
       'Offre : prix par appareil par mois — Visibilité 8 $, Géré 25 $, Géré + matériel 55 $ (indicatifs); visite d’inventaire gratuite (scan + étiquettes QR, portail prêt en 48 h); remplacement planifié; support en français; aucun verrouillage; reprise et recyclage; spécialité PME 5-50 postes des Laurentides / Rive-Nord et concessionnaires automobiles (DMS, postes F&I, tablettes de diagnostic, Wi-Fi atelier et cour, multi-succursales). ' +
       'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement.';
     var role = CFG.mode === 'admin'
-      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client : propose un brouillon.'
+      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Pour l’horaire de l’équipe (interventions, visites, livraisons, maintenances, congés, échéances), lis admin-calendrier.html et utilise creer_evenement pour planifier; vérifie la charge et les conflits du technicien. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client : propose un brouillon.'
       : CFG.mode === 'client'
         ? 'Tu es l’assistant support de Marie Tremblay (administratrice) chez le client Clinique Dentaire Ste-Rose. Tu connais son inventaire, ses billets, ses commandes, soumissions, factures, son plan de remplacement et le catalogue. Tu peux créer un billet, ajouter au panier, filtrer la liste et ouvrir des pages. Tu ne parles jamais des autres clients ni des prix internes. Pour une urgence (toute la clinique arrêtée), recommande d’appeler le support et crée un billet de priorité Haute. Si un problème dépasse tes moyens, propose qu’un technicien prenne le relais.'
         : 'Tu es l’assistant du site public. Tu expliques les services, les forfaits, la visite gratuite et l’évaluateur de forfait, et tu invites à réserver la visite ou à essayer l’évaluateur. Tu n’as pas accès aux données des clients.';
