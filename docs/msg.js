@@ -115,9 +115,31 @@
         + '<div style="max-width:78%;display:flex;flex-direction:column;gap:3px;' + (moi ? 'align-items:flex-end' : '') + '"><span style="font-size:11.5px;color:#5B6B78">' + esc(m.de === 'equipe' && !ADMIN ? m.auteur + ' · [ENTREPRISE]' : m.auteur) + ' · ' + quand(m.date, true) + '</span>'
         + '<div style="padding:10px 12px;font-size:14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;' + (moi ? 'background:' + COL + ';color:#fff' : 'background:#fff;border:1px solid #D5DCE2;color:#14202B') + '">' + esc(m.texte) + '</div></div></div>';
     });
-    h += '</div><form data-m-repondre style="display:flex;flex-direction:column;gap:8px;padding:12px 16px;border-top:1px solid #D5DCE2;background:#fff"><textarea name="texte" rows="3" placeholder="Écrire une réponse…" style="' + IN + ';height:auto;min-height:76px;padding:10px 12px;line-height:1.4;resize:vertical"></textarea>'
+    h += '</div><form data-m-repondre style="display:flex;flex-direction:column;gap:8px;padding:12px 16px;border-top:1px solid #D5DCE2;background:#fff">' + barreIA() + '<textarea name="texte" rows="3" placeholder="Écrire une réponse…" style="' + IN + ';height:auto;min-height:76px;padding:10px 12px;line-height:1.4;resize:vertical"></textarea>'
       + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;color:#5B6B78">' + (ADMIN ? 'Le client est avisé par courriel.' : 'Votre équipe est avisée immédiatement.') + '</span><button type="submit" style="' + BT + ';background:' + COL + ';border-color:' + COL + ';color:#fff;font-weight:600;min-width:120px">Envoyer</button></div></form></div>';
     return h;
+  }
+
+  var SPARK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="flex:none"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"></path></svg>';
+  function barreIA() {
+    return '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><button type="button" data-m-ia="repondre" style="' + FF + 'display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + COL + ';background:#fff;color:' + COL + '">' + SPARK + 'Suggérer une réponse</button><button type="button" data-m-ia="ameliorer" style="' + FF + 'display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;font-size:13px;cursor:pointer;border:1px solid #B8C4CE;background:#fff;color:#14202B">Améliorer mon brouillon</button><span style="font-size:11.5px;color:#5B6B78">Claude lit le fil et les données du portail · rien n’est envoyé sans vous</span></div><div data-m-sugg></div>';
+  }
+  function suggestions(zone, opts, cible) {
+    if (!window.__IA || !window.__IA.suggerer) { zone.innerHTML = '<div style="font-size:13px;color:#9B1C1C;padding:6px 0">Assistant IA indisponible sur cette page.</div>'; return; }
+    if (opts.intention === 'ameliorer' && !opts.brouillon) { zone.innerHTML = '<div style="font-size:13px;color:#8A4306;padding:6px 0">Écrivez d’abord un brouillon, puis cliquez « Améliorer mon brouillon ».</div>'; return; }
+    zone.innerHTML = '<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5B6B78;padding:8px 10px;background:#F5F7F9;border-left:3px solid ' + COL + '"><span data-m-spin style="width:14px;height:14px;border:2px solid #D5DCE2;border-top-color:' + COL + ';border-radius:50%;display:inline-block;animation:mspin .8s linear infinite"></span>Claude lit la conversation, l’inventaire et l’historique de ' + esc(opts.client) + '…</div>';
+    if (!document.getElementById('mspin-css')) { var st = document.createElement('style'); st.id = 'mspin-css'; st.textContent = '@keyframes mspin{to{transform:rotate(360deg)}}'; document.head.appendChild(st); }
+    window.__IA.suggerer(opts).then(function (r) {
+      var cartes = r.suggestions.slice(0, 3).map(function (x, i) {
+        return '<div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:#F7FAFB;border:1px solid #D5DCE2;border-left:3px solid ' + COL + ';min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong style="font-size:12.5px;color:' + COL + ';display:inline-flex;align-items:center;gap:5px">' + SPARK + esc(x.titre || 'Suggestion') + '</strong><button type="button" data-m-utiliser="' + i + '" style="' + FF + 'height:30px;padding:0 12px;font-size:12.5px;font-weight:600;cursor:pointer;border:0;background:' + COL + ';color:#fff">Utiliser</button></div><div style="font-size:13.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;color:#14202B;max-height:180px;overflow:auto">' + esc(x.texte) + '</div></div>';
+      }).join('');
+      var infos = (r.infos || []).length ? '<details style="font-size:12.5px;color:#5B6B78"><summary style="cursor:pointer">Contexte utilisé (' + r.infos.length + ')</summary><ul style="margin:6px 0 0;padding-left:18px">' + r.infos.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul></details>' : '';
+      zone.innerHTML = '<div style="display:grid;grid-template:auto / repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:2px 0">' + cartes + '</div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">' + infos + '<button type="button" data-m-ia-regen style="' + FF + 'background:none;border:0;padding:4px 0;font-size:12.5px;color:' + COL + ';font-weight:600;cursor:pointer">↻ Autres suggestions</button></div>';
+      zone.querySelectorAll('[data-m-utiliser]').forEach(function (b) { b.onclick = function () { cible.value = r.suggestions[+b.getAttribute('data-m-utiliser')].texte; cible.focus(); cible.style.minHeight = '140px'; zone.innerHTML = '<div style="font-size:12.5px;color:#1B6B3A;padding:4px 0">✓ Suggestion insérée — relisez et modifiez avant d’envoyer.</div>'; }; });
+      zone.querySelector('[data-m-ia-regen]').onclick = function () { suggestions(zone, opts, cible); };
+    }).catch(function (e) {
+      zone.innerHTML = '<div style="font-size:13px;color:#9B1C1C;padding:6px 0">' + esc(e.status === 429 ? 'Trop de demandes, réessayez dans une minute.' : (e.message || 'Impossible d’obtenir des suggestions.')) + '</div>';
+    });
   }
 
   function ouvrir(id) {
@@ -141,7 +163,8 @@
       + (ADMIN ? L('À (client)', '<select name="client" style="' + IN + '">' + clients.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('') + '</select>') : '<div style="font-size:13.5px;color:#5B6B78">À : <strong style="color:#14202B">Équipe [ENTREPRISE]</strong> — seulement vous et nos techniciens voyez ces messages.</div>')
       + L('Sujet', '<input name="sujet" required placeholder="Ex. : Accès pour un nouvel employé" style="' + IN + '">')
       + (ADMIN ? '' : L('Concerne', '<select name="lien" style="' + IN + '"><option value="">Rien en particulier</option><option value="mon-billet.html">Billet #4418 — imprimante salle 2</option><option value="ma-commande.html">Commande C-117 — écran salle 3</option><option value="facture.html">Facture F-2026-0198</option><option value="mon-inventaire.html">Un appareil de mon inventaire</option></select>'))
-      + L('Message', '<textarea name="texte" required rows="5" placeholder="Votre message…" style="' + IN + ';height:auto;min-height:120px;padding:10px 12px;line-height:1.4"></textarea>')
+      + L('Message', '<textarea name="texte" required rows="5" placeholder="Votre message… (ou quelques idées, puis « Aider à rédiger »)" style="' + IN + ';height:auto;min-height:120px;padding:10px 12px;line-height:1.4"></textarea>')
+      + '<div style="display:flex;flex-direction:column;gap:6px"><button type="button" data-m-rediger style="' + FF + 'align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid ' + COL + ';background:#fff;color:' + COL + '">' + SPARK + 'Aider à rédiger</button><div data-m-sugg2></div></div>'
       + '<div data-err style="display:none;color:#9B1C1C;font-size:14px;background:#FBE1E1;padding:8px 10px"></div></div>'
       + '<div style="position:sticky;bottom:0;display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid #EEF1F4;background:#fff"><button type="button" data-x style="' + BT + ';height:44px">Annuler</button><button type="submit" style="' + BT + ';height:44px;background:' + COL + ';border-color:' + COL + ';color:#fff;font-weight:600;min-width:120px">Envoyer</button></div></form>';
     document.body.appendChild(ov);
@@ -149,6 +172,11 @@
     ov.querySelectorAll('[data-x]').forEach(function (b) { b.onclick = fermer; });
     ov.addEventListener('click', function (e) { if (e.target === ov) fermer(); });
     if (!mobile) f.sujet.focus();
+    ov.querySelector('[data-m-rediger]').onclick = function () {
+      var client = ADMIN ? f.client.value : MOI_CLIENT;
+      if (!f.sujet.value.trim()) { ov.querySelector('[data-m-sugg2]').innerHTML = '<div style="font-size:13px;color:#8A4306">Indiquez d’abord le sujet.</div>'; return; }
+      suggestions(ov.querySelector('[data-m-sugg2]'), { id: '', client: client, contact: ADMIN ? CONTACTS[client] : MOI, sujet: f.sujet.value.trim() + (!ADMIN && f.lien.value ? ' (concerne : ' + f.lien.options[f.lien.selectedIndex].text + ')' : ''), tech: '', fil: [], moi: MOI, brouillon: f.texte.value.trim(), intention: 'rediger' }, f.texte);
+    };
     f.onsubmit = function (e) {
       e.preventDefault();
       var sujet = f.sujet.value.trim(), texte = f.texte.value.trim();
@@ -166,6 +194,7 @@
       if (t.hasAttribute('data-m-ouvrir')) ouvrir(t.getAttribute('data-m-ouvrir'));
       else if (t.hasAttribute('data-m-filtre')) { filtre = t.getAttribute('data-m-filtre'); rendre(); }
       else if (t.hasAttribute('data-m-nouveau')) nouveau();
+      else if (t.hasAttribute('data-m-ia')) { var th0 = S.threads.filter(function (x) { return x.id === sel; })[0], fm = t.closest('form'); suggestions(fm.querySelector('[data-m-sugg]'), { id: th0.id, client: th0.client, contact: th0.contact, sujet: th0.sujet, tech: th0.tech, fil: th0.messages, moi: MOI, brouillon: fm.texte.value.trim(), intention: t.getAttribute('data-m-ia') }, fm.texte); }
       else if (t.hasAttribute('data-m-retour')) { sel = null; rendre(); try { history.replaceState(null, '', location.pathname + location.search); } catch (x) {} }
       else if (t.hasAttribute('data-m-nonlu')) { var th = S.threads.filter(function (x) { return x.id === sel; })[0]; th.luEquipe = '2000-01-01T00:00:00'; ecrire(); sel = null; rendre(); badge(); toast('Marqué comme non lu', true); }
     });
@@ -194,6 +223,7 @@
 
   entete();
   badge();
+  if (B) { var fl = document.querySelector('section[data-floating]'); if (fl) fl.style.display = 'none'; } // l'assistant reste disponible via le bouton rond
   if (B) {
     var h = location.hash.slice(1);
     if (h === 'nouveau') { rendre(); nouveau(); }

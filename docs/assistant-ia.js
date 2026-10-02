@@ -162,16 +162,97 @@
   var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
 
   function appel(msgs) {
+    return appelAPI({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: msgs });
+  }
+  function appelAPI(corps) {
     var perso = PROXY ? '' : get(LS_KEY); // serveur configuré : on ignore toute clé locale
     return fetch(perso || !PROXY ? 'https://api.anthropic.com/v1/messages' : PROXY, {
       method: 'POST',
       headers: perso || !PROXY ? { 'content-type': 'application/json', 'x-api-key': perso, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } : { 'content-type': 'application/json' },
-      body: JSON.stringify({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: msgs })
+      body: JSON.stringify(corps)
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) {
         if (!r.ok) { var m = (j && j.error && j.error.message) || ('HTTP ' + r.status); var e = new Error(m); e.status = r.status; throw e; }
         return j;
       });
+    });
+  }
+
+
+  // ---------- Suggestions pour la messagerie (client ↔ équipe) ----------
+  // Rassemble le contexte (fil, données du site sur ce client, calendrier, autres conversations, utilisateurs)
+  // et demande à Claude des propositions de message en JSON. Rien n'est envoyé automatiquement.
+  function filtrerLignes(texte, mots, max) {
+    var L = texte.split('\n'), garder = {};
+    L.forEach(function (l, i) { var b = l.toLowerCase(); if (mots.some(function (m) { return m && b.indexOf(m) > -1; })) { garder[i - 1] = garder[i] = garder[i + 1] = garder[i + 2] = 1; } });
+    var out = L.filter(function (_, i) { return garder[i]; }).join('\n');
+    return out.slice(0, max);
+  }
+  // Extrait seulement les « rangées » (appareil, billet, commande, rendez-vous, contact…) qui mentionnent ce client.
+  var cacheDocs = {};
+  function docPage(f) {
+    if (f === CFG.page) return Promise.resolve(document);
+    if (cacheDocs[f]) return Promise.resolve(cacheDocs[f]);
+    return fetch(f + '?v=' + (CFG.build || '')).then(function (r) { return r.text(); }).then(function (h) {
+      h = h.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '');
+      return (cacheDocs[f] = new DOMParser().parseFromString(h, 'text/html'));
+    }).catch(function () { return null; });
+  }
+  function rangees(f, mots) {
+    if (nomsPermis.indexOf(f) < 0) return Promise.resolve('');
+    return docPage(f).then(function (d) {
+      if (!d) return '';
+      var main = d.querySelector('main') || d.body;
+      var exclu = function (el) { return el.closest('nav,[data-floating],[data-notif-panel],[data-msg-panel],[role=menu],[data-usermenu]'); };
+      var cand = [].slice.call(main.querySelectorAll('a,div,li,tr,section,article,button,label')).filter(function (el) {
+        if (exclu(el) || el.children.length < 2 || el.querySelector('select')) return false;
+        var t = (el.textContent || '').replace(/\s+/g, ' ').toLowerCase(); if (t.length > 700) return false;
+        return mots.some(function (m) { return t.indexOf(m) > -1; });
+      });
+      var rows = cand.filter(function (el) { return !cand.some(function (o) { return o !== el && el.contains(o); }); });
+      var vus = {}, out = [];
+      rows.forEach(function (el) { var t = texteDe(el).split('\n').join(' · '); if (t && !vus[t]) { vus[t] = 1; out.push('- ' + t); } });
+      return out.join('\n').slice(0, 3500);
+    });
+  }
+  function contexteMessagerie(o) {
+    var admin = CFG.mode === 'admin';
+    var pages = admin ? ['admin-clients.html', 'admin-inventaire.html', 'admin.html', 'admin-commandes.html', 'admin-soumissions.html', 'admin-calendrier.html', 'utilisateurs.html', 'admin-stock.html']
+      : ['mon-inventaire.html', 'mes-billets.html', 'mes-commandes.html', 'plan-remplacement.html', 'mon-compte.html'];
+    var cl = (o.client || '').toLowerCase(), mots = [cl, cl.split(' ').slice(-1)[0], (o.contact || '').toLowerCase()].filter(function (m) { return m && m.length > 3; });
+    var titres = (o.sujet + ' ' + o.fil.map(function (m) { return m.texte; }).join(' ')).match(/#\d{4}|[CS]-\d{3}|F-\d{4}-\d{4}/g) || [];
+    titres.forEach(function (t) { mots.push(t.toLowerCase()); });
+    return Promise.all(pages.filter(function (p) { return nomsPermis.indexOf(p) > -1; }).map(function (p) {
+      var prom = admin ? rangees(p, p === 'utilisateurs.html' ? mots.concat(['jonathan', 'samuel', 'karine']) : mots) : lirePage(p).then(function (t) { return t.slice(0, 4000); });
+      return prom.then(function (x) { return x ? '### ' + titreDe(p) + ' (' + p + ')\n' + x : ''; });
+    })).then(function (blocs) {
+      var extra = [];
+      try { var A = JSON.parse(localStorage.getItem('agenda-v1')); if (A && A.ajouts) A.ajouts.filter(function (e) { return (e.client || '').toLowerCase() === cl; }).forEach(function (e) { extra.push('- Rendez-vous ' + (e.statut === 'propose' ? 'à confirmer' : 'confirmé') + ' : ' + e.titre + ', ' + e.date + ' ' + (e.debut || '') + '–' + (e.fin || '') + ', ' + e.tech); }); } catch (e) {}
+      try { var M = JSON.parse(localStorage.getItem('messagerie-v1')); if (M && M.threads) M.threads.filter(function (t) { return t.client === o.client && t.id !== o.id; }).forEach(function (t) { var d = t.messages.slice(-2).map(function (m) { return m.auteur + ' : ' + m.texte.slice(0, 220); }).join(' / '); extra.push('- Autre conversation « ' + t.sujet + ' » : ' + d); }); } catch (e) {}
+      return blocs.filter(Boolean).join('\n\n') + (extra.length ? '\n\n### Activité récente enregistrée dans le portail\n' + extra.join('\n') : '');
+    });
+  }
+  function suggerer(o) {
+    if (!connecte()) return Promise.reject(new Error('Assistant IA non configuré.'));
+    var admin = CFG.mode === 'admin';
+    return contexteMessagerie(o).then(function (ctx) {
+      var date = new Date().toLocaleDateString('fr-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      var sys = 'Tu aides à rédiger des messages dans la messagerie privée d’un portail de services TI gérés (« [ENTREPRISE] », Laurentides / Rive-Nord, Québec). Aujourd’hui : ' + date + '. '
+        + (admin ? 'Tu écris AU NOM de ' + (o.moi || 'Jonathan') + ' (équipe [ENTREPRISE]) à ' + (o.contact || 'un client') + ' de ' + o.client + '. Vouvoie le client. Ton professionnel, chaleureux et concret, comme un technicien de confiance. Signe avec le prénom « ' + (o.moi || 'Jonathan') + ' ». '
+          : 'Tu aides ' + (o.moi || 'Marie Tremblay') + ' (cliente, ' + o.client + ') à écrire à son équipe TI. Message clair et poli; donne les détails utiles au technicien (appareil, no de série, emplacement, depuis quand, urgence) tirés de son inventaire. Signe « ' + (o.moi || 'Marie') .split(' ')[0] + ' ». ')
+        + 'Français québécois naturel, phrases courtes, aucune formule creuse. Appuie-toi UNIQUEMENT sur le fil et les données fournies : ne promets jamais un prix, une date ou un délai absent des données; si une info manque, écris-la entre crochets, ex. [heure à confirmer]. Ne mentionne jamais d’autres clients. '
+        + 'Réponds UNIQUEMENT avec un objet JSON valide, sans texte autour : {"suggestions":[{"titre":"…","texte":"…"}],"infos":["fait utilisé 1","…"]}. '
+        + (o.intention === 'ameliorer' ? 'Donne 2 suggestions : « Version améliorée » (même contenu, mieux écrit) et « Plus courte ».' : o.intention === 'rediger' ? 'Donne 3 suggestions de premier message : « Courte », « Détaillée », « Avec contexte » .' : 'Donne 3 suggestions de réponse : « Courte », « Détaillée » et « Question / prochaine étape ».')
+        + ' « infos » : 2 à 5 faits précis des données que tu as utilisés (ex. « Billet #4421 : réseau rétabli par Samuel »).';
+      var fil = o.fil.map(function (m) { return '[' + m.date.replace('T', ' ').slice(0, 16) + '] ' + m.auteur + (m.de === 'equipe' ? ' (équipe)' : ' (client)') + ' : ' + m.texte; }).join('\n');
+      var tache = o.intention === 'ameliorer' ? 'Améliore ce brouillon :\n"""' + o.brouillon + '"""' : o.intention === 'rediger' ? 'Rédige un nouveau message. Sujet : « ' + o.sujet + ' »' + (o.brouillon ? '. Idées de départ : ' + o.brouillon : '') : 'Propose la prochaine réponse de ' + (admin ? 'l’équipe' : 'la cliente') + ' dans ce fil' + (o.brouillon ? ' (tiens compte de ce début de brouillon : ' + o.brouillon + ')' : '') + '.';
+      var contenu = '## Conversation « ' + (o.sujet || '(nouveau)') + ' » — ' + o.client + (o.tech ? ' — technicien assigné : ' + o.tech : '') + '\n' + (fil || '(aucun message encore)') + '\n\n## Données du portail\n' + ctx + '\n\n## Tâche\n' + tache;
+      return appelAPI({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1400, system: sys, messages: [{ role: 'user', content: contenu }] });
+    }).then(function (rep) {
+      var t = (rep.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('');
+      var i = t.indexOf('{'), j = t.lastIndexOf('}');
+      try { var o2 = JSON.parse(t.slice(i, j + 1)); if (o2 && o2.suggestions && o2.suggestions.length) return o2; } catch (e) {}
+      return { suggestions: [{ titre: 'Suggestion', texte: t.trim() }], infos: [] };
     });
   }
 
@@ -255,6 +336,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var p = document.querySelector('section[data-floating]'); if (p) p.style.display = 'none'; } });
   window.__IA = {
     actif: function () { return connecte(); },
+    suggerer: suggerer,
     envoyer: function (q) { var panel = document.querySelector('section[data-floating]'); var fil = panel.querySelector('div[style*="overflow: auto"]'); envoyer(q, panel, fil); }
   };
   // iOS / Android : quand le clavier s'ouvre, la zone visible rétrécit. On colle la fenêtre
