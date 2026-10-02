@@ -358,7 +358,7 @@
         fil.scrollTop = fil.scrollHeight;
         // ne garder que le texte dans l'historique affichable
         sauver(messages);
-        if (navigationEnAttente) { var u = navigationEnAttente; navigationEnAttente = null; setTimeout(function () { location.href = u; }, 1400); }
+        if (navigationEnAttente) { var u = navigationEnAttente; navigationEnAttente = null; try { sessionStorage.setItem('ia-nav', '1'); } catch (e) {} setTimeout(function () { location.href = u; }, 1400); }
       });
     }
     boucle().catch(function (e) {
@@ -368,6 +368,59 @@
       attente.innerHTML = '<span style="color:#9B1C1C">' + esc(m) + '</span>';
       sauver(messages);
     }).then(function () { occupe = false; });
+  }
+
+  // ---------- Accueil : nouvelle session + suggestions contextuelles ----------
+  function salut() { var h = new Date().getHours(); return h < 12 ? 'Bonjour' : (h < 18 ? 'Bon après-midi' : 'Bonsoir'); }
+  function agenda() { try { var A = JSON.parse(localStorage.getItem('agenda-v1')); if (A && A.ajouts) { A.demandes = A.demandes || []; return A; } } catch (e) {} return { ajouts: [], demandes: [] }; }
+  function jourCourt(iso) { var d = new Date(iso + 'T12:00:00'), J = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'], M = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juill.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']; return J[d.getDay()] + ' ' + d.getDate() + ' ' + M[d.getMonth()]; }
+  function suggestionsAccueil() {
+    var L = [], page = CFG.page, M = messagerie(), A = agenda(), auj = new Date().toISOString().slice(0, 10);
+    var cote = CFG.mode === 'admin' ? 'admin' : 'client';
+    var nonLus = M.threads.filter(function (t) { var o = (t.org || {})[cote] || {}; return (CFG.mode === 'admin' || t.client === CLIENT_PORTAIL) && !o.supprime && o.dossier !== 'corbeille' && estNonLu(t); });
+    var add = function (l, q, fort) { if (L.length < 7 && !L.some(function (x) { return x.l === l; })) L.push({ l: l, q: q || l, fort: !!fort }); };
+    if (CFG.mode === 'admin') {
+      if (nonLus.length) add('Messages clients non lus (' + nonLus.length + ')', 'Quels messages clients sont non lus ? Résume-les et prépare une réponse pour le plus urgent.', true);
+      var prop = A.ajouts.filter(function (e) { return e.statut === 'propose'; });
+      if (prop.length) add('Rendez-vous à confirmer (' + prop.length + ')', 'Quels rendez-vous proposés par des clients sont à confirmer dans le calendrier ? Y a-t-il des conflits ?', true);
+      if (A.demandes.length) add('Nouvelles demandes de visite (' + A.demandes.length + ')', 'Quelles demandes de visite d’inventaire sont arrivées du site web ? Propose un créneau et un technicien.', true);
+      var ctxA = { 'admin-stock.html': ['Que dois-je commander avec mon budget ?', 'Analyse le stock : que dois-je commander en priorité avec mon budget de ce mois ?'], 'admin-calendrier.html': ['Qui est disponible cette semaine ?', 'Qui est disponible cette semaine et y a-t-il des conflits d’horaire ?'], 'billet.html': ['Résume ce billet', 'Résume ce billet et propose la prochaine étape et un message au client.'], 'admin-client.html': ['Résumé de ce client', 'Fais-moi un résumé de ce client : parc, billets, commandes, garanties, opportunités.'], 'admin-soumissions.html': ['Quelles soumissions relancer ?', 'Quelles soumissions dois-je relancer cette semaine et pourquoi ?'], 'admin-messages.html': ['Prépare les réponses en attente', 'Prépare une réponse pour chaque message client non lu.'], 'admin-inventaire.html': ['Garanties qui expirent bientôt', 'Quels appareils de mes clients ont une garantie qui expire dans les 60 prochains jours ?'], 'admin-commandes.html': ['Commandes à traiter', 'Quelles commandes sont à traiter ou à livrer et que dois-je faire ?'] }[page];
+      if (ctxA) add(ctxA[0], ctxA[1], true);
+      add('Résume ma journée', 'Résume ma journée : billets urgents, rendez-vous, messages et commandes à préparer.');
+      add('Billets non assignés', 'Quels billets ne sont pas assignés ? Propose un technicien pour chacun.');
+      add('Garanties à relancer', 'Quelles garanties expirent bientôt chez mes clients et quelles soumissions préparer ?');
+      add('Écrire à un client', 'J’aimerais écrire à un client.');
+    } else if (CFG.mode === 'client') {
+      nonLus.forEach(function (t) { add('Nouveau message : ' + t.sujet, 'Résume le dernier message de l’équipe sur « ' + t.sujet + ' » et aide-moi à répondre.', true); });
+      var rdv = A.ajouts.filter(function (e) { return e.source === 'client' && e.client === CLIENT_PORTAIL && e.date >= auj; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; })[0];
+      if (rdv) add('Mon rendez-vous du ' + jourCourt(rdv.date), 'Rappelle-moi les détails de mon rendez-vous du ' + rdv.date + ' (' + rdv.titre + ').', true);
+      if (!A.ajouts.some(function (e) { return e.id === 'rdv-b4418-visite'; })) add('Karine attend votre réponse (#4418)', 'Karine attend ma réponse pour le billet #4418. Qu’est-ce qu’elle demande et comment lui répondre ?', true);
+      var ctxC = { 'equipement.html': ['Problème avec cet appareil', 'J’ai un problème avec cet appareil.'], 'panier.html': ['Vérifier mon panier', 'Vérifie mon panier : est-ce que j’oublie quelque chose (garantie, installation) ?'], 'plan-remplacement.html': ['Expliquer mon plan 2027', 'Explique-moi mon plan de remplacement 2027 simplement.'], 'mes-commandes.html': ['Où en est ma commande ?', 'Où en sont mes commandes en cours ?'], 'commande.html': ['Que me recommandez-vous ?', 'Selon mon inventaire, quel équipement devrais-je commander ?'], 'messages.html': ['Aide-moi à écrire un message', 'Aide-moi à écrire un message à mon technicien.'], 'mes-billets.html': ['Où en sont mes billets ?', 'Où en sont mes billets ouverts ?'] }[page];
+      if (ctxC) add(ctxC[0], ctxC[1], true);
+      add('Garanties qui expirent', 'Quelles garanties expirent bientôt dans mon inventaire ?');
+      add('Suivi de ma commande C-117', 'Où en est ma commande C-117 ?');
+      add('Signaler un problème', 'J’ai un problème avec un appareil.');
+      add('Écrire à mon technicien', 'J’aimerais écrire à mon technicien.');
+    } else {
+      add('Combien ça coûte ?'); add('C’est quoi la visite gratuite ?'); add('Vous faites les concessionnaires ?'); add('Réserver ma visite gratuite', 'Je veux réserver une visite d’inventaire gratuite.', true);
+    }
+    return L;
+  }
+  function accueil(fil) {
+    if (!connecte()) return; // mode démo : on garde l'accueil d'origine
+    messages = []; sauver(messages); cartes.length = 0;
+    [].slice.call(fil.children).forEach(function (n) { n.remove(); });
+    var nom = CFG.mode === 'admin' ? 'Jonathan' : (CFG.mode === 'client' ? 'Marie' : '');
+    var sous = CFG.mode === 'admin' ? 'Voici ce qui demande votre attention :' : (CFG.mode === 'client' ? 'Voici ce que je vois pour la Clinique Dentaire Ste-Rose :' : 'Choisissez une question ou écrivez la vôtre :');
+    bulleIA(fil, '<strong>' + salut() + (nom ? ' ' + nom : '') + ' !</strong> Comment puis-je vous aider ?<div style="font-size:12.5px;color:#5B6B78;margin-top:4px">' + sous + '</div>');
+    var z = document.createElement('div'); z.setAttribute('data-ia-sugg', '');
+    z.style.cssText = 'display:flex;flex-direction:column;gap:6px;align-self:stretch';
+    z.innerHTML = suggestionsAccueil().map(function (x) {
+      return '<button type="button" data-ia-q="' + esc(x.q) + '" style="font-family:\'IBM Plex Sans\',system-ui,sans-serif;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;min-height:40px;padding:8px 12px;font-size:13.5px;cursor:pointer;border:1px solid ' + (x.fort ? COL : '#D5DCE2') + ';background:' + (x.fort ? COL + '0F' : '#FFFFFF') + ';color:#14202B;font-weight:' + (x.fort ? 600 : 400) + '"><span>' + esc(x.l) + '</span><span style="color:' + COL + ';font-size:16px;flex:none">›</span></button>';
+    }).join('');
+    fil.appendChild(z);
+    z.addEventListener('click', function (e) { var b = e.target.closest('[data-ia-q]'); if (!b) return; z.remove(); envoyer(b.getAttribute('data-ia-q'), document.querySelector('section[data-floating]'), fil); });
+    fil.scrollTop = 0;
   }
 
   // ---------- Réglages (⚙) ----------
@@ -399,14 +452,22 @@
     R.querySelector('[data-ia-oublier]').addEventListener('click', function () { set(LS_KEY, ''); ci.value = ''; etat(); R.style.display = 'none'; window.__toast && window.__toast('Clé retirée de ce navigateur — mode démo', false); });
     R.querySelector('[data-ia-vider]').addEventListener('click', function () { messages = []; sauver(messages); [].slice.call(fil.querySelectorAll('[data-ia-hist]')).forEach(function (n) { n.remove(); }); R.style.display = 'none'; window.__toast && window.__toast('Nouvelle conversation', true); });
 
-    // réafficher la conversation (après navigation)
-    if (connecte() && messages.length) {
+    // Conversation conservée seulement si l'assistant vient lui-même d'ouvrir cette page; sinon nouvelle session.
+    var suiteNav = false; try { suiteNav = sessionStorage.getItem('ia-nav') === '1'; sessionStorage.removeItem('ia-nav'); } catch (e) {}
+    if (suiteNav && connecte() && messages.length) {
+      [].slice.call(fil.children).forEach(function (n) { n.remove(); });
       messages.forEach(function (m) {
-        if (typeof m.content === 'string') { bulleMoi(fil, m.content, COL); fil.lastChild.setAttribute('data-ia-hist', ''); }
-        else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); if (t && !m.content.some(function (b) { return b.type === 'tool_use'; })) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } else if (t) { bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); } }
+        if (typeof m.content === 'string') { if (m.content.indexOf('(Système') !== 0) { bulleMoi(fil, m.content, COL); fil.lastChild.setAttribute('data-ia-hist', ''); } }
+        else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); if (t && t !== '…' && t !== 'Noté.') bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); }
       });
       try { if (sessionStorage.getItem('ia-ouvert') === '1') panel.style.display = 'flex'; } catch (e) {}
+    } else {
+      accueil(fil);
     }
+    // chaque ouverture manuelle = nouvelle session
+    document.querySelectorAll('[aria-label="Ouvrir l\'assistant"]').forEach(function (b) {
+      b.addEventListener('click', function () { setTimeout(function () { if (panel.style.display === 'flex' && !occupe) accueil(fil); }, 0); });
+    });
     window.addEventListener('beforeunload', function () { try { sessionStorage.setItem('ia-ouvert', panel.style.display === 'flex' ? '1' : '0'); } catch (e) {} });
   }
 
