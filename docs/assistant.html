@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790928654558">
+<meta name="build" content="1790928987301">
 <title>Assistant IA — vue détaillée</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -224,8 +224,8 @@ header [data-msgmenu] { margin-right: 0; }
       <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
         <span>C'est noté. J'ai ouvert le <strong>billet #4418</strong> pour l'imprimante — un technicien vous contactera d'ici la fin de la journée. La demande de soumission (2 extensions de garantie) est transmise à votre représentant.</span>
         <span style="display: flex; gap: 6px; flex-wrap: wrap">
-          <a href="mon-billet.html?v=1790928654558" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
-          <a href="mes-commandes.html?v=1790928654558" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
+          <a href="mon-billet.html?v=1790928987301" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #0F6E8C; color: #0F6E8C; font-size: 12px; font-weight: 600; text-decoration: none">Voir le billet</a>
+          <a href="mes-commandes.html?v=1790928987301" style="display: inline-flex; align-items: center; height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; font-size: 12px; text-decoration: none">Voir les extensions</a>
         </span>
       </div>
     </div>
@@ -293,7 +293,7 @@ header [data-msgmenu] { margin-right: 0; }
   </div>
   <div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #F5F7F9; height: 330px; overflow: auto; font-size: 13.5px; line-height: 1.4">
     <div style="align-self: flex-start; max-width: 85%; background: #FFFFFF; border: 1px solid #D5DCE2; padding: 10px 12px">Bonjour Marie ! Je peux vous renseigner sur vos 42 équipements, vos garanties ou l’état d’une réparation. Que puis-je faire ?</div>
-    <div style="display: flex; gap: 6px; flex-wrap: wrap"><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Où en est ma réparation ?</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Mes garanties qui expirent</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Signaler un problème</button></div>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap"><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Où en est ma réparation ?</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Écrire à mon technicien</button><button type="button" data-chip style="height: 30px; padding: 0 10px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 12px; color: #14202B">Mes garanties qui expirent</button></div>
   </div>
   <div style="display: flex; gap: 8px; padding: 10px; border-top: 1px solid #D5DCE2">
     <label for="msg" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Votre message</label>
@@ -305,20 +305,20 @@ header [data-msgmenu] { margin-right: 0; }
 <button aria-label="Ouvrir l'assistant" style="position: fixed; right: 28px; bottom: 28px; width: 56px; height: 56px; border-radius: 28px; background: #0F6E8C; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9000; cursor: pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg></button>
 <script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),ct=document.querySelector('[data-cart]'),nf=document.querySelector('[data-notifmenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){var first=true;[nf,ct,um].forEach(function(el){if(!el)return;row.appendChild(el);if(first){el.style.marginLeft='auto';first=false;}else{el.style.marginLeft='8px';}});}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();var np=document.querySelector('[data-notif-panel]');if(np)np.style.display='none';m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
-</script><script>window.__ASSIST={"mode":"client","page":"assistant.html","build":"1790928654558"};</script>
-<script src="site-index.js?v=1790928654558"></script>
-<script src="ia-config.js?v=1790928654558"></script>
+</script><script>window.__ASSIST={"mode":"client","page":"assistant.html","build":"1790928987301"};</script>
+<script src="site-index.js?v=1790928987301"></script>
+<script src="ia-config.js?v=1790928987301"></script>
 <script>
 (function(){var panel=document.querySelector('section[data-floating]');var open=panel.style.display==='flex';if(window.innerWidth<820||!open){panel.style.display='none';}
 document.querySelectorAll('[aria-label="Ouvrir l\'assistant"],[aria-label="Fermer l\'assistant"]').forEach(function(b){b.addEventListener('click',function(){panel.style.display=panel.style.display==='none'?'flex':'none';});});
 var input=panel.querySelector('input');var fil=panel.querySelector('div[style*="overflow: auto"]');
 function bulle(t,moi){var d=document.createElement('div');d.style.cssText=moi?'align-self:flex-end;max-width:85%;background:#0F6E8C;color:#fff;padding:10px 12px':'align-self:flex-start;max-width:85%;background:#fff;border:1px solid #D5DCE2;padding:10px 12px';d.textContent=t;fil.appendChild(d);fil.scrollTop=fil.scrollHeight;}
-var R={"Où en est ma réparation ?":"L’écran salle 3 (billet #4412) est en réparation depuis le 26 sept. Un écran de prêt est en place. Retour prévu vers le 3 oct.","Mes garanties qui expirent":"5 garanties expirent d’ici 90 jours : Écran salle 3 (19 oct.), Portable Dre Lavoie (2 nov.), Poste salle 1 (14 nov.), Écran réception (30 nov.), Imprimante salle 2 (21 déc.). Voulez-vous une soumission ?","Signaler un problème":"Je vous ouvre le formulaire — ou dites-moi simplement ce qui se passe et sur quel appareil."};
+var R={"Où en est ma réparation ?":"L’écran salle 3 (billet #4412) est en réparation depuis le 26 sept. Un écran de prêt est en place. Retour prévu vers le 3 oct.","Mes garanties qui expirent":"5 garanties expirent d’ici 90 jours : Écran salle 3 (19 oct.), Portable Dre Lavoie (2 nov.), Poste salle 1 (14 nov.), Écran réception (30 nov.), Imprimante salle 2 (21 déc.). Voulez-vous une soumission ?","Signaler un problème":"Je vous ouvre le formulaire — ou dites-moi simplement ce qui se passe et sur quel appareil.","Écrire à mon technicien":"Dites-moi ce que vous voulez lui dire : je prépare le message (appareil, no de série, emplacement) et vous l’envoyez d’un clic."};
 function envoyer(q){q=(q||input.value).trim();if(!q)return;if(window.__IA&&window.__IA.actif()){input.value='';window.__IA.envoyer(q);return;}bulle(q,true);input.value='';setTimeout(function(){bulle(R[q]||('Mode démo : je réponds seulement aux suggestions. Pour des réponses réelles à « '+q+' », ajoutez votre clé API Claude dans ⚙ (en haut de cette fenêtre).'),false);},500);}
 panel.querySelectorAll('[data-chip]').forEach(function(c){c.addEventListener('click',function(){envoyer(c.textContent);});});
 panel.querySelector('[aria-label="Envoyer"]').addEventListener('click',function(){envoyer();});input.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer();});})();
 </script>
-<script src="assistant-ia.js?v=1790928654558"></script><script>
+<script src="assistant-ia.js?v=1790928987301"></script><script>
 (function(){
 function toast(msg,ok){var t=document.getElementById('__toast');if(!t){t=document.createElement('div');t.id='__toast';t.setAttribute('role','status');t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);max-width:min(92vw,560px);background:#14202B;color:#fff;padding:12px 16px;font:14px/1.4 "IBM Plex Sans",system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:9999;opacity:0;transition:all .25s;display:flex;gap:10px;align-items:flex-start';document.body.appendChild(t);}
 t.innerHTML='<span style="flex:none;width:18px;height:18px;border-radius:9px;background:'+(ok?'#1B6B3A':'#5B6B78')+';display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">'+(ok?'✓':'i')+'</span><span></span>';t.lastChild.textContent=msg;t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},3200);}

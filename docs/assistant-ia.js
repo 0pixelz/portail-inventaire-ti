@@ -107,6 +107,29 @@
       },
       statut: function () { return 'Ajout au calendrier…'; }
     },
+    lire_messages: {
+      def: { name: 'lire_messages', description: 'Lit les conversations de la messagerie privée client ↔ équipe (sujet, participants, derniers messages, non lus, id de conversation). Utilise-le avant de proposer une réponse dans un fil existant ou quand on te demande les messages.', input_schema: { type: 'object', properties: { client: { type: 'string', description: 'Admin seulement : filtrer sur un client' }, non_lus_seulement: { type: 'boolean' } } } },
+      run: function (i) {
+        var M = messagerie(), cote = CFG.mode === 'admin' ? 'admin' : 'client';
+        var L = M.threads.filter(function (t) { return (CFG.mode === 'admin' || t.client === CLIENT_PORTAIL) && !(((t.org || {})[cote] || {}).supprime) && (!i.client || t.client.toLowerCase().indexOf(String(i.client).toLowerCase()) > -1); });
+        L = L.filter(function (t) { return !i.non_lus_seulement || estNonLu(t); });
+        if (!L.length) return 'Aucune conversation correspondante.';
+        return L.map(function (t) { var o = ((t.org || {})[cote] || {}); return '[' + t.id + '] « ' + t.sujet + ' » — ' + t.client + ' (' + t.contact + ')' + (t.tech ? ', suivi par ' + t.tech : ', non assigné') + (estNonLu(t) ? ' — NON LU' : '') + (o.dossier && o.dossier !== 'inbox' ? ' — dossier : ' + o.dossier : '') + '\n' + t.messages.slice(-3).map(function (m) { return '  ' + m.date.replace('T', ' ').slice(0, 16) + ' ' + m.auteur + ' : ' + m.texte; }).join('\n'); }).join('\n\n');
+      },
+      statut: function () { return 'Lecture des messages…'; }
+    },
+    proposer_message: {
+      def: { name: 'proposer_message', description: 'Prépare un message de la messagerie privée pour que l’utilisateur le relise et l’envoie lui-même (rien n’est envoyé automatiquement). Client : message à son équipe TI. Admin : message à un client. Pour répondre dans une conversation existante, donne conversation_id (voir lire_messages).', input_schema: { type: 'object', properties: { client: { type: 'string', description: 'Admin seulement : nom exact du client destinataire' }, conversation_id: { type: 'string', description: 'Id d’une conversation existante pour y répondre' }, sujet: { type: 'string', description: 'Sujet (nouvelle conversation)' }, texte: { type: 'string', description: 'Texte complet du message, prêt à envoyer, signé' } }, required: ['texte'] } },
+      run: function (i) {
+        var M = messagerie(), t = i.conversation_id ? M.threads.filter(function (x) { return x.id === i.conversation_id; })[0] : null;
+        var client = CFG.mode === 'admin' ? (t ? t.client : trouverClient(i.client)) : CLIENT_PORTAIL;
+        if (CFG.mode === 'admin' && !client) return 'Client introuvable. Clients : ' + Object.keys(CONTACTS).join(', ') + '.';
+        if (t && CFG.mode !== 'admin' && t.client !== CLIENT_PORTAIL) t = null;
+        cartes.push({ thread: t ? t.id : '', client: client, contact: t ? t.contact : (CFG.mode === 'admin' ? CONTACTS[client] : 'Marie Tremblay'), sujet: t ? t.sujet : (i.sujet || 'Message'), texte: i.texte });
+        return 'Brouillon affiché à l’utilisateur sous ta réponse (destinataire : ' + (CFG.mode === 'admin' ? CONTACTS[client] + ', ' + client : 'équipe [ENTREPRISE]') + '). Il le relit et clique « Envoyer » lui-même : ne dis pas que c’est envoyé.';
+      },
+      statut: function () { return 'Préparation du message…'; }
+    },
     ajouter_au_panier: {
       def: { name: 'ajouter_au_panier', description: 'Ajoute un produit du catalogue au panier du client. Lis d’abord commande.html pour connaître les produits et prix exacts.', input_schema: { type: 'object', properties: { produit: { type: 'string', description: 'Nom exact du produit tel qu’affiché au catalogue' }, quantite: { type: 'integer', minimum: 1 } }, required: ['produit'] } },
       run: function (i) {
@@ -125,7 +148,44 @@
       statut: function () { return 'Ajout au panier…'; }
     }
   };
-  var actifs = CFG.mode === 'public' ? ['lire_page', 'ouvrir_page'] : CFG.mode === 'admin' ? ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'creer_evenement'] : ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'ajouter_au_panier'];
+  var actifs = CFG.mode === 'public' ? ['lire_page', 'ouvrir_page'] : CFG.mode === 'admin' ? ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'creer_evenement', 'lire_messages', 'proposer_message'] : ['lire_page', 'ouvrir_page', 'filtrer_page', 'creer_billet', 'ajouter_au_panier', 'lire_messages', 'proposer_message'];
+
+  // ---------- messagerie : lecture / envoi depuis l'assistant ----------
+  var CLIENT_PORTAIL = 'Clinique Dentaire Ste-Rose', MK = 'messagerie-v1', cartes = [];
+  var CONTACTS = { 'Clinique Dentaire Ste-Rose': 'Marie Tremblay', 'Garderie Les Lucioles': 'Sophie Côté', 'Studio Nord Design': 'Julie D.', 'Comptabilité Marchand': 'Pierre Marchand', 'Groupe Auto Laurentides': 'Martin Lévesque', 'Physio Rive-Nord': 'Nadia K.', 'Notaires Lacasse & Fils': 'Me Lacasse', 'Atelier Mécanique Dubé': 'Éric Dubé' };
+  function messagerie() { try { var o = JSON.parse(localStorage.getItem(MK)); if (o && o.threads) return o; } catch (e) {} return { threads: JSON.parse(JSON.stringify(window.__MSG_SEED || [])) }; }
+  function maintenant() { var d = new Date(), p = function (n) { return ('0' + n).slice(-2); }; return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds()); }
+  function estNonLu(t) { var m = t.messages[t.messages.length - 1], adm = CFG.mode === 'admin'; return m.de !== (adm ? 'equipe' : 'client') && m.date > (adm ? t.luEquipe : t.luClient); }
+  function trouverClient(n) { if (!n) return ''; n = String(n).toLowerCase(); return Object.keys(CONTACTS).filter(function (c) { return c.toLowerCase() === n || c.toLowerCase().indexOf(n) > -1 || n.indexOf(c.toLowerCase().split(' ').slice(-1)[0]) > -1; })[0] || ''; }
+  function envoyerMessage(c, sujet, texte) {
+    var M = messagerie(), adm = CFG.mode === 'admin', moi = adm ? 'Jonathan' : 'Marie Tremblay', autre = adm ? 'client' : 'admin', t = c.thread ? M.threads.filter(function (x) { return x.id === c.thread; })[0] : null;
+    var msg = { de: adm ? 'equipe' : 'client', auteur: moi, date: maintenant(), texte: texte };
+    if (t) { t.messages.push(msg); if (adm) { t.luEquipe = msg.date; if (!t.tech) t.tech = moi; } else t.luClient = msg.date; t.org = t.org || {}; var oa = t.org[autre]; if (oa && (oa.dossier !== 'inbox' || oa.supprime)) { oa.dossier = 'inbox'; oa.supprime = false; } }
+    else { t = { id: 'm' + Date.now(), client: c.client, contact: c.contact, sujet: sujet, tech: adm ? moi : '', lien: '', luClient: adm ? '2000-01-01T00:00:00' : msg.date, luEquipe: adm ? msg.date : '2000-01-01T00:00:00', messages: [msg] }; M.threads.push(t); }
+    try { localStorage.setItem(MK, JSON.stringify(M)); } catch (e) {}
+    if (window.__MSG && window.__MSG.rafraichir) window.__MSG.rafraichir();
+    return t.id;
+  }
+  function carteMessage(fil, c) {
+    var adm = CFG.mode === 'admin', d = document.createElement('div');
+    var IN = "font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-appearance:none;border-radius:0;border:1px solid #B8C4CE;font-size:16px;width:100%;box-sizing:border-box;padding:8px 10px;color:#14202B;background:#fff";
+    d.style.cssText = 'align-self:stretch;background:#fff;border:1px solid #D5DCE2;border-left:4px solid ' + COL + ';padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:13.5px';
+    d.innerHTML = '<div style="display:flex;align-items:center;gap:8px;font-weight:600;color:' + COL + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 6.5l8.5 6 8.5-6"></path></svg>Message à envoyer</div>'
+      + '<div style="font-size:12.5px;color:#5B6B78">À : <strong style="color:#14202B">' + esc(adm ? c.contact + ' — ' + c.client : 'Équipe [ENTREPRISE]') + '</strong>' + (c.thread ? ' · réponse à « ' + esc(c.sujet) + ' »' : '') + '</div>'
+      + (c.thread ? '' : '<input data-c-sujet value="' + esc(c.sujet) + '" aria-label="Sujet" style="' + IN + ';height:40px;font-weight:600">')
+      + '<textarea data-c-texte rows="6" aria-label="Message" style="' + IN + ';line-height:1.45;resize:vertical;min-height:120px">' + esc(c.texte) + '</textarea>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button type="button" data-c-env style="height:38px;padding:0 16px;border:0;background:' + COL + ';color:#fff;font:inherit;font-weight:600;cursor:pointer">Envoyer</button><button type="button" data-c-ann style="height:38px;padding:0 12px;border:1px solid #B8C4CE;background:#fff;font:inherit;cursor:pointer">Annuler</button><span style="font-size:11.5px;color:#5B6B78">Relisez avant d’envoyer.</span></div>';
+    fil.appendChild(d); fil.scrollTop = fil.scrollHeight;
+    d.querySelector('[data-c-ann]').onclick = function () { d.innerHTML = '<span style="color:#5B6B78">Message annulé.</span>'; };
+    d.querySelector('[data-c-env]').onclick = function () {
+      var tx = d.querySelector('[data-c-texte]').value.trim(), sj = c.thread ? c.sujet : (d.querySelector('[data-c-sujet]').value.trim() || 'Message');
+      if (!tx) return;
+      var id = envoyerMessage(c, sj, tx), page = (adm ? 'admin-messages.html' : 'messages.html') + '?v=' + (CFG.build || '') + '#' + id;
+      d.innerHTML = '<div style="color:#1B6B3A;font-weight:600">✓ Message envoyé à ' + esc(adm ? c.contact : 'votre équipe TI') + '</div><a href="' + page + '" style="color:' + COL + ';font-weight:600;text-decoration:none">Voir la conversation →</a>';
+      messages.push({ role: 'user', content: '(Système : l’utilisateur a envoyé le message « ' + sj + ' ».)' }); messages.push({ role: 'assistant', content: [{ type: 'text', text: 'Noté.' }] }); sauver(messages);
+      window.__toast && window.__toast('Message envoyé — ' + sj, true);
+    };
+  }
 
   // ---------- Instructions système ----------
   function systeme() {
@@ -137,9 +197,9 @@
       'Offre : prix par appareil par mois — Visibilité 8 $, Géré 25 $, Géré + matériel 55 $ (indicatifs); visite d’inventaire gratuite (scan + étiquettes QR, portail prêt en 48 h); remplacement planifié; support en français; aucun verrouillage; reprise et recyclage; spécialité PME 5-50 postes des Laurentides / Rive-Nord et concessionnaires automobiles (DMS, postes F&I, tablettes de diagnostic, Wi-Fi atelier et cour, multi-succursales). ' +
       'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement.';
     var role = CFG.mode === 'admin'
-      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Les échanges écrits avec les clients sont dans admin-messages.html (tu peux les résumer et proposer une réponse, mais c’est l’humain qui l’envoie). Pour l’horaire de l’équipe (interventions, visites, livraisons, maintenances, congés, échéances), lis admin-calendrier.html et utilise creer_evenement pour planifier; vérifie la charge et les conflits du technicien. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client : propose un brouillon.'
+      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Les échanges écrits avec les clients sont dans admin-messages.html (tu peux les résumer et proposer une réponse, mais c’est l’humain qui l’envoie). Pour l’horaire de l’équipe (interventions, visites, livraisons, maintenances, congés, échéances), lis admin-calendrier.html et utilise creer_evenement pour planifier; vérifie la charge et les conflits du technicien. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client toi-même. Quand il faut écrire à un client (confirmer un rendez-vous, demander une information, annoncer une livraison, répondre à son message), PROPOSE le message avec proposer_message (vouvoiement, signé « Jonathan ») : lis d’abord lire_messages pour répondre dans le bon fil (conversation_id). Jonathan relit et clique « Envoyer ».'
       : CFG.mode === 'client'
-        ? 'Tu es l’assistant support de Marie Tremblay (administratrice) chez le client Clinique Dentaire Ste-Rose. Tu connais son inventaire, ses billets, ses commandes, soumissions, factures, son plan de remplacement et le catalogue. Tu peux créer un billet, ajouter au panier, filtrer la liste et ouvrir des pages. Tu ne parles jamais des autres clients ni des prix internes. Pour une urgence (toute la clinique arrêtée), recommande d’appeler le support et crée un billet de priorité Haute. Si un problème dépasse tes moyens, propose qu’un technicien prenne le relais.'
+        ? 'Tu es l’assistant support de Marie Tremblay (administratrice) chez le client Clinique Dentaire Ste-Rose. Tu connais son inventaire, ses billets, ses commandes, soumissions, factures, son plan de remplacement et le catalogue. Tu peux créer un billet, ajouter au panier, filtrer la liste et ouvrir des pages. Tu ne parles jamais des autres clients ni des prix internes. Pour une urgence (toute la clinique arrêtée), recommande d’appeler le support et crée un billet de priorité Haute. Quand Marie veut joindre une personne, poser une question à son technicien, confirmer un détail, ou quand tu ne peux pas régler la demande toi-même, PROPOSE d’envoyer un message à l’équipe avec proposer_message : rédige-le complètement (appareil, no de série, emplacement, symptôme, depuis quand, disponibilités) et signe « Marie ». Pour répondre à un fil existant, utilise lire_messages puis conversation_id. Ne dis jamais que le message est envoyé : elle clique « Envoyer ». Si un problème dépasse tes moyens, propose qu’un technicien prenne le relais.'
         : 'Tu es l’assistant du site public. Tu expliques les services, les forfaits, la visite gratuite et l’évaluateur de forfait, et tu invites à réserver la visite ou à essayer l’évaluateur. Tu n’as pas accès aux données des clients.';
     var pages = 'Pages accessibles (fichier — titre) :\n' + permis.map(function (p) { return '- ' + p.page + ' — ' + p.titre; }).join('\n');
     return commun + '\n\n' + role + '\n\n' + pages + '\n\nPage actuellement ouverte : ' + CFG.page + ' (' + titreDe(CFG.page) + '). Son contenu :\n"""\n' + textePageCourante() + '\n"""';
@@ -279,6 +339,7 @@
         }
         var texte = (rep.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim() || 'C’est fait.';
         attente.innerHTML = mdHtml(texte);
+        cartes.splice(0).forEach(function (c) { carteMessage(fil, c); });
         fil.scrollTop = fil.scrollHeight;
         // ne garder que le texte dans l'historique affichable
         sauver(messages);
@@ -286,6 +347,7 @@
       });
     }
     boucle().catch(function (e) {
+      cartes.length = 0;
       messages = messages.slice(0, debut); // annule ce tour
       var m = e.status === 401 ? (get(LS_KEY) || !PROXY ? 'Clé API refusée. Vérifiez-la dans ⚙ Réglages.' : 'Le service IA est mal configuré (clé refusée). Avisez l’administrateur.') : e.status === 429 ? 'Limite de requêtes atteinte. Réessayez dans un instant.' : e.status === 400 ? 'Requête refusée par l’API : ' + e.message : (e.status ? 'Erreur API (' + e.status + ') : ' + e.message : 'Connexion impossible à l’API Claude (réseau).');
       attente.innerHTML = '<span style="color:#9B1C1C">' + esc(m) + '</span>';

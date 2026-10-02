@@ -442,5 +442,5 @@
     else { if (!mobile) { var premier = visibles().filter(function (t) { return dans(t, 'inbox'); })[0]; if (premier) { sel = premier.id; if (nonLu(premier)) marquerLu(premier); } } rendre(); badge(); }
   }
   window.addEventListener('hashchange', function () { if (!B) return; var h = location.hash.slice(1); if (h === 'nouveau') nouveau(); else if (h && th(h)) ouvrir(h); });
-  window.__MSG = { lire: function () { return S; } };
+  window.__MSG = { lire: function () { return S; }, rafraichir: function () { S = lire(); badge(); if (B) rendre(); } };
 })();
