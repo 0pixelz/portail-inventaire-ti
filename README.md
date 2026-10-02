@@ -20,6 +20,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Client — étiquette QR à imprimer | [etiquette.html](https://0pixelz.github.io/portail-inventaire-ti/etiquette.html) |
 | Client — signaler un problème | [nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/nouveau-billet.html) |
 | Client — mes billets | [mes-billets.html](https://0pixelz.github.io/portail-inventaire-ti/mes-billets.html) |
+| Client — messages avec l’équipe (courriel interne) | [messages.html](https://0pixelz.github.io/portail-inventaire-ti/messages.html) |
 | Client — suivi d'un billet | [mon-billet.html](https://0pixelz.github.io/portail-inventaire-ti/mon-billet.html) |
 | Client — plan de remplacement | [plan-remplacement.html](https://0pixelz.github.io/portail-inventaire-ti/plan-remplacement.html) |
 | Client — panier (gestion, quantités, livraison) | [panier.html](https://0pixelz.github.io/portail-inventaire-ti/panier.html) |
@@ -32,6 +33,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Client — assistant IA, vue détaillée | [assistant.html](https://0pixelz.github.io/portail-inventaire-ti/assistant.html) |
 | **Admin** — tableau de bord | [admin-tableau.html](https://0pixelz.github.io/portail-inventaire-ti/admin-tableau.html) |
 | Admin — calendrier de l’équipe (jour/semaine/mois/liste, glisser-déposer, conflits, à planifier, export .ics) | [admin-calendrier.html](https://0pixelz.github.io/portail-inventaire-ti/admin-calendrier.html) |
+| Admin — messages clients (boîte de réception, assignation) | [admin-messages.html](https://0pixelz.github.io/portail-inventaire-ti/admin-messages.html) |
 | Admin — billets (filtres, résolus) | [admin.html](https://0pixelz.github.io/portail-inventaire-ti/admin.html) |
 | Admin — gestion d'un billet | [billet.html](https://0pixelz.github.io/portail-inventaire-ti/billet.html) |
 | Admin — nouveau billet pour un client | [admin-nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/admin-nouveau-billet.html) |
