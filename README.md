@@ -57,19 +57,19 @@ Les boutons sans page dédiée (ex. « Changer la photo ») affichent un message
 
 ## 🤖 Assistant IA réel (API Claude) — clé gardée sur le serveur
 
-GitHub Pages ne sert que des fichiers publics : une clé API placée dans le site serait visible par tous (et révoquée automatiquement par Anthropic). La clé vit donc sur **Netlify**, connecté à ce dépôt GitHub :
+GitHub Pages ne sert que des fichiers publics : une clé API placée dans le site serait visible par tous (et révoquée automatiquement par Anthropic). La clé vit donc sur **Vercel**, connecté à ce dépôt GitHub :
 
-- `netlify/functions/claude.mjs` — relais sécurisé `/api/chat` (lit `ANTHROPIC_API_KEY`, accepte seulement ce site, plafonne modèles / longueur / débit).
-- `netlify.toml` — Netlify sert `docs/` + la fonction; se redéploie à chaque push sur `main`.
-- `docs/ia-config.js` — sur Netlify, l'assistant utilise `/api/chat` automatiquement.
+- `api/chat.mjs` — relais sécurisé `/api/chat` (lit `ANTHROPIC_API_KEY`, accepte seulement ce site et GitHub Pages, plafonne modèles / longueur / débit).
+- `vercel.json` — Vercel sert `docs/` + la fonction, sans compilation; redéploie à chaque push sur `main`.
+- `docs/ia-config.js` — sur Vercel, l'assistant utilise `/api/chat` automatiquement.
 
 ### Mise en ligne (une seule fois)
-1. https://app.netlify.com → **Sign up with GitHub**.
-2. **Add new project → Import an existing project → GitHub** → choisir `portail-inventaire-ti` → **Deploy** (les réglages viennent de `netlify.toml`).
-3. **Project configuration → Environment variables → Add a variable** : `ANTHROPIC_API_KEY` = votre clé (`sk-ant-api03-…`), cocher *Secret* → **Deploys → Trigger deploy**.
-4. Ouvrir `https://<votre-site>.netlify.app/inventaire.html` → l'assistant affiche « Connecté à Claude » pour tout le monde.
+1. https://vercel.com/signup → **Continue with GitHub** (plan Hobby, gratuit).
+2. **Add New → Project** → importer `portail-inventaire-ti` (les réglages viennent de `vercel.json`).
+3. **Environment Variables** : `ANTHROPIC_API_KEY` = votre clé (`sk-ant-api03-…`) → **Deploy**.
+4. Ouvrir `https://<votre-projet>.vercel.app/inventaire.html` → l'assistant affiche « Connecté à Claude » pour tout le monde.
 
-Optionnel : pour que la copie GitHub Pages utilise aussi l'IA, mettre l'adresse Netlify dans `window.__IA_PROXY_NETLIFY` (`docs/ia-config.js`).
+Optionnel : pour que la copie GitHub Pages utilise aussi l'IA, mettre l'adresse Vercel dans `window.__IA_PROXY_SERVEUR` (`docs/ia-config.js`).
 Fixer une **limite de dépenses mensuelle** : console.anthropic.com → Billing → Spend limits.
 
 Sans relais configuré, l'assistant reste en mode démo (un admin peut tester avec sa propre clé via ⚙, gardée dans son navigateur seulement).
@@ -77,8 +77,8 @@ Sans relais configuré, l'assistant reste en mode démo (un admin peut tester av
 ## Structure du dépôt
 
 ```
-docs/                 Prototype HTML autonome — servi par GitHub Pages et Netlify
-netlify/functions/    Relais IA sécurisé (clé API côté serveur)
+docs/                 Prototype HTML autonome — servi par GitHub Pages et Vercel
+api/chat.mjs          Relais IA sécurisé (clé API côté serveur, Vercel)
 supabase/schema.sql   Modèle de données + politiques RLS (isolation par client)
 app/api/chat/route.ts Assistant IA : boucle d'outils avec l'API Claude
 app/inventaire/       Tableau de bord client (Next.js, App Router)

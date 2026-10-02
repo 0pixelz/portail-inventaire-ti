@@ -1,5 +1,5 @@
-// Relais sécurisé portail → API Claude (Netlify Function, déployée depuis GitHub).
-// La clé API est une variable d'environnement Netlify (ANTHROPIC_API_KEY) :
+// Relais sécurisé portail → API Claude (Vercel Function, déployée depuis GitHub).
+// La clé API est une variable d'environnement Vercel (ANTHROPIC_API_KEY) :
 // jamais dans le code du site, ni dans GitHub, ni dans le navigateur.
 
 const MODELES_PERMIS = ['claude-sonnet-5-5', 'claude-haiku-4-5-20251001', 'claude-opus-5-5'];
@@ -10,14 +10,13 @@ const MAX_REQ_PAR_MINUTE = 20;
 const compteurs = new Map();
 
 function env(nom) {
-  try { if (globalThis.Netlify && Netlify.env) return Netlify.env.get(nom); } catch (e) {}
   return process.env[nom];
 }
 function originePermise(origine, hote) {
   if (!origine) return false;
   const liste = ['https://0pixelz.github.io', ...String(env('ALLOWED_ORIGINS') || '').split(',').map(s => s.trim()).filter(Boolean)];
   if (liste.includes(origine)) return true;
-  try { return new URL(origine).host === hote; } catch (e) { return false; } // même site (Netlify)
+  try { return new URL(origine).host === hote; } catch (e) { return false; } // même site
 }
 function cors(origine) {
   return { 'Access-Control-Allow-Origin': origine, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type', 'Access-Control-Max-Age': '86400', 'Vary': 'Origin' };
@@ -26,7 +25,7 @@ function json(obj, status, origine) {
   return new Response(JSON.stringify(obj), { status, headers: { 'content-type': 'application/json', ...cors(origine) } });
 }
 
-export default async (request) => {
+async function relais(request) {
   const origine = request.headers.get('origin') || '';
   const hote = new URL(request.url).host;
   if (!originePermise(origine, hote)) return new Response('Origine non permise', { status: 403 });
@@ -35,7 +34,7 @@ export default async (request) => {
   const cle = env('ANTHROPIC_API_KEY');
   if (!cle) return json({ error: { message: 'Clé API non configurée sur le serveur (ANTHROPIC_API_KEY)' } }, 500, origine);
 
-  const ip = request.headers.get('x-nf-client-connection-ip') || request.headers.get('x-forwarded-for') || 'inconnu';
+  const ip = (request.headers.get('x-forwarded-for') || 'inconnu').split(',')[0].trim();
   const minute = Math.floor(Date.now() / 60000), c = compteurs.get(ip);
   if (c && c.minute === minute) { if (++c.n > MAX_REQ_PAR_MINUTE) return json({ error: { message: 'Trop de requêtes, réessayez dans une minute' } }, 429, origine); }
   else compteurs.set(ip, { minute, n: 1 });
@@ -56,6 +55,6 @@ export default async (request) => {
     }),
   });
   return new Response(await rep.text(), { status: rep.status, headers: { 'content-type': 'application/json', ...cors(origine) } });
-};
+}
 
-export const config = { path: '/api/chat' };
+export default { fetch: relais };
