@@ -195,7 +195,9 @@
       'Pour diriger l’utilisateur vers une page, écris un lien markdown [Titre](fichier.html) ou utilise ouvrir_page s’il veut y aller. ' +
       'Aujourd’hui : ' + new Date().toLocaleDateString('fr-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '. ' +
       'Offre : prix par appareil par mois — Visibilité 8 $, Géré 25 $, Géré + matériel 55 $ (indicatifs); visite d’inventaire gratuite (scan + étiquettes QR, portail prêt en 48 h); remplacement planifié; support en français; aucun verrouillage; reprise et recyclage; spécialité PME 5-50 postes des Laurentides / Rive-Nord et concessionnaires automobiles (DMS, postes F&I, tablettes de diagnostic, Wi-Fi atelier et cour, multi-succursales). ' +
-      'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement.';
+      'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement. ' +
+      'RÉPONSES RAPIDES : termine CHAQUE réponse par une dernière ligne exactement au format [[choix: Réponse 1 | Réponse 2 | Réponse 3]] (2 à 5 choix, 2 à 7 mots chacun, écrits comme si l’utilisateur les disait). Ils s’affichent en boutons cliquables sous ta réponse. ' +
+      'Si tu poses une question, les choix y répondent directement avec de vraies données lues sur le site (ex. « Quel appareil ? » → noms réels des appareils de l’inventaire avec leur emplacement; « Quel symptôme ? » → symptômes typiques; « Depuis quand ? » → « Depuis ce matin | Depuis hier | Depuis quelques jours »). Sinon, propose les prochaines actions utiles (créer le billet, écrire au technicien, ouvrir une page…). Si tu poses plusieurs questions, les choix portent sur la première. Ne mentionne jamais ce format.';
     var role = CFG.mode === 'admin'
       ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Les échanges écrits avec les clients sont dans admin-messages.html (tu peux les résumer et proposer une réponse, mais c’est l’humain qui l’envoie). Pour l’horaire de l’équipe (interventions, visites, livraisons, maintenances, congés, échéances), lis admin-calendrier.html et utilise creer_evenement pour planifier; vérifie la charge et les conflits du technicien. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client toi-même. Quand il faut écrire à un client (confirmer un rendez-vous, demander une information, annoncer une livraison, répondre à son message), PROPOSE le message avec proposer_message (vouvoiement, signé « Jonathan ») : lis d’abord lire_messages pour répondre dans le bon fil (conversation_id). Jonathan relit et clique « Envoyer ».'
       : CFG.mode === 'client'
@@ -220,6 +222,23 @@
   function bulleIA(fil, html) { var d = document.createElement('div'); d.style.cssText = 'align-self:flex-start;max-width:88%;background:#fff;border:1px solid #D5DCE2;padding:10px 12px;overflow-wrap:anywhere'; d.innerHTML = html; fil.appendChild(d); fil.scrollTop = fil.scrollHeight; return d; }
   function bulleMoi(fil, t, col) { var d = document.createElement('div'); d.style.cssText = 'align-self:flex-end;max-width:85%;background:' + col + ';color:#fff;padding:10px 12px;overflow-wrap:anywhere'; d.textContent = t; fil.appendChild(d); fil.scrollTop = fil.scrollHeight; }
   var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
+
+  // ---------- Réponses rapides : ligne finale « [[choix: A | B | C]] » ----------
+  function extraireChoix(t) {
+    var choix = [];
+    t = String(t || '').replace(/\[\[\s*choix\s*:([^\]]*)\]\]/gi, function (m, l) { choix = l.split('|').map(function (x) { return x.trim(); }).filter(function (x) { return x && x.length <= 80; }).slice(0, 6); return ''; }).trim();
+    return { texte: t, choix: choix };
+  }
+  function boutonsChoix(fil, choix) {
+    [].slice.call(fil.querySelectorAll('[data-ia-choix]')).forEach(function (n) { n.remove(); });
+    if (!choix || !choix.length) return;
+    var z = document.createElement('div'); z.setAttribute('data-ia-choix', '');
+    z.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%';
+    z.innerHTML = choix.map(function (c) { return '<button type="button" data-ia-c="' + esc(c) + '" style="font-family:\'IBM Plex Sans\',system-ui,sans-serif;min-height:36px;padding:7px 12px;font-size:13.5px;line-height:1.25;text-align:left;cursor:pointer;border:1px solid ' + COL + ';background:' + COL + '0F;color:#14202B;font-weight:500;border-radius:18px">' + esc(c) + '</button>'; }).join('');
+    fil.appendChild(z);
+    z.addEventListener('click', function (e) { var b = e.target.closest('[data-ia-c]'); if (!b || occupe) return; z.remove(); envoyer(b.getAttribute('data-ia-c'), document.querySelector('section[data-floating]'), fil); });
+    fil.scrollTop = fil.scrollHeight;
+  }
 
   // Les blocs « thinking » ne sont valides qu'avec les mêmes consignes/outils que lors de leur création.
   // Comme chaque page envoie des consignes différentes, on ne renvoie que ceux du tour en cours.
@@ -334,6 +353,7 @@
   var occupe = false;
   function envoyer(q, panel, fil) {
     if (occupe) return; occupe = true;
+    [].slice.call(fil.querySelectorAll('[data-ia-choix],[data-ia-sugg]')).forEach(function (n) { n.remove(); });
     bulleMoi(fil, q, COL);
     var debut = messages.length;
     messages.push({ role: 'user', content: q });
@@ -353,8 +373,10 @@
           })).then(function (results) { messages.push({ role: 'user', content: results }); return boucle(); });
         }
         var texte = (rep.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim() || 'C’est fait.';
-        attente.innerHTML = mdHtml(texte);
+        var ex = extraireChoix(texte);
+        attente.innerHTML = mdHtml(ex.texte || 'C’est fait.');
         cartes.splice(0).forEach(function (c) { carteMessage(fil, c); });
+        boutonsChoix(fil, ex.choix);
         fil.scrollTop = fil.scrollHeight;
         // ne garder que le texte dans l'historique affichable
         sauver(messages);
@@ -456,10 +478,12 @@
     var suiteNav = false; try { suiteNav = sessionStorage.getItem('ia-nav') === '1'; sessionStorage.removeItem('ia-nav'); } catch (e) {}
     if (suiteNav && connecte() && messages.length) {
       [].slice.call(fil.children).forEach(function (n) { n.remove(); });
+      var dernierChoix = null;
       messages.forEach(function (m) {
         if (typeof m.content === 'string') { if (m.content.indexOf('(Système') !== 0) { bulleMoi(fil, m.content, COL); fil.lastChild.setAttribute('data-ia-hist', ''); } }
-        else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); if (t && t !== '…' && t !== 'Noté.') bulleIA(fil, mdHtml(t)).setAttribute('data-ia-hist', ''); }
+        else if (m.role === 'assistant') { var t = m.content.filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('\n').trim(); dernierChoix = null; if (t && t !== '…' && t !== 'Noté.') { dernierChoix = extraireChoix(t); bulleIA(fil, mdHtml(dernierChoix.texte)).setAttribute('data-ia-hist', ''); } }
       });
+      if (dernierChoix && messages[messages.length - 1].role === 'assistant') boutonsChoix(fil, dernierChoix.choix);
       try { if (sessionStorage.getItem('ia-ouvert') === '1') panel.style.display = 'flex'; } catch (e) {}
     } else {
       accueil(fil);
