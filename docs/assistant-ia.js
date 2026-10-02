@@ -244,5 +244,21 @@
     actif: function () { return connecte(); },
     envoyer: function (q) { var panel = document.querySelector('section[data-floating]'); var fil = panel.querySelector('div[style*="overflow: auto"]'); envoyer(q, panel, fil); }
   };
+  // iOS / Android : quand le clavier s'ouvre, la zone visible rétrécit. On colle la fenêtre
+  // de l'assistant à cette zone visible pour que l'en-tête (✕) et la saisie restent à l'écran.
+  function ajusterAuClavier() {
+    var panel = document.querySelector('section[data-floating]'); var vv = window.visualViewport;
+    if (!panel) return;
+    if (window.innerWidth >= 820 || !vv) { ['top', 'height', 'bottom'].forEach(function (k) { panel.style.removeProperty(k); }); return; }
+    panel.style.setProperty('top', Math.round(vv.offsetTop + 8) + 'px', 'important');
+    panel.style.setProperty('height', Math.round(vv.height - 16) + 'px', 'important');
+    panel.style.setProperty('bottom', 'auto', 'important');
+    var fil = panel.querySelector('div[style*="overflow: auto"]'); if (fil) fil.scrollTop = fil.scrollHeight;
+  }
+  if (window.visualViewport) { window.visualViewport.addEventListener('resize', ajusterAuClavier); window.visualViewport.addEventListener('scroll', ajusterAuClavier); }
+  window.addEventListener('orientationchange', function () { setTimeout(ajusterAuClavier, 300); });
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[aria-label="Ouvrir l\'assistant"]')) setTimeout(ajusterAuClavier, 0); });
+  document.addEventListener('focusin', function (e) { if (e.target.closest && e.target.closest('section[data-floating]')) setTimeout(ajusterAuClavier, 350); });
   installer();
+  ajusterAuClavier();
 })();
