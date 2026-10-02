@@ -207,8 +207,8 @@
 
   // ---------- Conversation ----------
   function charger() { try { return JSON.parse(sessionStorage.getItem(CONV_KEY)) || []; } catch (e) { return []; } }
-  function sauver(m) { try { sessionStorage.setItem(CONV_KEY, JSON.stringify(m.slice(-30))); } catch (e) {} }
-  var messages = charger();
+  function sauver(m) { try { sessionStorage.setItem(CONV_KEY, JSON.stringify(m.slice(-30).map(function (x) { return x.role === 'assistant' && Array.isArray(x.content) ? { role: 'assistant', content: x.content.filter(function (b) { return b.type !== 'thinking' && b.type !== 'redacted_thinking'; }) } : x; }).map(function (x) { return x.role === 'assistant' && Array.isArray(x.content) && !x.content.length ? { role: 'assistant', content: [{ type: 'text', text: '…' }] } : x; }))); } catch (e) {} }
+  var messages = charger().map(function (x) { return x.role === 'assistant' && Array.isArray(x.content) ? { role: 'assistant', content: (x.content.filter(function (b) { return b.type !== 'thinking' && b.type !== 'redacted_thinking'; }).length ? x.content.filter(function (b) { return b.type !== 'thinking' && b.type !== 'redacted_thinking'; }) : [{ type: 'text', text: '…' }]) } : x; });
 
   function mdHtml(t) {
     var h = esc(t);
@@ -221,8 +221,23 @@
   function bulleMoi(fil, t, col) { var d = document.createElement('div'); d.style.cssText = 'align-self:flex-end;max-width:85%;background:' + col + ';color:#fff;padding:10px 12px;overflow-wrap:anywhere'; d.textContent = t; fil.appendChild(d); fil.scrollTop = fil.scrollHeight; }
   var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
 
+  // Les blocs « thinking » ne sont valides qu'avec les mêmes consignes/outils que lors de leur création.
+  // Comme chaque page envoie des consignes différentes, on ne renvoie que ceux du tour en cours.
+  function sansReflexion(m) {
+    if (m.role !== 'assistant' || typeof m.content === 'string') return m;
+    var c = m.content.filter(function (b) { return b.type !== 'thinking' && b.type !== 'redacted_thinking'; });
+    return { role: 'assistant', content: c.length ? c : [{ type: 'text', text: '…' }] };
+  }
+  function nettoyer(msgs, garderTourCourant) {
+    var debut = 0; for (var i = msgs.length - 1; i >= 0; i--) { if (msgs[i].role === 'user' && typeof msgs[i].content === 'string') { debut = i; break; } }
+    return msgs.map(function (m, i) { return garderTourCourant && i > debut ? m : sansReflexion(m); });
+  }
   function appel(msgs) {
-    return appelAPI({ model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: msgs });
+    var corps = function (garder) { return { model: get(LS_MODEL) || MODELES[0][0], max_tokens: 1500, system: systeme(), tools: actifs.map(function (k) { return OUTILS[k].def; }), messages: nettoyer(msgs, garder) }; };
+    return appelAPI(corps(true)).catch(function (e) {
+      if (e.status === 400 && /thinking|signature/i.test(e.message || '')) return appelAPI(corps(false)); // repli : aucun bloc de réflexion
+      throw e;
+    });
   }
   function appelAPI(corps) {
     var perso = PROXY ? '' : get(LS_KEY); // serveur configuré : on ignore toute clé locale
