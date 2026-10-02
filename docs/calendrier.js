@@ -10,7 +10,7 @@
   var MC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juill.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'], ML = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   var CLIENTS = ['', 'Clinique Dentaire Ste-Rose', 'Garderie Les Lucioles', 'Studio Nord Design', 'Comptabilité Marchand', 'Groupe Auto Laurentides', 'Physio Rive-Nord', 'Notaires Lacasse & Fils', 'Atelier Mécanique Dubé', 'Pharmacie du Boisé'];
 
-  function lire() { try { var o = JSON.parse(localStorage.getItem(K)); if (o && o.ajouts) return o; } catch (e) {} return { ajouts: [], modifs: {}, suppr: [], planifies: [] }; }
+  function lire() { try { var o = JSON.parse(localStorage.getItem(K)); if (o && o.ajouts) { o.demandes = o.demandes || []; o.planifies = o.planifies || []; return o; } } catch (e) {} return { ajouts: [], modifs: {}, suppr: [], planifies: [], demandes: [] }; }
   function ecrire() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
   var S = lire();
   function toast(m, ok) { if (window.__toast) window.__toast(m, ok); }
@@ -87,6 +87,7 @@
 
   function bloc(e, conf) {
     var t = TYPES[e.type] || { col: '#5B6B78' };
+    if (e.statut === 'propose') return 'background:repeating-linear-gradient(135deg,#fff 0,#fff 6px,' + t.col + '22 6px,' + t.col + '22 12px);color:' + t.col + ';border:2px dashed ' + t.col + ';' + (conf[e.id] ? 'outline:2px solid #9B1C1C;outline-offset:1px;' : '');
     return 'background:' + t.col + ';color:#fff;border-left:4px solid rgba(0,0,0,.25);' + (conf[e.id] ? 'outline:2px solid #9B1C1C;outline-offset:1px;' : '');
   }
 
@@ -120,7 +121,7 @@
         var s = Math.max(min(e.debut), H0 * 60), f = Math.min(Math.max(min(e.fin), s + 20), H1 * 60);
         var top = (s - H0 * 60) / 60 * H, hgt = Math.max((f - s) / 60 * H - 2, 18), w = 100 / e._n;
         h += '<div data-cal-ev="' + e.id + '" role="button" tabindex="0" style="position:absolute;top:' + top + 'px;height:' + hgt + 'px;left:calc(' + (e._l * w) + '% + 2px);width:calc(' + w + '% - 4px);' + bloc(e, conf) + 'padding:3px 6px;font-size:12px;line-height:1.25;overflow:hidden;cursor:pointer;box-sizing:border-box;z-index:1;user-select:none">'
-          + '<div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(e.titre) + '</div>'
+          + '<div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (e.statut === 'propose' ? 'À confirmer · ' : (e.source === 'client' ? '✓ ' : '')) + esc(e.titre) + '</div>'
           + (hgt > 30 ? '<div style="opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + hfr(e.debut) + ' – ' + hfr(e.fin) + ' · ' + esc(e.tech) + '</div>' : '')
           + (hgt > 46 && e.client ? '<div style="opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(e.client) + '</div>' : '') + '</div>';
       });
@@ -189,19 +190,26 @@
   }
 
   function aPlanifier() {
-    R.querySelectorAll('[data-cal-ap]').forEach(function (el) { el.style.display = S.planifies.indexOf(+el.getAttribute('data-cal-ap')) > -1 ? 'none' : 'flex'; });
+    var restants = 0;
+    R.querySelectorAll('[data-cal-ap]').forEach(function (el) { var cache = S.planifies.indexOf(+el.getAttribute('data-cal-ap')) > -1; el.style.display = cache ? 'none' : 'flex'; if (!cache) restants++; });
+    var box = R.querySelector('[data-cal-aplist]'), dyn = box.querySelector('[data-cal-dyn]');
+    if (!dyn) { dyn = document.createElement('div'); dyn.setAttribute('data-cal-dyn', ''); box.insertBefore(dyn, box.firstChild); }
+    dyn.innerHTML = S.demandes.map(function (a, i) { return '<div style="display:flex;flex-direction:column;gap:3px;padding:8px 0;border-top:1px solid #EEF1F4"><span style="font-size:11px;font-weight:700;color:#0F6E8C;text-transform:uppercase;letter-spacing:.04em;padding-left:9px">Nouvelle demande · site web</span><span style="font-size:13px;font-weight:600;border-left:3px solid ' + (TYPES[a.type] || {}).col + ';padding-left:6px">' + esc(a.titre) + '</span><span style="font-size:12px;color:#5B6B78;padding-left:9px">' + esc(a.note) + '</span><button type="button" data-cal-planifier="d' + i + '" style="align-self:flex-start;margin-left:9px;height:28px;padding:0 10px;background:#FFFFFF;border:1px solid #B8C4CE;font-family:inherit;font-size:12px;cursor:pointer">Planifier</button></div>'; }).join('');
+    var h = box.parentNode.querySelector('h3'); if (h) h.textContent = 'À planifier (' + (restants + S.demandes.length) + ')';
   }
 
   // ---------- fenêtre de détail / formulaire ----------
   var ov = document.createElement('div'); ov.setAttribute('data-cal-modal', '');
-  ov.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(20,32,43,.45);z-index:10003;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;font-family:inherit';
+  ov.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(20,32,43,.45);z-index:10003;align-items:' + (mobile ? 'flex-end' : 'center') + ';justify-content:center;padding:' + (mobile ? '0' : '12px') + ';box-sizing:border-box;font-family:\'IBM Plex Sans\',system-ui,sans-serif';
   document.body.appendChild(ov);
   function fermer() { ov.style.display = 'none'; ov.innerHTML = ''; }
   ov.addEventListener('click', function (e) { if (e.target === ov) fermer(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.style.display !== 'none') fermer(); });
-  var BOX = 'background:#fff;width:min(460px,100%);max-height:calc(100vh - 24px);overflow:auto;box-shadow:0 18px 40px rgba(0,0,0,.25);font-family:"IBM Plex Sans",system-ui,sans-serif;color:#14202B';
-  var IN = 'height:38px;padding:0 10px;border:1px solid #B8C4CE;font:inherit;font-size:14px;width:100%;box-sizing:border-box;background:#fff';
-  var BT = 'height:38px;padding:0 14px;font:inherit;font-size:14px;cursor:pointer;border:1px solid #B8C4CE;background:#fff;color:#14202B';
+  var FF = "font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;";
+  var BOX = FF + 'background:#fff;width:' + (mobile ? '100%' : 'min(520px,100%)') + ';max-height:' + (mobile ? '92vh' : 'calc(100vh - 24px)') + ';overflow:auto;box-shadow:0 18px 40px rgba(0,0,0,.25);color:#14202B;-webkit-text-size-adjust:100%';
+  var IN = FF + '-webkit-appearance:none;appearance:none;border-radius:0;height:44px;padding:0 12px;border:1px solid #B8C4CE;font-size:16px;width:100%;box-sizing:border-box;background:#fff;color:#14202B;outline-color:#B4540A';
+  var SEL = IN + ';padding-right:34px;background:#fff url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%235B6B78%27 stroke-width=%273%27%3E%3Cpath d=%27M6 9l6 6 6-6%27/%3E%3C/svg%3E") no-repeat right 12px center';
+  var BT = FF + 'height:44px;padding:0 16px;font-size:15px;cursor:pointer;border:1px solid #B8C4CE;background:#fff;color:#14202B;border-radius:0;-webkit-appearance:none';
 
   function detail(id) {
     var e = evenements().filter(function (x) { return x.id === id; })[0]; if (!e) return;
@@ -212,38 +220,53 @@
       + '<div style="font-size:14px">' + JL[d.getDay()].replace(/^./, function (c) { return c.toUpperCase(); }) + ' ' + d.getDate() + ' ' + ML[d.getMonth()] + ' · ' + (e.journee ? 'toute la journée' : hfr(e.debut) + ' – ' + hfr(e.fin)) + '</div>'
       + '<div style="display:grid;grid-template:auto / 100px 1fr;gap:6px 10px;font-size:13.5px"><span style="color:#5B6B78">Type</span><span><span style="display:inline-block;width:9px;height:9px;background:' + t.col + ';margin-right:6px"></span>' + esc(t.lab) + '</span><span style="color:#5B6B78">Technicien</span><span>' + esc(e.tech) + '</span>'
       + (e.client ? '<span style="color:#5B6B78">Client</span><span>' + esc(e.client) + '</span>' : '') + (e.lieu ? '<span style="color:#5B6B78">Lieu</span><span>' + esc(e.lieu) + '</span>' : '') + (e.notes ? '<span style="color:#5B6B78">Notes</span><span>' + esc(e.notes) + '</span>' : '') + '</div>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">' + (e.lien ? '<a href="' + esc(e.lien) + '" style="' + BT + ';display:inline-flex;align-items:center;text-decoration:none">Ouvrir la fiche</a>' : '') + (maps ? '<a href="' + maps + '" target="_blank" rel="noopener" style="' + BT + ';display:inline-flex;align-items:center;text-decoration:none">Itinéraire</a>' : '')
+      + (e.statut === 'propose' ? '<div style="padding:10px 12px;background:#FDEBD3;color:#8A4306;font-size:13.5px"><strong>Demandé par le client — à confirmer.</strong> Confirmez pour l’ajouter à l’horaire et aviser le client.</div>' : (e.source === 'client' ? '<div style="padding:8px 12px;background:#DDF3E4;color:#1B6B3A;font-size:13.5px">✓ Confirmé par le client depuis le portail</div>' : ''))
+      + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">' + (e.statut === 'propose' ? '<button type="button" data-conf style="' + BT + ';background:#1B6B3A;border-color:#1B6B3A;color:#fff;font-weight:600">Confirmer ce rendez-vous</button>' : '') + (e.lien ? '<a href="' + esc(e.lien) + '" style="' + BT + ';display:inline-flex;align-items:center;text-decoration:none">Ouvrir la fiche</a>' : '') + (maps ? '<a href="' + maps + '" target="_blank" rel="noopener" style="' + BT + ';display:inline-flex;align-items:center;text-decoration:none">Itinéraire</a>' : '')
       + '<button type="button" data-mod style="' + BT + '">Modifier</button><button type="button" data-sup style="' + BT + ';color:#9B1C1C">Supprimer</button></div></div></div>';
     ov.style.display = 'flex';
     ov.querySelector('[data-x]').onclick = fermer;
     ov.querySelector('[data-mod]').onclick = function () { formulaire(e); };
+    var cf = ov.querySelector('[data-conf]'); if (cf) cf.onclick = function () { majEvenement(e.id, { statut: 'confirme', notes: (e.notes ? e.notes + ' ' : '') + 'Confirmé par ' + e.tech + '.' }); fermer(); rendre(); toast('Rendez-vous confirmé — le client voit maintenant « Rendez-vous confirmé »', true); };
     var sup = ov.querySelector('[data-sup]');
     sup.onclick = function () { if (sup.dataset.ok) { S.suppr.push(e.id); ecrire(); fermer(); rendre(); toast('Événement supprimé', true); } else { sup.dataset.ok = 1; sup.textContent = 'Confirmer la suppression'; sup.style.background = '#9B1C1C'; sup.style.color = '#fff'; } };
   }
 
-  function formulaire(e, apIndex) {
+  function formulaire(e, apIndex, demIndex) {
     var neuf = !e || !e.id; e = Object.assign({ titre: '', type: 'intervention', tech: 'Jonathan', date: iso(cur), debut: '09:00', fin: '10:00', client: '', lieu: '', notes: '', journee: false, lien: '' }, e || {});
-    var opt = function (arr, v) { return arr.map(function (x) { var val = Array.isArray(x) ? x[0] : x, lab = Array.isArray(x) ? x[1] : (x || '—'); return '<option value="' + esc(val) + '"' + (val === v ? ' selected' : '') + '>' + esc(lab) + '</option>'; }).join(''); };
-    var L = function (lab, champ) { return '<label style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600">' + lab + champ + '</label>'; };
-    ov.innerHTML = '<form data-f style="' + BOX + ';padding:16px 18px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;font-size:18px">' + (neuf ? 'Nouvel événement' : 'Modifier l’événement') + '</h3><button type="button" data-x aria-label="Fermer" style="background:none;border:0;font-size:24px;cursor:pointer">×</button></div>'
-      + L('Titre', '<input name="titre" required value="' + esc(e.titre) + '" placeholder="Ex. : Installation poste — salle 2" style="' + IN + '">')
-      + '<div style="display:grid;grid-template:auto / 1fr 1fr;gap:10px">' + L('Type', '<select name="type" style="' + IN + '">' + opt(Object.keys(TYPES).map(function (k) { return [k, TYPES[k].lab]; }), e.type) + '</select>') + L('Technicien', '<select name="tech" style="' + IN + '">' + opt(Object.keys(TECHS).concat(['Tous']), e.tech) + '</select>') + '</div>'
-      + '<div style="display:grid;grid-template:auto / 1.3fr 1fr 1fr;gap:10px">' + L('Date', '<input type="date" name="date" required value="' + e.date + '" style="' + IN + '">') + L('Début', '<input type="time" name="debut" step="900" value="' + (e.debut || '09:00') + '" style="' + IN + '">') + L('Fin', '<input type="time" name="fin" step="900" value="' + (e.fin || '10:00') + '" style="' + IN + '">') + '</div>'
-      + '<label style="display:flex;align-items:center;gap:8px;font-size:13.5px"><input type="checkbox" name="journee"' + (e.journee ? ' checked' : '') + ' style="width:16px;height:16px;margin:0"> Toute la journée</label>'
-      + '<div style="display:grid;grid-template:auto / 1fr 1fr;gap:10px">' + L('Client', '<select name="client" style="' + IN + '">' + opt(CLIENTS.indexOf(e.client) > -1 ? CLIENTS : CLIENTS.concat([e.client]), e.client) + '</select>') + L('Lieu', '<input name="lieu" value="' + esc(e.lieu) + '" placeholder="Ville, à distance…" style="' + IN + '">') + '</div>'
-      + L('Notes', '<textarea name="notes" rows="3" style="' + IN + ';height:auto;padding:8px 10px">' + esc(e.notes) + '</textarea>')
-      + '<div data-err style="display:none;color:#9B1C1C;font-size:13px"></div>'
-      + '<div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap"><button type="button" data-x style="' + BT + '">Annuler</button><button type="submit" style="' + BT + ';background:#B4540A;border-color:#B4540A;color:#fff;font-weight:600">Enregistrer</button></div></form>';
+    var LBL = 'font-size:12px;font-weight:600;color:#5B6B78;text-transform:uppercase;letter-spacing:.04em';
+    var chipT = function (k) { var t = TYPES[k], on = k === e.type; return '<button type="button" data-ty="' + k + '" style="' + FF + 'display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 10px;font-size:13px;cursor:pointer;border:1px solid ' + (on ? t.col : '#D5DCE2') + ';background:' + (on ? t.col : '#fff') + ';color:' + (on ? '#fff' : '#14202B') + '"><span style="width:8px;height:8px;background:' + (on ? '#fff' : t.col) + '"></span>' + esc(t.lab.replace(/s d’/, ' d’').replace(/^Interventions sur place$/, 'Intervention').replace(/^Livraisons et installations$/, 'Livraison / installation').replace(/^Maintenance planifiée$/, 'Maintenance').replace(/^Relances et suivis$/, 'Relance / suivi').replace(/^Échéances et garanties$/, 'Échéance').replace(/^Interne et congés$/, 'Interne / congé').replace(/^Visites d’inventaire$/, 'Visite d’inventaire')) + '</button>'; };
+    var chipP = function (n) { var on = n === e.tech, c = TECHS[n] || '#2A3B49'; return '<button type="button" data-te="' + n + '" style="' + FF + 'display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px 0 5px;font-size:14px;cursor:pointer;border:1px solid ' + (on ? '#14202B' : '#D5DCE2') + ';background:' + (on ? '#14202B' : '#fff') + ';color:' + (on ? '#fff' : '#14202B') + '"><span style="width:28px;height:28px;border-radius:14px;background:' + c + ';color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center">' + (n === 'Tous' ? '★' : n[0]) + '</span>' + n + '</button>'; };
+    var clients = CLIENTS.indexOf(e.client) > -1 ? CLIENTS : CLIENTS.concat([e.client]);
+    ov.innerHTML = '<form data-f novalidate style="' + BOX + ';display:flex;flex-direction:column">'
+      + '<div data-bandeau style="height:6px;background:' + (TYPES[e.type] || {}).col + '"></div>'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px 6px"><h3 style="margin:0;font-size:19px;font-weight:600">' + (neuf ? 'Nouvel événement' : 'Modifier l’événement') + '</h3><button type="button" data-x aria-label="Fermer" style="' + FF + 'width:40px;height:40px;background:none;border:0;font-size:26px;line-height:1;cursor:pointer;color:#5B6B78">×</button></div>'
+      + '<div style="padding:6px 18px 16px;display:flex;flex-direction:column;gap:14px">'
+      + '<input name="titre" required value="' + esc(e.titre) + '" placeholder="Ajouter un titre" aria-label="Titre" style="' + IN + ';height:50px;font-size:19px;font-weight:600;border:0;border-bottom:2px solid #D5DCE2;padding:0 2px">'
+      + '<div style="display:flex;flex-direction:column;gap:8px"><span style="' + LBL + '">Type</span><div data-types style="display:flex;flex-wrap:wrap;gap:6px">' + Object.keys(TYPES).map(chipT).join('') + '</div></div>'
+      + '<div style="display:flex;flex-direction:column;gap:8px"><span style="' + LBL + '">Quand</span>'
+      + '<input type="date" name="date" required value="' + e.date + '" aria-label="Date" style="' + IN + '">'
+      + '<div data-heures style="display:' + (e.journee ? 'none' : 'grid') + ';grid-template:auto / 1fr auto 1fr;gap:8px;align-items:center"><input type="time" name="debut" step="900" value="' + (e.debut || '09:00') + '" aria-label="Début" style="' + IN + '"><span style="color:#5B6B78">à</span><input type="time" name="fin" step="900" value="' + (e.fin || '10:00') + '" aria-label="Fin" style="' + IN + '"></div>'
+      + '<label style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;cursor:pointer;padding:4px 0">Toute la journée<span style="position:relative;width:46px;height:28px;flex:none"><input type="checkbox" name="journee"' + (e.journee ? ' checked' : '') + ' style="position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:1"><span data-sw style="position:absolute;inset:0;border-radius:14px;background:' + (e.journee ? '#B4540A' : '#B8C4CE') + ';transition:background .15s"></span><span data-knob style="position:absolute;top:3px;left:' + (e.journee ? '21px' : '3px') + ';width:22px;height:22px;border-radius:11px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .15s"></span></span></label></div>'
+      + '<div style="display:flex;flex-direction:column;gap:8px"><span style="' + LBL + '">Technicien</span><div data-techs style="display:flex;flex-wrap:wrap;gap:6px">' + Object.keys(TECHS).concat(['Tous']).map(chipP).join('') + '</div></div>'
+      + '<div style="display:grid;grid-template:auto / repeat(auto-fit,minmax(200px,1fr));gap:10px"><label style="display:flex;flex-direction:column;gap:6px"><span style="' + LBL + '">Client</span><select name="client" style="' + SEL + '">' + clients.map(function (c) { return '<option value="' + esc(c) + '"' + (c === e.client ? ' selected' : '') + '>' + esc(c || 'Aucun (interne)') + '</option>'; }).join('') + '</select></label>'
+      + '<label style="display:flex;flex-direction:column;gap:6px"><span style="' + LBL + '">Lieu</span><input name="lieu" value="' + esc(e.lieu) + '" placeholder="Ville, à distance…" style="' + IN + '"></label></div>'
+      + '<label style="display:flex;flex-direction:column;gap:6px"><span style="' + LBL + '">Notes</span><textarea name="notes" rows="3" placeholder="Détails pour le technicien" style="' + IN + ';height:auto;min-height:84px;padding:10px 12px;line-height:1.4;resize:vertical">' + esc(e.notes) + '</textarea></label>'
+      + '<div data-err style="display:none;color:#9B1C1C;font-size:14px;background:#FBE1E1;padding:8px 10px"></div></div>'
+      + '<div style="position:sticky;bottom:0;display:flex;gap:8px;justify-content:flex-end;padding:12px 18px;border-top:1px solid #EEF1F4;background:#fff"><button type="button" data-x style="' + BT + '">Annuler</button><button type="submit" style="' + BT + ';background:#B4540A;border-color:#B4540A;color:#fff;font-weight:600;min-width:130px">Enregistrer</button></div></form>';
     ov.style.display = 'flex';
-    var f = ov.querySelector('[data-f]');
+    var f = ov.querySelector('[data-f]'), ty = e.type, te = e.tech;
     ov.querySelectorAll('[data-x]').forEach(function (b) { b.onclick = fermer; });
-    f.titre.focus();
+    ov.querySelector('[data-types]').onclick = function (x) { var b = x.target.closest('[data-ty]'); if (!b) return; ty = b.getAttribute('data-ty'); ov.querySelectorAll('[data-ty]').forEach(function (c) { var k = c.getAttribute('data-ty'), on = k === ty, col = TYPES[k].col; c.style.background = on ? col : '#fff'; c.style.borderColor = on ? col : '#D5DCE2'; c.style.color = on ? '#fff' : '#14202B'; c.firstChild.style.background = on ? '#fff' : col; }); ov.querySelector('[data-bandeau]').style.background = TYPES[ty].col; };
+    ov.querySelector('[data-techs]').onclick = function (x) { var b = x.target.closest('[data-te]'); if (!b) return; te = b.getAttribute('data-te'); ov.querySelectorAll('[data-te]').forEach(function (c) { var on = c.getAttribute('data-te') === te; c.style.background = on ? '#14202B' : '#fff'; c.style.borderColor = on ? '#14202B' : '#D5DCE2'; c.style.color = on ? '#fff' : '#14202B'; }); };
+    f.journee.onchange = function () { var on = f.journee.checked; ov.querySelector('[data-heures]').style.display = on ? 'none' : 'grid'; ov.querySelector('[data-sw]').style.background = on ? '#B4540A' : '#B8C4CE'; ov.querySelector('[data-knob]').style.left = on ? '21px' : '3px'; };
+    f.debut.onchange = function () { if (min(f.fin.value) <= min(f.debut.value)) f.fin.value = hh(min(f.debut.value) + 60); };
+    if (!mobile) f.titre.focus();
     f.onsubmit = function (ev) {
       ev.preventDefault();
-      var v = { titre: f.titre.value.trim(), type: f.type.value, tech: f.tech.value, date: f.date.value, debut: f.journee.checked ? '' : f.debut.value, fin: f.journee.checked ? '' : f.fin.value, journee: f.journee.checked, client: f.client.value, lieu: f.lieu.value.trim(), notes: f.notes.value.trim() };
-      var err = !v.titre ? 'Le titre est requis.' : (!v.date ? 'La date est requise.' : (!v.journee && min(v.fin) <= min(v.debut) ? 'L’heure de fin doit suivre l’heure de début.' : ''));
+      var v = { titre: f.titre.value.trim(), type: ty, tech: te, date: f.date.value, debut: f.journee.checked ? '' : f.debut.value, fin: f.journee.checked ? '' : f.fin.value, journee: f.journee.checked, client: f.client.value, lieu: f.lieu.value.trim(), notes: f.notes.value.trim() };
+      var err = !v.titre ? 'Ajoutez un titre.' : (!v.date ? 'Choisissez une date.' : (!v.journee && min(v.fin) <= min(v.debut) ? 'L’heure de fin doit suivre l’heure de début.' : ''));
       if (err) { var el = ov.querySelector('[data-err]'); el.textContent = err; el.style.display = 'block'; return; }
-      if (neuf) { v.id = 'n' + Date.now(); v.lien = e.lien || ''; S.ajouts.push(v); if (apIndex != null) S.planifies.push(apIndex); ecrire(); }
+      if (neuf) { v.id = 'n' + Date.now(); v.lien = e.lien || ''; S.ajouts.push(v); if (apIndex != null) S.planifies.push(apIndex); if (demIndex != null) S.demandes.splice(demIndex, 1); ecrire(); }
       else majEvenement(e.id, v);
       fermer(); cur = parse(v.date); rendre();
       toast((neuf ? 'Événement ajouté : ' : 'Événement modifié : ') + v.titre, true);
@@ -262,6 +285,7 @@
     }
     if (t.hasAttribute('data-cal-mm')) { cur = new Date(cur.getFullYear(), cur.getMonth() + (+t.getAttribute('data-cal-mm')), 1); rendre(); return; }
     if (t.hasAttribute('data-cal-goto')) { cur = parse(t.getAttribute('data-cal-goto')); if (vue === 'mois' || vue === 'liste') vue = 'jour'; rendre(); return; }
+    if (t.hasAttribute('data-cal-planifier') && t.getAttribute('data-cal-planifier')[0] === 'd') { var di = +t.getAttribute('data-cal-planifier').slice(1), da = S.demandes[di], dd = iso(cur) < iso(new Date()) ? iso(new Date()) : iso(cur); formulaire({ titre: da.titre, type: da.type, client: CLIENTS.indexOf(da.client) > -1 ? da.client : '', lieu: '', notes: da.note + (CLIENTS.indexOf(da.client) > -1 ? '' : ' · Prospect : ' + da.client), date: dd, debut: '09:00', fin: hh(9 * 60 + da.duree), tech: 'Karine' }, null, di); return; }
     if (t.hasAttribute('data-cal-planifier')) { var i = +t.getAttribute('data-cal-planifier'), a = D.aPlanifier[i]; var d = iso(cur) < iso(new Date()) ? iso(new Date()) : iso(cur); formulaire({ titre: a.titre, type: a.type, client: a.client, lien: a.lien, date: d, debut: '09:00', fin: hh(9 * 60 + a.duree), notes: a.note, tech: 'Samuel' }, i); return; }
     if (t.hasAttribute('data-cal-ev')) { if (!glisse) detail(t.getAttribute('data-cal-ev')); return; }
     if (t.hasAttribute('data-cal-jour') && vue === 'mois') { cur = parse(t.getAttribute('data-cal-jour')); vue = 'jour'; rendre(); }
@@ -330,6 +354,7 @@
     });
   });
 
+  window.addEventListener('storage', function (ev) { if (ev.key !== K) return; var avant = S.ajouts.length + S.demandes.length; S = lire(); rendre(); if (S.ajouts.length + S.demandes.length > avant) toast('Nouveau rendez-vous ou demande reçu d’un client', true); });
   window.__CAL = { rafraichir: function () { S = lire(); rendre(); }, evenements: evenements };
   rendre();
 })();
