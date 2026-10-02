@@ -6,7 +6,8 @@
 (function () {
   var MODE = window.__MSG_MODE || 'client', ADMIN = MODE === 'admin';
   var MOI_CLIENT = 'Clinique Dentaire Ste-Rose', MOI = ADMIN ? 'Jonathan' : 'Marie Tremblay';
-  var PAGE = ADMIN ? 'admin-messages.html' : 'messages.html';
+  var BUILD = ((document.querySelector('meta[name=build]') || {}).content) || '';
+  var PAGE0 = ADMIN ? 'admin-messages.html' : 'messages.html', PAGE = PAGE0 + (BUILD ? '?v=' + BUILD : '');
   var K = 'messagerie-v1', COL = ADMIN ? '#B4540A' : '#0F6E8C';
   var TECHS = { Jonathan: '#B4540A', Samuel: '#0F6E8C', Karine: '#6B4FA0' };
   var FF = "font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;";
@@ -42,7 +43,16 @@
     nf.parentNode.insertBefore(w, nf);
     var b = w.querySelector('[data-msg-btn]'), p = w.querySelector('[data-msg-panel]');
     b.addEventListener('click', function (e) { e.stopPropagation(); var np = document.querySelector('[data-notif-panel]'); if (np) np.style.display = 'none'; var um = document.querySelector('[data-usermenu] [role=menu]'); if (um) um.style.display = 'none'; var o = p.style.display !== 'flex'; if (o) panneau(p); p.style.display = o ? 'flex' : 'none'; });
-    p.addEventListener('click', function (e) { e.stopPropagation(); });
+    p.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var a = e.target.closest('a'); if (!a || !B) return; // autres pages : navigation normale vers la page Messages
+      e.preventDefault(); p.style.display = 'none';
+      var h = (a.getAttribute('href').split('#')[1] || '');
+      if (h === 'nouveau') { nouveau(); return; }
+      if (h) { recherche = ''; ouvrir(h); }
+      else { sel = null; dossier = 'inbox'; recherche = ''; coches = {}; rendre(); try { history.replaceState(null, '', location.pathname + location.search); } catch (x) {} }
+      B.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
     document.addEventListener('click', function () { p.style.display = 'none'; });
     badge();
   }
@@ -431,5 +441,6 @@
     else if (h && S.threads.some(function (t) { return t.id === h; })) ouvrir(h);
     else { if (!mobile) { var premier = visibles().filter(function (t) { return dans(t, 'inbox'); })[0]; if (premier) { sel = premier.id; if (nonLu(premier)) marquerLu(premier); } } rendre(); badge(); }
   }
+  window.addEventListener('hashchange', function () { if (!B) return; var h = location.hash.slice(1); if (h === 'nouveau') nouveau(); else if (h && th(h)) ouvrir(h); });
   window.__MSG = { lire: function () { return S; } };
 })();
