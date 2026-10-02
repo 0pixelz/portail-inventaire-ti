@@ -129,3 +129,12 @@ section[data-floating], button[aria-label="Ouvrir l'assistant"] { position: fixe
 section[data-floating] { z-index: 10002 !important; max-height: calc(100vh - 110px) !important; }
 section[data-floating] > div[style*="overflow: auto"] { flex: 1 1 auto !important; min-height: 80px !important; }
 section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflow: auto; }
+/* Assistant sur mobile : feuille plein écran, en-tête (✕) toujours visible, seul le fil défile */
+@media (max-width: 820px) {
+  section[data-floating] { top: 10px !important; bottom: 10px !important; left: 8px !important; right: 8px !important; height: auto !important; max-height: none !important; width: auto !important; }
+  section[data-floating] > div:first-child { flex: none !important; position: sticky; top: 0; z-index: 2; }
+  section[data-floating] > div[style*="overflow: auto"] { flex: 1 1 auto !important; height: auto !important; max-height: none !important; min-height: 0 !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
+  section[data-floating] > div[style*="border-top"], section[data-floating] > div:last-child { flex: none !important; }
+  section[data-floating] [data-ia-panneau] { max-height: 40% !important; }
+  section[data-floating] [aria-label="Fermer l'assistant"] { width: 44px !important; height: 44px !important; font-size: 26px !important; }
+}

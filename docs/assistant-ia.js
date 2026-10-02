@@ -8,6 +8,7 @@
   var LS_KEY = 'claude-cle-api', LS_MODEL = 'claude-modele';
   var PROXY = (window.__IA_PROXY || '').replace(/\/$/, '');
   function connecte() { return !!PROXY || !!get(LS_KEY); }
+  if (PROXY && get(LS_KEY)) set(LS_KEY, ''); // ancienne clé de test : le serveur prend le relais
   var CONV_KEY = 'ia-conv-' + CFG.mode;
   var MODELES = [
     ['claude-sonnet-5-5', 'Claude Sonnet 5.5 (recommandé)'],
@@ -148,7 +149,7 @@
   var COL = CFG.mode === 'admin' ? '#B4540A' : '#0F6E8C';
 
   function appel(msgs) {
-    var perso = get(LS_KEY);
+    var perso = PROXY ? '' : get(LS_KEY); // serveur configuré : on ignore toute clé locale
     return fetch(perso || !PROXY ? 'https://api.anthropic.com/v1/messages' : PROXY, {
       method: 'POST',
       headers: perso || !PROXY ? { 'content-type': 'application/json', 'x-api-key': perso, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } : { 'content-type': 'application/json' },
@@ -221,7 +222,7 @@
       '<span style="font-size:12px;color:#5B6B78;line-height:1.4">La clé reste seulement dans ce navigateur (jamais envoyée ailleurs qu’à api.anthropic.com, jamais dans GitHub). Pour le vrai site, elle sera sur le serveur. Créez une clé dédiée avec une limite de dépenses dans console.anthropic.com.</span>';
     panel.insertBefore(R, fil);
     var ci = R.querySelector('[data-ia-cle]'), ms = R.querySelector('[data-ia-modele]');
-    if (PROXY) { ci.parentNode.style.display = CFG.mode === 'admin' ? 'flex' : 'none'; ci.placeholder = 'Optionnel — le service IA est déjà configuré'; R.querySelector('[data-ia-oublier]').style.display = CFG.mode === 'admin' ? '' : 'none'; R.lastChild.textContent = 'L’assistant est connecté à Claude par le serveur de l’entreprise : aucune clé à saisir.'; }
+    if (PROXY) { ci.parentNode.style.display = 'none'; ci.placeholder = 'Optionnel — le service IA est déjà configuré'; R.querySelector('[data-ia-oublier]').style.display = 'none'; R.lastChild.textContent = 'L’assistant est connecté à Claude par le serveur de l’entreprise : aucune clé à saisir.'; }
     g.addEventListener('click', function (e) { e.stopPropagation(); var o = R.style.display !== 'flex'; R.style.display = o ? 'flex' : 'none'; if (o) { ci.value = get(LS_KEY); ms.value = get(LS_MODEL) || MODELES[0][0]; } });
     R.querySelector('[data-ia-ok]').addEventListener('click', function () { var k = ci.value.trim(); if (k && !/^sk-ant-/.test(k)) { window.__toast && window.__toast('Une clé API Claude commence par « sk-ant- »', false); return; } set(LS_KEY, k); set(LS_MODEL, ms.value); R.style.display = 'none'; etat(); window.__toast && window.__toast(k ? 'Assistant connecté à Claude (' + ms.options[ms.selectedIndex].text.split(' (')[0] + ')' : 'Clé retirée — mode démo', !!k); });
     R.querySelector('[data-ia-oublier]').addEventListener('click', function () { set(LS_KEY, ''); ci.value = ''; etat(); R.style.display = 'none'; window.__toast && window.__toast('Clé retirée de ce navigateur — mode démo', false); });
@@ -238,6 +239,7 @@
     window.addEventListener('beforeunload', function () { try { sessionStorage.setItem('ia-ouvert', panel.style.display === 'flex' ? '1' : '0'); } catch (e) {} });
   }
 
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var p = document.querySelector('section[data-floating]'); if (p) p.style.display = 'none'; } });
   window.__IA = {
     actif: function () { return connecte(); },
     envoyer: function (q) { var panel = document.querySelector('section[data-floating]'); var fil = panel.querySelector('div[style*="overflow: auto"]'); envoyer(q, panel, fil); }
