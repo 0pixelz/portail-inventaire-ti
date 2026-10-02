@@ -35,6 +35,7 @@ Fonctionne sur ordinateur et sur iPhone (mise en page adaptée sous 820 px).
 | Admin — gestion d'un billet | [billet.html](https://0pixelz.github.io/portail-inventaire-ti/billet.html) |
 | Admin — nouveau billet pour un client | [admin-nouveau-billet.html](https://0pixelz.github.io/portail-inventaire-ti/admin-nouveau-billet.html) |
 | Admin — inventaire de tous les clients | [admin-inventaire.html](https://0pixelz.github.io/portail-inventaire-ti/admin-inventaire.html) |
+| Admin — stock et réapprovisionnement (budget, demande prévue, bons de commande) | [admin-stock.html](https://0pixelz.github.io/portail-inventaire-ti/admin-stock.html) |
 | Admin — importer un inventaire (CSV) | [admin-import.html](https://0pixelz.github.io/portail-inventaire-ti/admin-import.html) |
 | Admin — fiche d'un équipement (gestion) | [admin-equipement.html](https://0pixelz.github.io/portail-inventaire-ti/admin-equipement.html) |
 | Admin — ajouter un équipement | [admin-ajouter-equipement.html](https://0pixelz.github.io/portail-inventaire-ti/admin-ajouter-equipement.html) |

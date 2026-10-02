@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build" content="1790902414725">
+<meta name="build" content="1790902841572">
 <title>Connexion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -155,6 +155,17 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
 @media (max-width: 820px) {
   input, select, textarea { font-size: 16px !important; }
 }
+/* Stock : lignes en cartes sur mobile */
+@media (max-width: 820px) {
+  [data-st-head] { display: none !important; }
+  [data-st-row] { grid-template-columns: 1fr 1fr !important; gap: 8px 12px !important; }
+  [data-st-row] > div:first-child { grid-column: 1 / -1 !important; }
+  [data-st-row] > div[data-label]:not(:first-child)::before { content: attr(data-label); display: block; font-size: 11px; color: #5B6B78; text-transform: uppercase; letter-spacing: .03em; }
+}
+/* mobile : les colonnes de grille ne doivent jamais dépasser l'écran */
+@media (max-width: 820px) {
+  main [style*="grid-template-columns"] > * { min-width: 0 !important; max-width: 100% !important; }
+}
 </style>
 </head>
 <body>
@@ -163,13 +174,13 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
 <div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 800px; display: flex; background: #EEF1F4">
   <div style="flex: 0 0 46%; background: #14202B; color: #FFFFFF; padding: 56px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-      <a href="accueil.html?v=1790902414725" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #FFFFFF">
+      <a href="accueil.html?v=1790902841572" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #FFFFFF">
         <div style="width: 36px; height: 36px; background: #0F6E8C; display: flex; align-items: center; justify-content: center">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M8 20h8M12 16v4"></path></svg>
         </div>
         <div style="font-weight: 700; font-size: 18px; letter-spacing: 0.02em">[NOM DE VOTRE ENTREPRISE]</div>
       </a>
-      <a href="accueil.html?v=1790902414725" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #B8C4CE; text-decoration: none; border: 1px solid #2A3B49; padding: 8px 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Retour au site</a>
+      <a href="accueil.html?v=1790902841572" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #B8C4CE; text-decoration: none; border: 1px solid #2A3B49; padding: 8px 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg>Retour au site</a>
     </div>
     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 440px">
       <h1 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 600">Votre parc informatique, toujours à jour.</h1>
@@ -180,8 +191,8 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
   <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px; box-sizing: border-box">
     <form style="width: 100%; max-width: 400px; background: #FFFFFF; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; border: 1px solid #D5DCE2">
       <div style="display: flex; border: 1px solid #B8C4CE; padding: 3px; gap: 3px" role="tablist" aria-label="Type de compte">
-        <a href="connexion.html?v=1790902414725" role="tab" aria-selected="true" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; background: #14202B; color: #FFFFFF; font-size: 13px; font-weight: 600; text-decoration: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Espace client</a>
-        <a href="admin.html?v=1790902414725" role="tab" aria-selected="false" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; color: #14202B; font-size: 13px; font-weight: 600; text-decoration: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2-2z"></path></svg>Espace admin</a>
+        <a href="connexion.html?v=1790902841572" role="tab" aria-selected="true" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; background: #14202B; color: #FFFFFF; font-size: 13px; font-weight: 600; text-decoration: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Espace client</a>
+        <a href="admin.html?v=1790902841572" role="tab" aria-selected="false" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; color: #14202B; font-size: 13px; font-weight: 600; text-decoration: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2-2z"></path></svg>Espace admin</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px">
         <h2 style="margin: 0; font-size: 24px; font-weight: 600">Connexion</h2>
@@ -194,12 +205,12 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
       <div style="display: flex; flex-direction: column; gap: 6px">
         <div style="display: flex; justify-content: space-between; align-items: center">
           <label for="mdp" style="font-size: 13px; font-weight: 600">Mot de passe</label>
-          <a href="mot-de-passe.html?v=1790902414725" style="font-size: 13px; text-decoration: none">Mot de passe oublié ?</a>
+          <a href="mot-de-passe.html?v=1790902841572" style="font-size: 13px; text-decoration: none">Mot de passe oublié ?</a>
         </div>
         <input id="mdp" type="password" placeholder="••••••••" style="height: 44px; padding: 0 12px; border: 1px solid #B8C4CE; font-size: 15px; font-family: inherit; box-sizing: border-box">
       </div>
-      <a href="inventaire.html?v=1790902414725" style="display: flex; align-items: center; justify-content: center; height: 46px; background: #0F6E8C; color: #FFFFFF; font-weight: 600; font-size: 15px; text-decoration: none">Se connecter</a>
-      <p style="margin: 0; font-size: 13px; color: #5B6B78; text-align: center">Pas encore de compte ? <a href="accueil.html?v=1790902414725">Demandez une visite d'inventaire gratuite</a></p>
+      <a href="inventaire.html?v=1790902841572" style="display: flex; align-items: center; justify-content: center; height: 46px; background: #0F6E8C; color: #FFFFFF; font-weight: 600; font-size: 15px; text-decoration: none">Se connecter</a>
+      <p style="margin: 0; font-size: 13px; color: #5B6B78; text-align: center">Pas encore de compte ? <a href="accueil.html?v=1790902841572">Demandez une visite d'inventaire gratuite</a></p>
     </form>
   </div>
 </div>
@@ -242,7 +253,7 @@ function sap(f){srows.forEach(function(r){r.style.display=sm(r,f)?'grid':'none';
 SF.forEach(function(b){b.querySelector('[data-sc]').textContent=srows.filter(function(r){return sm(r,b.dataset.sf);}).length;b.addEventListener('click',function(){sap(b.dataset.sf);});});sap('all');}
 
 document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){window.print();});});
-document.querySelectorAll('[data-export-csv]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var rows=[];document.querySelectorAll('a[href^="equipement.html"][style*="grid"], [data-billet]').forEach(function(r){rows.push([].slice.call(r.children).map(function(c){return '"'+c.innerText.replace(/\s+/g,' ').trim().replace(/"/g,'""')+'"';}).join(','));});
+document.querySelectorAll('[data-export-csv]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();var rows=[];document.querySelectorAll('a[href^="equipement.html"][style*="grid"], [data-billet], [data-st-row]').forEach(function(r){rows.push([].slice.call(r.children).map(function(c){return '"'+c.innerText.replace(/\s+/g,' ').trim().replace(/"/g,'""')+'"';}).join(','));});
 if(!rows.length)rows=['"Équipement","Catégorie","No de série","Emplacement","Garantie","État"','"Poste réception 1 — Dell OptiPlex 7010","Poste de travail","DL7010-4K2M9","Réception","2027-03-14","Actif"'];
 var blob=new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=b.getAttribute('data-export-csv')+'.csv';document.body.appendChild(a);a.click();a.remove();toast('Export CSV téléchargé : '+a.download+' ('+rows.length+' lignes)',true);});});
 var CK='panier';function getCart(){try{var c=JSON.parse(localStorage.getItem(CK));if(Array.isArray(c))return c;}catch(e){}return [{nom:'LG 27UL500 — 27 po 4K',cat:'Écran',prix:'389,00 $',qte:1},{nom:'Extension de garantie 2 ans',cat:'Service',prix:'79,00 $',qte:1}];}
@@ -325,7 +336,53 @@ var pr=document.querySelector('[data-print]');if(pr){var np=pr.cloneNode(true);p
 var tb=document.querySelector('[data-etq-tech]');if(tb)tb.addEventListener('click',function(){var n=+N.textContent;window.__toast&&window.__toast(n?n+' étiquette(s) ajoutée(s) à la file de votre technicien (visite de jeudi)':'Cochez au moins un appareil',!!n);});
 var h=decodeURIComponent(location.hash.slice(1));if(h)items.forEach(function(i){if(i.dataset.serie===h){i.querySelector('input').checked=true;i.style.background='#F2F8FA';}});
 rendre();loadQR(rendre);})();
-document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-sf')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-onglet')||b.hasAttribute('data-etq-tous')||b.hasAttribute('data-etq-aucun')||b.hasAttribute('data-etq-tech')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
+(function(){var S=document.querySelector('[data-stock]');if(!S)return;var K='stock-v1';
+var rows=[].slice.call(S.querySelectorAll('[data-st-row]'));
+function lire(){try{return JSON.parse(localStorage.getItem(K))||{};}catch(e){return {};}}function ecrire(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
+var etat=lire();
+rows.forEach(function(r){var e=etat[r.dataset.sku];if(e){if(e.m!=null)r.querySelector('[data-st-main]').value=e.m;if(e.c!=null)r.querySelector('[data-st-c]').dataset.val=e.c;}});
+function liste(s){return s?s.split(';').map(function(x){return x.split(':');}):[];}
+function ceil(x){return Math.ceil(x-1e-9);}
+function money(v){return String(Math.round(v)).replace(/(\d)(?=(\d{3})+$)/g,'$1 ')+' $';}
+function f1(v){v=Math.round(v*10)/10;if(v===0)return '0';return v===Math.round(v)?String(v):String(v).replace('.',',');}
+var B=S.querySelector('[data-st-budget]'),SO=S.querySelector('[data-st-soum]'),PL=S.querySelector('[data-st-plan]'),TE=S.querySelector('[data-st-tend]');
+var COUL={ok:['Dans le budget','#DDF3E4','#1B6B3A'],part:['Partiel','#FDEBD3','#8A4306'],hors:['Hors budget','#FBE1E1','#9B1C1C'],rien:['Suffisant','#EEF1F4','#5B6B78']};
+var PRIO={1:'Commande client non couverte',2:'Sous le seuil',3:'Demande prévue'};
+function calculer(){var eng=+(etat._eng||0);var o={budget:Math.max(0,(+B.value||0)-eng),soum:SO.checked,plan:PL.checked,tend:+TE.value||0};
+S.querySelector('[data-st-tend-val]').textContent=(o.tend>0?'+':'')+o.tend+' %';
+var X=rows.map(function(r){var d=r.dataset,m=+r.querySelector('[data-st-main]').value||0,c=+r.querySelector('[data-st-c]').dataset.val||0,seuil=+d.seuil,cible=+d.cible,cout=+d.cout;
+var res=liste(d.res).reduce(function(a,x){return a+(+x[1]);},0);
+var v=(+d.conso)+(o.soum?liste(d.soum).reduce(function(a,x){return a+(+x[1])*(+x[2]);},0):0)+(o.plan?liste(d.plan).reduce(function(a,x){return a+(+x[1]);},0):0);
+v*=(1+o.tend/100);if(cible===0)v=0;var dem=res+v,proj=m+c-dem,q=0;
+if(proj<seuil||proj<0)q=cible>0?ceil(cible-proj):ceil(-proj);q=Math.max(q,0);
+var couv=m+c-res,prio=couv<0?1:(couv<seuil?2:3),ess=Math.min(q,Math.max(0,ceil(res-(m+c))));
+return {r:r,m:m,c:c,res:res,dem:dem,proj:proj,q:q,cout:cout,prio:prio,ess:ess,ok:0,seuil:seuil,nom:d.nom,fou:d.fou,sku:d.sku};});
+var reste=o.budget;X.filter(function(x){return x.ess>0;}).sort(function(a,b){return a.cout-b.cout;}).forEach(function(x){var k=Math.min(x.ess,Math.floor(reste/x.cout));x.ok=k;reste-=k*x.cout;});
+X.filter(function(x){return x.q>x.ok;}).sort(function(a,b){return a.prio-b.prio||a.cout-b.cout;}).forEach(function(x){var k=Math.min(x.q-x.ok,Math.floor(reste/x.cout));x.ok+=k;reste-=k*x.cout;});
+var total=o.budget-reste,besoin=0,valeur=0,sous=0,nc=0,par={};
+X.forEach(function(x){var r=x.r;besoin+=x.q*x.cout;valeur+=x.m*x.cout;if(x.m+x.c-x.res<x.seuil)sous++;if(x.prio===1)nc++;
+r.querySelector('[data-st-dem]').textContent=f1(x.dem);var pj=r.querySelector('[data-st-proj]');pj.textContent=f1(x.proj);pj.style.color=x.proj<0?'#9B1C1C':(x.proj<x.seuil?'#B4540A':'#1B6B3A');
+r.querySelector('[data-st-q]').textContent=x.q;r.querySelector('[data-st-cout]').textContent=money(x.q*x.cout);
+var cc=r.querySelector('[data-st-c]');cc.innerHTML='';cc.appendChild(document.createTextNode(x.c));if(x.c>0){var bt=document.createElement('button');bt.type='button';bt.setAttribute('data-st-recevoir','');bt.textContent='Recevoir';bt.style.cssText='margin-left:6px;height:26px;padding:0 8px;border:1px solid #B8C4CE;background:#fff;font:inherit;font-size:12px';cc.appendChild(bt);}
+var st=x.q===0?'rien':(x.ok>=x.q?'ok':(x.ok>0?'part':'hors')),cl=COUL[st],sp=r.querySelector('[data-st-statut]');sp.textContent=st==='part'?'Partiel ('+x.ok+'/'+x.q+')':cl[0];sp.style.background=cl[1];sp.style.color=cl[2];
+r.querySelector('[data-st-prio]').textContent=x.q?PRIO[x.prio]:'';
+if(x.ok){(par[x.fou]=par[x.fou]||[]).push(x);}});
+S.querySelector('[data-k-valeur]').textContent=money(valeur);S.querySelector('[data-k-noncouv]').textContent=nc;S.querySelector('[data-k-seuil]').textContent=sous;S.querySelector('[data-k-achat]').textContent=money(total);S.querySelector('[data-k-budget]').textContent='sur '+money(+B.value||0)+(eng?' · déjà engagé '+money(eng):'')+' · besoin '+money(besoin);
+var hors=X.filter(function(x){return x.q>x.ok;});
+S.querySelector('[data-st-resume]').textContent='Achat suggéré dans le budget : '+money(total)+' sur '+money(o.budget)+(eng?' restant (déjà engagé : '+money(eng)+')':'')+' (besoin total : '+money(besoin)+'). '+nc+' commande(s) client non couverte(s), '+sous+' article(s) sous le seuil. '+(hors.length?'Reporté faute de budget : '+hors.map(function(x){return (x.q-x.ok)+' × '+x.nom;}).join(', ')+'.':'Tout le besoin entre dans le budget.');
+var bc=S.querySelector('[data-st-bc]');bc.innerHTML='';var fous=Object.keys(par);
+if(!fous.length){var v0=document.createElement('span');v0.style.color='#5B6B78';v0.textContent='Rien à commander dans le budget.';bc.appendChild(v0);}
+fous.forEach(function(f){var g=document.createElement('div');g.style.cssText='display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid #EEF1F4';var h=document.createElement('strong');h.textContent=f;g.appendChild(h);var st=0;
+par[f].forEach(function(x){var l=document.createElement('div');l.style.cssText='display:flex;justify-content:space-between;gap:10px;font-size:13px';var a=document.createElement('span');a.textContent=x.ok+' × '+x.nom;var b=document.createElement('span');b.textContent=money(x.ok*x.cout);l.appendChild(a);l.appendChild(b);g.appendChild(l);st+=x.ok*x.cout;});
+var t=document.createElement('div');t.style.cssText='display:flex;justify-content:space-between;font-size:13px;font-weight:600';t.innerHTML='<span>Sous-total</span><span></span>';t.lastChild.textContent=money(st);g.appendChild(t);bc.appendChild(g);});
+S._X=X;}
+[B,SO,PL,TE].forEach(function(e){e.addEventListener('input',calculer);e.addEventListener('change',calculer);});
+S.addEventListener('input',function(e){if(e.target.hasAttribute('data-st-main')){var r=e.target.closest('[data-st-row]');(etat[r.dataset.sku]=etat[r.dataset.sku]||{}).m=+e.target.value||0;ecrire(etat);calculer();}});
+S.addEventListener('click',function(e){var t=e.target;if(t.hasAttribute('data-st-recevoir')){var r=t.closest('[data-st-row]'),cc=r.querySelector('[data-st-c]'),c=+cc.dataset.val||0,mi=r.querySelector('[data-st-main]');mi.value=(+mi.value||0)+c;cc.dataset.val=0;etat[r.dataset.sku]={m:+mi.value,c:0};ecrire(etat);calculer();window.__toast&&window.__toast(c+' × '+r.dataset.nom+' reçu(s) et ajouté(s) au stock',true);}
+if(t.hasAttribute('data-st-creer')){var X=S._X||[],n=0,tot=0;X.forEach(function(x){if(x.ok){var cc=x.r.querySelector('[data-st-c]');cc.dataset.val=(+cc.dataset.val||0)+x.ok;(etat[x.sku]=etat[x.sku]||{}).c=+cc.dataset.val;etat[x.sku].m=x.m;n+=x.ok;tot+=x.ok*x.cout;}});etat._eng=(+(etat._eng||0))+tot;ecrire(etat);calculer();window.__toast&&window.__toast(n?'Bons de commande créés : '+n+' article(s), '+money(tot)+' — ajoutés à « En commande »':'Rien à commander dans le budget',!!n);}
+if(t.hasAttribute('data-st-reset')){try{localStorage.removeItem(K);}catch(e){}location.reload();}});
+calculer();})();
+document.querySelectorAll('button').forEach(function(b){if(b.hasAttribute('data-save')||b.hasAttribute('data-sf')||b.hasAttribute('data-notif-btn')||b.hasAttribute('data-notif-all')||b.hasAttribute('data-plus')||b.hasAttribute('data-moins')||b.hasAttribute('data-suppr')||b.hasAttribute('data-add-sugg')||b.hasAttribute('data-chip')||b.hasAttribute('data-scan')||b.hasAttribute('data-demo')||b.hasAttribute('data-close')||b.hasAttribute('data-print')||b.hasAttribute('data-export-csv')||b.hasAttribute('data-panier')||b.hasAttribute('data-fn')||b.hasAttribute('data-filtre')||b.hasAttribute('data-onglet')||b.hasAttribute('data-st-creer')||b.hasAttribute('data-st-reset')||b.hasAttribute('data-st-recevoir')||b.hasAttribute('data-etq-tous')||b.hasAttribute('data-etq-aucun')||b.hasAttribute('data-etq-tech')||b.hasAttribute('data-resoudre')||b.hasAttribute('data-enregistrer')||b.hasAttribute('data-creer')||b.hasAttribute('data-envoyer')||b.hasAttribute('data-ajouter')||b.hasAttribute('data-retirer')||b.hasAttribute('data-ajouter-ligne')||b.closest('[data-usermenu]')||b.closest('[data-emplacement]')||b.getAttribute('aria-label')==='Envoyer'||/Ouvrir l.assistant|Fermer l.assistant|Fermer|Réduire|Moins|Plus/.test(b.getAttribute('aria-label')||''))return;
 b.addEventListener('click',function(){var t=(b.getAttribute('aria-label')||b.textContent).replace(/\s+/g,' ').trim();if(/^(Tout|Postes|Portables|Écrans|Réseau|Services|Concessionnaires|Tous)/.test(t)||/·\s*\d+$/.test(t)||/^(Précédent|Suivant|‹|›)/.test(t)){var g=b.parentNode;[].slice.call(g.children).forEach(function(x){if(x.tagName==='BUTTON'){x.style.background='#FFFFFF';x.style.color='#14202B';x.style.border='1px solid #B8C4CE';x.style.fontWeight='400';}});b.style.background='#14202B';b.style.color='#FFFFFF';b.style.border='0';b.style.fontWeight='600';toast('Filtre « '+t+' » (démonstration : les données sont fictives)',false);return;}
 toast('« '+t+' » — action simulée dans le prototype',false);});});
 })();

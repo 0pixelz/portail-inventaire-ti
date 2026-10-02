@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="build" content="1790902841572">
-<title>Administration — commandes</title>
+<title>Stock et réapprovisionnement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -171,7 +171,7 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
 <body>
 
 
-<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 900px; display: flex; background: #EEF1F4">
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #14202B; min-height: 940px; display: flex; background: #EEF1F4">
 
   <nav style="flex: 0 0 200px; background: #0B1218; color: #FFFFFF; padding: 24px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
     <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
@@ -183,9 +183,9 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
     <div style="display: flex; flex-direction: column; gap: 2px">
       <a href="admin-tableau.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>Tableau de bord</a>
       <a href="admin.html?v=1790902841572" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16"></path></svg>Billets</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #2A3B49; color: #FFFFFF">12</span></a>
-      <a href="admin-inventaire.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire (tous)</a><a href="admin-stock.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"></path><path d="M3 7l9 4 9-4M12 11v10"></path></svg>Stock</a>
+      <a href="admin-inventaire.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>Inventaire (tous)</a><a href="admin-stock.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: #B4540A; color: #FFFFFF; font-weight: 600; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"></path><path d="M3 7l9 4 9-4M12 11v10"></path></svg>Stock</a>
       <a href="admin-clients.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Clients</a>
-      <a href="admin-commandes.html?v=1790902841572" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; background: #B4540A; color: #FFFFFF; font-weight: 600; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commandes</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #FFFFFF; color: #B4540A">3</span></a><a href="admin-soumissions.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h8l4 4v14H7z"></path><path d="M15 3v4h4M10 12h6M10 16h6"></path></svg>Soumissions</a>
+      <a href="admin-commandes.html?v=1790902841572" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><span style="display: flex; align-items: center; gap: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h11L21 7H7"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>Commandes</span><span style="font-size: 11px; font-weight: 700; padding: 2px 8px; min-width: 20px; box-sizing: border-box; text-align: center; border-radius: 10px; line-height: 1.5; background: #2A3B49; color: #FFFFFF">3</span></a><a href="admin-soumissions.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h8l4 4v14H7z"></path><path d="M15 3v4h4M10 12h6M10 16h6"></path></svg>Soumissions</a>
       <a href="utilisateurs.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"></path></svg>Utilisateurs et rôles</a>
       <a href="admin-rapports.html?v=1790902841572" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #D5DCE2; text-decoration: none; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M10 19v-9M16 19v-5M22 19H2"></path></svg>Rapports</a>
     </div>
@@ -201,11 +201,11 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
   <main style="flex: 1; padding: 24px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; min-width: 0">
     <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 4px">
-        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Commandes et soumissions</h1>
-        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Phase 2 · commandes passées par les clients, l'assistant ou vos techniciens</p>
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600">Stock et réapprovisionnement</h1>
+        <p style="margin: 0; font-size: 13.5px; color: #5B6B78">Stock de l’entrepôt, réservations des commandes, demande prévue et achats selon le budget</p>
       </div>
       <div style="display: flex; gap: 10px">
-        <a href="admin-soumissions.html?v=1790902841572" style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B; display: inline-flex; align-items: center; text-decoration: none">Suivi des soumissions</a><a href="admin-catalogue.html?v=1790902841572" style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B; display: inline-flex; align-items: center; text-decoration: none">Catalogue et prix</a><a href="admin-soumission.html?v=1790902841572" style="height: 40px; padding: 0 16px; background: #B4540A; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF; display: inline-flex; align-items: center; text-decoration: none">Nouvelle soumission</a>
+        <button data-export-csv="stock-reapprovisionnement" style="height: 40px; padding: 0 14px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; font-weight: 500; color: #14202B">Exporter (CSV)</button>
         <div style="position: relative" data-notifmenu>
           <button data-notif-btn aria-label="Notifications" aria-haspopup="true" style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #FFFFFF; border: 1px solid #B8C4CE; color: #14202B; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"></path></svg><span data-notif-count style="position: absolute; top: -7px; right: -7px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: #9B1C1C; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #FFFFFF">4</span></button>
           <div role="menu" data-notif-panel style="display: none; color: #14202B; position: absolute; right: 0; top: 46px; width: 380px; max-height: 70vh; background: #FFFFFF; border: 1px solid #B8C4CE; box-shadow: 0 10px 24px rgba(20,32,43,0.14); z-index: 20; flex-direction: column; overflow: hidden">
@@ -227,78 +227,197 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
         </div>
       </div>
     </header>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px"><div style="background: #FFFFFF; border: 1px solid #D5DCE2; border-top: 3px solid #B4540A; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">À traiter</span><span style="font-size: 28px; font-weight: 600; line-height: 1">3</span><span style="font-size: 12px; color: #B4540A">4 212 $</span></div><div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">En livraison</span><span style="font-size: 28px; font-weight: 600; line-height: 1">2</span><span style="font-size: 12px; color: #0F6E8C">arrivée prévue demain</span></div><div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Livrées ce mois</span><span style="font-size: 28px; font-weight: 600; line-height: 1">7</span><span style="font-size: 12px; color: #1B6B3A">8 940 $ · marge 23 %</span></div><div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Soumissions en attente</span><span style="font-size: 28px; font-weight: 600; line-height: 1">5</span><span style="font-size: 12px; color: #5B6B78">17 garanties à relancer</span></div></div>
-    <div style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
-      <div style="display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #D5DCE2; align-items: center; flex-wrap: wrap">
-        <button style="height: 34px; padding: 0 12px; background: #14202B; color: #FFFFFF; border: 0; font-family: inherit; font-size: 13px; font-weight: 600">À traiter · 3</button>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">En livraison · 2</button>
-        <a href="admin-soumissions.html?v=1790902841572" style="height: 34px; padding: 0 12px; display: inline-flex; align-items: center; background: #FFFFFF; border: 1px solid #B8C4CE; font-size: 13px; color: #14202B; text-decoration: none">Soumissions · 5 →</a>
-        <button style="height: 34px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 13px">Livrées</button>
-      </div>
-      <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 8px 16px; font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D5DCE2"><div>No</div><div>Client</div><div>Articles</div><div>Total</div><div>Livraison / installation</div><div>Statut</div><div></div></div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">C-118</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Studio Nord Design</span><span style="font-size: 12px; color: #5B6B78">Portail client · 30 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">2 × LG 27UL500, 1 × installation sur place</div>
-          <div style="font-weight: 600">898 $</div>
-          <div style="font-size: 13px">Jeudi 2 oct., 13 h · Karine</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">À traiter</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #B4540A; color: #FFFFFF; border: 1px solid #B4540A; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Préparer</a></div>
-        </div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">C-117</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Clinique Dentaire Ste-Rose</span><span style="font-size: 12px; color: #5B6B78">Assistant IA · 29 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">1 × LG 27UL500 (remplace Écran salle 3), 1 × garantie +2 ans</div>
-          <div style="font-weight: 600">468 $</div>
-          <div style="font-size: 13px">À planifier · Salle 3</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">À traiter</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #B4540A; color: #FFFFFF; border: 1px solid #B4540A; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Préparer</a></div>
-        </div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">C-116</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Garderie Les Lucioles</span><span style="font-size: 12px; color: #5B6B78">Technicien · 28 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">1 × UniFi U7 Pro, 1 × commutateur 8 ports PoE</div>
-          <div style="font-weight: 600">2 846 $</div>
-          <div style="font-size: 13px">Avec le billet #4421</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">À traiter</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #B4540A; color: #FFFFFF; border: 1px solid #B4540A; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Préparer</a></div>
-        </div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">C-115</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Notaires Lacasse &amp; Fils</span><span style="font-size: 12px; color: #5B6B78">Portail client · 26 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">2 × ThinkPad T14 Gen 5, 2 × station d’accueil</div>
-          <div style="font-weight: 600">4 196 $</div>
-          <div style="font-size: 13px">Transporteur · demain</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #E6F1F5; color: #0B5570">En livraison</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Suivre</a></div>
-        </div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">S-044</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Clinique Dentaire Ste-Rose</span><span style="font-size: 12px; color: #5B6B78">Copilote · 30 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">Extension de garantie ×2 (écran, portable)</div>
-          <div style="font-weight: 600">158 $</div>
-          <div style="font-size: 13px">—</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Soumission envoyée</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Relancer</a></div>
-        </div>
-      
-        <div style="display: grid; grid-template-columns: 90px 1.6fr 2fr 1fr 1.1fr 1.2fr 110px; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #5B6B78">C-112</div>
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Physio Rive-Nord</span><span style="font-size: 12px; color: #5B6B78">Portail client · 18 sept.</span></div>
-          <div style="font-size: 13px; color: #2A3B49">1 × OptiPlex 7020 Micro, 1 × écran Dell P2422H</div>
-          <div style="font-weight: 600">1 418 $</div>
-          <div style="font-size: 13px">Livrée et installée le 24 sept.</div>
-          <div><span style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Livrée</span></div>
-          <div style="display: flex; justify-content: flex-end"><a href="admin-commande.html?v=1790902841572" style="height: 32px; padding: 0 12px; display: inline-flex; align-items: center; background: #FFFFFF; color: #14202B; border: 1px solid #B8C4CE; font-size: 12.5px; font-weight: 600; white-space: nowrap; text-decoration: none">Facture</a></div>
-        </div>
-      
+    <div data-stock style="display: flex; flex-direction: column; gap: 16px">
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Valeur du stock (coût)</span><strong data-k-valeur style="font-size: 26px">5 683 $</strong><span style="font-size: 12px; color: #5B6B78">14 articles suivis</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; border-top: 3px solid #9B1C1C"><span style="font-size: 12px; color: #5B6B78">Commandes client non couvertes</span><strong data-k-noncouv style="font-size: 26px; color: #9B1C1C">3</strong><span style="font-size: 12px; color: #5B6B78">réservé &gt; en main + en commande</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; border-top: 3px solid #B4540A"><span style="font-size: 12px; color: #5B6B78">Articles sous le seuil</span><strong data-k-seuil style="font-size: 26px; color: #B4540A">4</strong><span style="font-size: 12px; color: #5B6B78">après réservations</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5B6B78">Achat suggéré / budget</span><strong data-k-achat style="font-size: 26px">2 931 $</strong><span data-k-budget style="font-size: 12px; color: #5B6B78">sur 3 000 $ · besoin 20 142 $</span></div>
     </div>
-    <div style="background: #E6F1F5; border: 1px solid #B9D6E1; padding: 14px 20px; font-size: 13.5px; color: #2A3B49; display: flex; gap: 12px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E8C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg>Quand une commande passe à « Livrée », chaque article est ajouté automatiquement à l'inventaire du client, avec sa garantie et sa facture.</div>
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600">Budget d’achat ce mois-ci <input data-st-budget type="number" min="0" step="100" value="3000" style="width: 110px; height: 38px; padding: 0 10px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px"> $</label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 14px"><input data-st-soum type="checkbox" checked style="width: 18px; height: 18px; margin: 0"> Soumissions (selon la probabilité)</label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 14px"><input data-st-plan type="checkbox" checked style="width: 18px; height: 18px; margin: 0"> Plans de remplacement (90 jours)</label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 14px">Tendance de la demande <input data-st-tend type="range" min="-50" max="100" step="10" value="0" style="width: 140px"> <strong data-st-tend-val>0 %</strong></label>
+    </section>
+    <p data-st-resume style="margin: 0; padding: 12px 16px; background: #E6F1F5; border: 1px solid #B9D6E1; font-size: 14px; color: #14202B">Achat suggéré dans le budget : 2 931 $ sur 3 000 $ (besoin total : 20 142 $). 3 commande(s) client non couverte(s), 4 article(s) sous le seuil. Reporté faute de budget : 4 × Écran LG 27UL500 27 po 4K, 7 × Dell OptiPlex 7020 Micro, 4 × Lenovo ThinkPad T14 Gen 5, 3 × Station d’accueil USB-C Lenovo, 2 × UniFi Dream Machine Pro, 1 × UniFi Switch 24 PoE, 6 × Caméra UniFi G5 Bullet, 2 × Enregistreur UniFi NVR, 2 × Câble Cat6, boîte de 305 m, 5 × Toner Brother TN-920.</p>
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; display: flex; flex-direction: column">
+      <div data-st-head style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 8px 16px; font-size: 11.5px; font-weight: 600; color: #5B6B78; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #D5DCE2"><div>Article · demande</div><div>En main</div><div>Réservé</div><div>En commande</div><div>Demande prévue</div><div>Projeté</div><div>Seuil / cible</div><div>À commander</div><div>Coût</div><div>Statut</div></div>
+      <div data-st-row data-sku="LG-27UL500" data-cout="299" data-seuil="2" data-cible="4" data-conso="0.5" data-res="C-118:2;C-117:1" data-soum="S-045:1:0.7" data-plan="" data-fou="Ingram Micro" data-nom="Écran LG 27UL500 27 po 4K" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Écran LG 27UL500 27 po 4K</span><span style="font-size: 12px; color: #5B6B78">LG-27UL500 · Ingram Micro · 3 j · coût 299 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">C-118 ×2 · C-117 ×1 · S-045 ×1 (70 %) · conso. 0,5/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="1" aria-label="En main — Écran LG 27UL500 27 po 4K" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>3</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>4,2</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-3,2</div>
+        <div data-label="Seuil / cible">2 / 4</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">8</div>
+        <div data-label="Coût" data-st-cout>2 392 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">Partiel (4/8)</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Commande client non couverte</div></div>
+      </div>
+      <div data-st-row data-sku="DELL-7020M" data-cout="879" data-seuil="2" data-cible="4" data-conso="0.3" data-res="" data-soum="S-042:2:0.6" data-plan="Plan Ste-Rose janv. 2027:3" data-fou="Dell" data-nom="Dell OptiPlex 7020 Micro" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Dell OptiPlex 7020 Micro</span><span style="font-size: 12px; color: #5B6B78">DELL-7020M · Dell · 5 j · coût 879 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-042 ×2 (60 %) · Plan Ste-Rose janv. 2027 ×3 · conso. 0,3/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="2" aria-label="En main — Dell OptiPlex 7020 Micro" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>4,5</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-2,5</div>
+        <div data-label="Seuil / cible">2 / 4</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">7</div>
+        <div data-label="Coût" data-st-cout>6 153 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="LEN-T14G5" data-cout="1399" data-seuil="1" data-cible="3" data-conso="0.2" data-res="" data-soum="S-039:2:0.5" data-plan="" data-fou="Lenovo Partner Hub" data-nom="Lenovo ThinkPad T14 Gen 5" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Lenovo ThinkPad T14 Gen 5</span><span style="font-size: 12px; color: #5B6B78">LEN-T14G5 · Lenovo Partner Hub · 7 j · coût 1 399 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-039 ×2 (50 %) · conso. 0,2/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="1" aria-label="En main — Lenovo ThinkPad T14 Gen 5" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>1,2</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">0,2</div>
+        <div data-label="Seuil / cible">1 / 3</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">4</div>
+        <div data-label="Coût" data-st-cout>5 596 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="LEN-DOCK" data-cout="189" data-seuil="2" data-cible="4" data-conso="0.2" data-res="" data-soum="S-039:2:0.5" data-plan="" data-fou="Lenovo Partner Hub" data-nom="Station d’accueil USB-C Lenovo" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Station d’accueil USB-C Lenovo</span><span style="font-size: 12px; color: #5B6B78">LEN-DOCK · Lenovo Partner Hub · 7 j · coût 189 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-039 ×2 (50 %) · conso. 0,2/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="3" aria-label="En main — Station d’accueil USB-C Lenovo" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>1,2</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #B4540A">1,8</div>
+        <div data-label="Seuil / cible">2 / 4</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">3</div>
+        <div data-label="Coût" data-st-cout>567 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="UBI-U7PRO" data-cout="215" data-seuil="1" data-cible="3" data-conso="0.3" data-res="C-116:1" data-soum="" data-plan="" data-fou="Ingram Micro" data-nom="UniFi U7 Pro (point d’accès)" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">UniFi U7 Pro (point d’accès)</span><span style="font-size: 12px; color: #5B6B78">UBI-U7PRO · Ingram Micro · 3 j · coût 215 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">C-116 ×1 · conso. 0,3/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="0" aria-label="En main — UniFi U7 Pro (point d’accès)" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>1</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>1,3</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-1,3</div>
+        <div data-label="Seuil / cible">1 / 3</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">5</div>
+        <div data-label="Coût" data-st-cout>1 075 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Dans le budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Commande client non couverte</div></div>
+      </div>
+      <div data-st-row data-sku="UBI-SW8POE" data-cout="119" data-seuil="1" data-cible="2" data-conso="0.2" data-res="C-116:1" data-soum="" data-plan="" data-fou="Ingram Micro" data-nom="UniFi Switch Lite 8 PoE" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">UniFi Switch Lite 8 PoE</span><span style="font-size: 12px; color: #5B6B78">UBI-SW8POE · Ingram Micro · 3 j · coût 119 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">C-116 ×1 · conso. 0,2/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="0" aria-label="En main — UniFi Switch Lite 8 PoE" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>1</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>1,2</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-1,2</div>
+        <div data-label="Seuil / cible">1 / 2</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">4</div>
+        <div data-label="Coût" data-st-cout>476 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #DDF3E4; color: #1B6B3A">Dans le budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Commande client non couverte</div></div>
+      </div>
+      <div data-st-row data-sku="UBI-UDMPRO" data-cout="449" data-seuil="0" data-cible="1" data-conso="0" data-res="" data-soum="S-041:1:0.8" data-plan="" data-fou="Ingram Micro" data-nom="UniFi Dream Machine Pro" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">UniFi Dream Machine Pro</span><span style="font-size: 12px; color: #5B6B78">UBI-UDMPRO · Ingram Micro · 3 j · coût 449 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-041 ×1 (80 %)</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="0" aria-label="En main — UniFi Dream Machine Pro" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>0,8</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">0,8</div>
+        <div data-label="Seuil / cible">0 / 1</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">2</div>
+        <div data-label="Coût" data-st-cout>898 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="UBI-SW24" data-cout="499" data-seuil="1" data-cible="1" data-conso="0" data-res="" data-soum="S-041:1:0.8" data-plan="" data-fou="Ingram Micro" data-nom="UniFi Switch 24 PoE" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">UniFi Switch 24 PoE</span><span style="font-size: 12px; color: #5B6B78">UBI-SW24 · Ingram Micro · 3 j · coût 499 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-041 ×1 (80 %)</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="1" aria-label="En main — UniFi Switch 24 PoE" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>0,8</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #B4540A">0,2</div>
+        <div data-label="Seuil / cible">1 / 1</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">1</div>
+        <div data-label="Coût" data-st-cout>499 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="PAN-FZG2" data-cout="2190" data-seuil="0" data-cible="0" data-conso="0" data-res="" data-soum="S-044:4:0.4" data-plan="" data-fou="Ingram Micro" data-nom="Panasonic Toughpad FZ-G2" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Panasonic Toughpad FZ-G2</span><span style="font-size: 12px; color: #5B6B78">PAN-FZG2 · Ingram Micro · 14 j · coût 2 190 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-044 ×4 (40 %)</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="0" aria-label="En main — Panasonic Toughpad FZ-G2" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>0</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #1B6B3A">0</div>
+        <div data-label="Seuil / cible">0 / 0</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">0</div>
+        <div data-label="Coût" data-st-cout>0 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Suffisant</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px"></div></div>
+      </div>
+      <div data-st-row data-sku="UBI-G5B" data-cout="149" data-seuil="2" data-cible="4" data-conso="0" data-res="" data-soum="S-043:6:0.6" data-plan="" data-fou="Ingram Micro" data-nom="Caméra UniFi G5 Bullet" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Caméra UniFi G5 Bullet</span><span style="font-size: 12px; color: #5B6B78">UBI-G5B · Ingram Micro · 3 j · coût 149 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-043 ×6 (60 %)</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="2" aria-label="En main — Caméra UniFi G5 Bullet" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>3,6</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-1,6</div>
+        <div data-label="Seuil / cible">2 / 4</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">6</div>
+        <div data-label="Coût" data-st-cout>894 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="UBI-NVR" data-cout="329" data-seuil="0" data-cible="1" data-conso="0" data-res="" data-soum="S-043:1:0.6" data-plan="" data-fou="Ingram Micro" data-nom="Enregistreur UniFi NVR" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Enregistreur UniFi NVR</span><span style="font-size: 12px; color: #5B6B78">UBI-NVR · Ingram Micro · 3 j · coût 329 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">S-043 ×1 (60 %)</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="0" aria-label="En main — Enregistreur UniFi NVR" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>0,6</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">0,6</div>
+        <div data-label="Seuil / cible">0 / 1</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">2</div>
+        <div data-label="Coût" data-st-cout>658 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="SSD-1TB" data-cout="89" data-seuil="4" data-cible="8" data-conso="2" data-res="" data-soum="" data-plan="" data-fou="Ingram Micro" data-nom="SSD 1 To (mise à niveau)" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">SSD 1 To (mise à niveau)</span><span style="font-size: 12px; color: #5B6B78">SSD-1TB · Ingram Micro · 2 j · coût 89 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">conso. 2/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="6" aria-label="En main — SSD 1 To (mise à niveau)" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>2</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #1B6B3A">4</div>
+        <div data-label="Seuil / cible">4 / 8</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">0</div>
+        <div data-label="Coût" data-st-cout>0 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #EEF1F4; color: #5B6B78">Suffisant</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px"></div></div>
+      </div>
+      <div data-st-row data-sku="CAT6-305" data-cout="145" data-seuil="1" data-cible="2" data-conso="0.3" data-res="" data-soum="" data-plan="" data-fou="Ingram Micro" data-nom="Câble Cat6, boîte de 305 m" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Câble Cat6, boîte de 305 m</span><span style="font-size: 12px; color: #5B6B78">CAT6-305 · Ingram Micro · 2 j · coût 145 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">conso. 0,3/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="1" aria-label="En main — Câble Cat6, boîte de 305 m" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>0,3</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #B4540A">0,7</div>
+        <div data-label="Seuil / cible">1 / 2</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">2</div>
+        <div data-label="Coût" data-st-cout>290 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FBE1E1; color: #9B1C1C">Hors budget</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Demande prévue</div></div>
+      </div>
+      <div data-st-row data-sku="TN-920" data-cout="92" data-seuil="3" data-cible="6" data-conso="3" data-res="" data-soum="" data-plan="" data-fou="Ingram Micro" data-nom="Toner Brother TN-920" style="display: grid; grid-template-columns: 2.4fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr 0.9fr 0.9fr 0.9fr 1.1fr; gap: 10px; padding: 12px 16px; align-items: center; border-bottom: 1px solid #EEF1F4; font-size: 13.5px">
+        <div data-label="Article" style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Toner Brother TN-920</span><span style="font-size: 12px; color: #5B6B78">TN-920 · Ingram Micro · 2 j · coût 92 $</span><span data-st-src style="font-size: 12px; color: #2A3B49">conso. 3/mois</span></div>
+        <div data-label="En main"><input data-st-main type="number" min="0" value="2" aria-label="En main — Toner Brother TN-920" style="width: 64px; height: 34px; padding: 0 8px; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px; box-sizing: border-box"></div>
+        <div data-label="Réservé" data-st-r>0</div>
+        <div data-label="En commande" data-st-c data-val="0">0</div>
+        <div data-label="Demande prévue" data-st-dem>3</div>
+        <div data-label="Projeté" data-st-proj style="font-weight: 600; color: #9B1C1C">-1</div>
+        <div data-label="Seuil / cible">3 / 6</div>
+        <div data-label="À commander" data-st-q style="font-weight: 700">7</div>
+        <div data-label="Coût" data-st-cout>644 $</div>
+        <div data-label="Statut"><span data-st-statut style="display: inline-block; padding: 2px 8px; font-size: 11.5px; font-weight: 600; background: #FDEBD3; color: #8A4306">Partiel (2/7)</span><div data-st-prio style="font-size: 11.5px; color: #5B6B78; margin-top: 3px">Sous le seuil</div></div>
+      </div>
+      <div style="padding: 10px 16px; font-size: 12.5px; color: #5B6B78">Projeté = en main + en commande − (réservé + demande prévue). On commande pour revenir à la cible quand le projeté passe sous le seuil. Le budget est réparti par priorité : commandes client non couvertes, puis articles sous le seuil, puis demande prévue.</div>
+    </section>
+    <section style="background: #FFFFFF; border: 1px solid #D5DCE2; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 16px; font-weight: 600">Bons de commande suggérés (dans le budget)</h2><span style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" data-st-creer style="height: 38px; padding: 0 14px; background: #B4540A; border: 0; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600">Créer les bons de commande</button><button type="button" data-st-reset style="height: 38px; padding: 0 12px; background: #FFFFFF; border: 1px solid #B8C4CE; font-family: inherit; font-size: 14px">Réinitialiser la démo</button></span></div>
+      <div data-st-bc style="display: flex; flex-direction: column"><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-bottom: 1px solid #EEF1F4"><strong>Ingram Micro</strong><div style="display: flex; justify-content: space-between; gap: 10px; font-size: 13px"><span>4 × Écran LG 27UL500 27 po 4K</span><span>1 196 $</span></div><div style="display: flex; justify-content: space-between; gap: 10px; font-size: 13px"><span>5 × UniFi U7 Pro (point d’accès)</span><span>1 075 $</span></div><div style="display: flex; justify-content: space-between; gap: 10px; font-size: 13px"><span>4 × UniFi Switch Lite 8 PoE</span><span>476 $</span></div><div style="display: flex; justify-content: space-between; gap: 10px; font-size: 13px"><span>2 × Toner Brother TN-920</span><span>184 $</span></div><div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600"><span>Sous-total</span><span>2 931 $</span></div></div></div>
+    </section>
+    </div>
   </main>
 </div>
 
@@ -322,7 +441,7 @@ section[data-floating] [data-ia-panneau] { flex: none; max-height: 50vh; overflo
 <button aria-label="Ouvrir l'assistant" style="position: fixed; right: 28px; bottom: 28px; width: 56px; height: 56px; border-radius: 28px; background: #B4540A; border: 0; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 9000; cursor: pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="1"></circle><rect x="5" y="6" width="14" height="11" rx="2"></rect><path d="M9 13h.01M15 13h.01M12 3v3M9 21h6"></path></svg></button>
 <script>
 (function(){if(window.innerWidth<820){var um=document.querySelector('[data-usermenu]'),ct=document.querySelector('[data-cart]'),nf=document.querySelector('[data-notifmenu]'),row=document.querySelector('body > div > nav > div:first-child');if(um&&row){var first=true;[nf,ct,um].forEach(function(el){if(!el)return;row.appendChild(el);if(first){el.style.marginLeft='auto';first=false;}else{el.style.marginLeft='8px';}});}}document.querySelectorAll('[data-usermenu]').forEach(function(w){var b=w.querySelector('button'),m=w.querySelector('[role=menu]');b.addEventListener('click',function(e){e.stopPropagation();var np=document.querySelector('[data-notif-panel]');if(np)np.style.display='none';m.style.display=m.style.display==='flex'?'none':'flex';});document.addEventListener('click',function(){m.style.display='none';});});})();
-</script><script>window.__ASSIST={"mode":"admin","page":"admin-commandes.html","build":"1790902841572"};</script>
+</script><script>window.__ASSIST={"mode":"admin","page":"admin-stock.html","build":"1790902841572"};</script>
 <script src="site-index.js?v=1790902841572"></script>
 <script src="ia-config.js?v=1790902841572"></script>
 <script>

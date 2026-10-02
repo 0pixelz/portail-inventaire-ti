@@ -124,7 +124,7 @@
       'Offre : prix par appareil par mois — Visibilité 8 $, Géré 25 $, Géré + matériel 55 $ (indicatifs); visite d’inventaire gratuite (scan + étiquettes QR, portail prêt en 48 h); remplacement planifié; support en français; aucun verrouillage; reprise et recyclage; spécialité PME 5-50 postes des Laurentides / Rive-Nord et concessionnaires automobiles (DMS, postes F&I, tablettes de diagnostic, Wi-Fi atelier et cour, multi-succursales). ' +
       'Ceci est un prototype : les actions (billets, panier) sont enregistrées dans le navigateur seulement.';
     var role = CFG.mode === 'admin'
-      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. N’envoie jamais rien à un client : propose un brouillon.'
+      ? 'Tu es le Copilote interne de Jonathan (propriétaire) et de ses techniciens (Karine, Samuel). Tu as accès à tout : billets, inventaire de tous les clients, clients, commandes, soumissions, catalogue et prix, rapports, utilisateurs, paramètres. Aide à prioriser la journée, résumer des billets, trouver un appareil chez n’importe quel client, préparer des soumissions (lignes, prix, taxes TPS+TVQ 14,975 %), rédiger des courriels aux clients. Pour le stock et les achats, lis admin-stock.html : stock en main, réservé par les commandes clients, en commande, demande prévue (soumissions × probabilité, plans de remplacement, consommation), seuils/cibles, quantités suggérées et répartition du budget. Explique les priorités (commandes client non couvertes d’abord) et propose des arbitrages si le budget est insuffisant. N’envoie jamais rien à un client : propose un brouillon.'
       : CFG.mode === 'client'
         ? 'Tu es l’assistant support de Marie Tremblay (administratrice) chez le client Clinique Dentaire Ste-Rose. Tu connais son inventaire, ses billets, ses commandes, soumissions, factures, son plan de remplacement et le catalogue. Tu peux créer un billet, ajouter au panier, filtrer la liste et ouvrir des pages. Tu ne parles jamais des autres clients ni des prix internes. Pour une urgence (toute la clinique arrêtée), recommande d’appeler le support et crée un billet de priorité Haute. Si un problème dépasse tes moyens, propose qu’un technicien prenne le relais.'
         : 'Tu es l’assistant du site public. Tu expliques les services, les forfaits, la visite gratuite et l’évaluateur de forfait, et tu invites à réserver la visite ou à essayer l’évaluateur. Tu n’as pas accès aux données des clients.';
@@ -249,10 +249,13 @@
   function ajusterAuClavier() {
     var panel = document.querySelector('section[data-floating]'); var vv = window.visualViewport;
     if (!panel) return;
-    if (window.innerWidth >= 820 || !vv) { ['top', 'height', 'bottom'].forEach(function (k) { panel.style.removeProperty(k); }); return; }
+    if (window.innerWidth >= 820 || !vv) { ['top', 'height', 'bottom', 'left', 'width', 'right'].forEach(function (k) { panel.style.removeProperty(k); }); return; }
     panel.style.setProperty('top', Math.round(vv.offsetTop + 8) + 'px', 'important');
     panel.style.setProperty('height', Math.round(vv.height - 16) + 'px', 'important');
     panel.style.setProperty('bottom', 'auto', 'important');
+    panel.style.setProperty('left', Math.round(vv.offsetLeft + 8) + 'px', 'important');
+    panel.style.setProperty('width', Math.round(vv.width - 16) + 'px', 'important');
+    panel.style.setProperty('right', 'auto', 'important');
     var fil = panel.querySelector('div[style*="overflow: auto"]'); if (fil) fil.scrollTop = fil.scrollHeight;
   }
   if (window.visualViewport) { window.visualViewport.addEventListener('resize', ajusterAuClavier); window.visualViewport.addEventListener('scroll', ajusterAuClavier); }
